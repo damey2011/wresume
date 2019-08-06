@@ -1,0 +1,7 @@
+{% extends 'dashboard.html' %}
+{% load static i18n %}
+{% block title %}{% trans 'Basic Profile' %}{% endblock title %}
+{% block profile_content %}
+    {% trans 'Submit' as submit_text %}
+    {% include 'includes/form.html' with form_title=form_title submit_text=submit_text with_label=True two_per_row=True %}
+{% endblock profile_content %}

@@ -1,0 +1,42 @@
+{% extends 'account/auth-ext.html' %}
+{% load i18n static widget_tweaks account %}
+{% block title %}
+    {% trans 'Confirm Account' %}
+{% endblock title %}
+
+{% block left_title %}
+    {% trans 'Confirm your account' %}
+{% endblock left_title %}
+
+{% block left_desc %}
+{% endblock left_desc %}
+
+{% block left_action %}
+{% endblock left_action %}
+
+{% block right %}
+    {% if confirmation %}
+        <form action="{% url 'account_confirm_email' confirmation.key %}" method="post" class="form-box">
+            {% csrf_token %}
+            {% user_display confirmation.email_address.user as user_display %}
+            <h3 class="h4 text-black mb-4">{% trans 'Last Registration Step' %}</h3>
+            {% for hidden in sign_up_form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in sign_up_form.visible_fields %}
+                <div class="form-group">
+                    {% render_field field class='form-control' placeholder=field.label %}
+                </div>
+            {% endfor %}
+            <div>{% blocktrans %}Hi, {{ user_display }}{% endblocktrans %}</div>
+            <div class="mb-4">
+                {% blocktrans with confirmation.email_address.email as email %}Please confirm that your email is <a href="mailto:{{ email }}">{{ email }}</a>.{% endblocktrans %}
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-pill" value="{% block submit_text %}Confirm{% endblock submit_text %}">
+            </div>
+        </form>
+    {% else %}
+        <p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
+    {% endif %}
+{% endblock right %}

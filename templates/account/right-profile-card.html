@@ -1,0 +1,13 @@
+{% load i18n static %}
+<div class="mb-5 text-center border rounded course-instructor">
+    <h3 class="mb-5 text-black text-uppercase h6 border-bottom pb-3">{% trans 'Profile' %}</h3>
+    <div class="mb-4 text-center">
+        <img src="{% if user.photo %}{{ user.photo.url }}{% else %}{% static 'images/person_2.jpg' %}{% endif %}" alt="Image" class="w-25 rounded-circle mb-4">
+        <h3 class="h5 text-black mb-4">{{ user.get_full_name }}</h3>
+        <p>{{ user.email }}</p>
+        <p><strong>{% trans 'Joined: ' %}</strong>{{ user.date_joined }}</p>
+        {% if not hide_button %}
+            <a href="{% url 'users:basic_profile' %}" class="btn btn-primary btn-pill">{% trans 'Edit Profile' %}</a>
+        {% endif %}
+    </div>
+</div>

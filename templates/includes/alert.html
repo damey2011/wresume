@@ -1,0 +1,9 @@
+{% load i18n %}
+<div class="alert alert-primary" role="alert">
+    <h4 class="alert-heading">{{ title }}</h4>
+    <p>{{ desc }}</p>
+    {% if footer %}
+        <hr>
+        <p class="mb-0">{{ footer }}</p>
+    {% endif %}
+</div>

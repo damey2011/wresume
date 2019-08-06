@@ -1,0 +1,17 @@
+{% extends 'dashboard.html' %}
+{% load static i18n %}
+{% block title %}{{ form_title }}{% endblock title %}
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+{% endblock %}
+{% block profile_content %}
+    {% trans 'Submit' as submit_text %}
+    {% include 'includes/form.html' with form_title=form_title submit_text=submit_text with_label=True two_per_row=True %}
+{% endblock profile_content %}
+
+{% block extra_js %}
+    <script>
+        flatpickr(".wresume-datepicker");
+    </script>
+{% endblock extra_js %}

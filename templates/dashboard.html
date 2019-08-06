@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static widget_tweaks i18n account %}
+{% block title %}{% trans 'Dashboard' %}{% endblock %}
+{% block content %}
+    <div class="site-wrap">
+        {% include 'includes/header.html' %}
+        {% trans 'Dashboard' as header_title %}
+        {% include 'includes/page-heading.html' with title=header_title %}
+        {% include 'includes/messages.html' %}
+
+        <div class="site-section">
+            <div class="container">
+
+            {% trans 'Note!' as title %}
+            {% trans 'Not all templates can accommodate all the information provided, so you might want to select templates based on the information you want shown or create a custom template for yourself.' as desc %}
+            {% include 'includes/alert.html' with title=title %}
+
+                <div class="row">
+                    <div class="col-lg-8 mb-5">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link {% if basic_tab %}active{% endif %}" href="{% url 'users:basic_profile' %}">{% trans 'Basic Profile' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if resume_tab %}active{% endif %}" href="{% url 'users:resume' %}">{% trans 'Profile' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if settings_tab %}active{% endif %}" href="{% url 'users:settings' %}">{% trans 'Account' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if social_tab %}active{% endif %}" href="{% url 'users:social' %}">{% trans 'Social' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if education_tab %}active{% endif %}" href="{% url 'users:education' %}">{% trans 'Education' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if careers_tab %}active{% endif %}" href="{% url 'users:careers' %}">{% trans 'Career' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if skills_tab %}active{% endif %}" href="{% url 'users:skills' %}">{% trans 'Skills' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if works_tab %}active{% endif %}" href="{% url 'users:works' %}">{% trans 'Works' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if offer_tab %}active{% endif %}" href="{% url 'users:offer' %}">{% trans 'Offer' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if banner_tab %}active{% endif %}" href="{% url 'users:banner' %}">{% trans 'Banner' %}</a>
+                            </li>
+                        </ul>
+                        <div>
+                            {% block profile_content %}
+
+                            {% endblock profile_content %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 pl-lg-5">
+                        {% include 'account/right-profile-card.html' with hide_button=True %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

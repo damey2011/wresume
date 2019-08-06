@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static widget_tweaks i18n account %}
+{% block title %}{% trans 'Blog Manager' %}{% endblock %}
+{% block content %}
+    <div class="site-wrap">
+        {% include 'includes/header.html' %}
+        {% trans 'Blog Manager' as header_title %}
+        <div class="intro-section single-cover short" id="home-section">
+            <div class="slide-1 " style="background-image: url('{% static 'images/img_2.jpg' %}');" data-stellar-background-ratio="0.5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <div class="row justify-content-center align-items-center text-center">
+                                <div class="col-lg-6">
+                                    <h1 data-aos="fade-up" data-aos-delay="0">{{ header_title }}</h1>
+                                    {% block breadcrumbs %}
+                                        <p data-aos="fade-up" data-aos-delay="100"><a href="/">Home</a> &bullet; <a href="#" class="text-white">Dashboard</a></p>
+                                    {% endblock %}
+                                    {% include 'includes/change-site.html' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'includes/messages.html' %}
+        <div class="site-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mb-5">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link {% if is_blog_posts %}active{% endif %}" href="{% url 'blogs_public:list' %}">Blog Posts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if is_categories %}active{% endif %}" href="{% url 'blogs_public:categories' %}">Post Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if is_create_category %}active{% endif %}" href="{% url 'blogs_public:create-categories' %}">Create Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if is_write %}active{% endif %}" href="{% url 'blogs_public:write' %}">Write</a>
+                            </li>
+                        </ul>
+                        <div>
+                            {% block manager_content %}
+
+                            {% endblock manager_content %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 pl-lg-5">
+                        {% include 'account/right-profile-card.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

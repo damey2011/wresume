@@ -1,0 +1,11 @@
+{% extends 'blogs/manager/index.html' %}
+{% load static i18n %}
+{% block title %}{% trans 'Write Post' %}{% endblock title %}
+{% block extra_css %}
+    {{ form.media }}
+{% endblock extra_css %}
+{% block manager_content %}
+    {% trans 'Write Post' as form_title %}
+    {% trans 'Create Post' as submit_text %}
+    {% include 'includes/form.html' with form_title=form_title with_label=True submit_text=submit_text %}
+{% endblock manager_content %}

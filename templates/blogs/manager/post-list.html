@@ -1,0 +1,27 @@
+{% extends 'blogs/manager/index.html' %}
+{% load static i18n %}
+{% block title %}{% trans 'Manage Posts' %}{% endblock title %}
+{% block manager_content %}
+    <h3 class="h4 text-black mb-4 mt-4">{% trans 'Posts List' %}</h3>
+
+    <div class="list-group">
+        {% for post in posts %}
+            <a href="{{ post.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ post.title }}</h5>
+                    <small>{{ post.created|timesince }} {% trans 'ago' %}</small>
+                </div>
+                <p class="mb-1">{{post.content|striptags|safe|slice:":100"}}...</p>
+                <small>{% trans 'Last Updated' %}: {{ post.modified }}</small>
+            </a>
+        {% endfor %}
+    </div>
+
+    {% include 'includes/pagination.html' with object_list=posts paginator_type='LV' %}
+
+{% endblock manager_content %}
+
+
+{% block breadcrumbs %}
+    <p data-aos="fade-up" data-aos-delay="100"><a href="/">{% trans 'Home' %}</a> &bullet; <a href="{% url 'blogs_public:list' %}" class="text-white">{% trans 'Posts' %}</a></p>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'resumes/index.html' %}
+{% load i18n general_tags %}
+{% block title %}
+    {% trans 'Update Template' %}
+{% endblock title %}
+{% block extra_css %}
+    <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
+    {#    <link rel="stylesheet" href="https://unpkg.com/grapesjs-preset-newsletter/dist/grapesjs-preset-newsletter.css">#}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage@0.1.11/dist/grapesjs-preset-webpage.min.css">
+{% endblock extra_css %}
+{% block breadcrumbs %}
+    <p data-aos="fade-up" data-aos-delay="100"><a href="/">{% trans 'Home' %}</a> &bullet; <a href="{% url 'resumes:my-templates' %}">{% trans 'My Templates' %}</a> &bullet; <a href="#" class="text-white">{{ template.name }}</a> </p>
+{% endblock breadcrumbs %}
+{% block manager_content %}
+    {% trans 'Update Template' as form_title %}
+    {% trans 'Update' as submit_text %}
+    {% include 'includes/form.html' with form_id='template-builder-form' form_title=form_title submit_text=submit_text pre_submit_content='<div id="template-builder" class="mb-4 mt-4"></div>' with_label=True %}
+{% endblock manager_content %}
+
+{% block extra_js %}
+    <script src="https://unpkg.com/grapesjs"></script>
+    {#    <script src="https://unpkg.com/grapesjs-preset-newsletter"></script>#}
+    <script src="https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage@0.1.11/dist/grapesjs-preset-webpage.min.js"></script>
+    <script type="text/javascript">
+        var editor = grapesjs.init({
+            container : '#template-builder',
+            plugins: [
+                'gjs-preset-webpage',
+            ],
+            height: '500px',
+            fromElement: true,
+            storageManager: {
+                type: 'remote',
+                urlLoad: "{% url 'resumes:my-template-preview' pk=template.id %}?json=True",
+                contentTypeJson: true,
+            },
+            assetManager: {
+                assets: {{ user_assets|safe }}, {% upload_url as upload_url %}
+                upload: '{% upload_url %}',
+                params: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+            }
+        });
+
+        document.querySelector('#template-builder-form').addEventListener('submit', function (e) {
+            e.preventDefault()
+            document.querySelector('#template-builder-form #id_content').value = editor.getHtml();
+            document.querySelector('#template-builder-form #id_styles').value = editor.getCss();
+            document.querySelector('#template-builder-form #id_js').value = editor.getJs();
+            document.querySelector('#template-builder-form #id_gjs_components').value = JSON.stringify(editor.getComponents());
+            document.querySelector('#template-builder-form').submit()
+        })
+    </script>
+{% endblock extra_js %}

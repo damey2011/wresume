@@ -1,0 +1,56 @@
+{% extends 'dashboard.html' %}
+{% load static i18n general_tags %}
+{% block title %}{{ form_title }}{% endblock title %}
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+{% endblock %}
+{% block profile_content %}
+    <div class="mt-4">
+        {% for object in object_list %}
+            {% with object.id as item_id %}
+                <div class="accordion" id="accordion_{{ item_id }}">
+                    <div class="card">
+                        <div class="card-header" id="heading_{{ item_id }}">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_{{ item_id }}" aria-expanded="false" aria-controls="collapse_{{ item_id }}">
+                                    {{ object }}
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapse_{{ item_id }}" class="collapse" aria-labelledby="heading_{{ item_id }}" data-parent="#accordion_{{ item_id }}">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="text-right mb-3">
+                                            <a href="{{ object.edit_url }}" class="text-primary">{% trans 'Edit' %}</a>
+                                            <a href="{{ object.delete_url }}" class="text-danger">{% trans 'Delete' %}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-striped">
+                                    {% for field in form.visible_fields %}
+                                        <tr>
+                                            <th>{{ field.label }}</th>
+                                            <td>{% get_attr object field.name %}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        {% endfor %}
+    </div>
+    {% trans 'Submit' as submit_text %}
+    {% include 'includes/form.html' with form_title=form_title submit_text=submit_text with_label=True two_per_row=True %}
+{% endblock profile_content %}
+
+{% block extra_js %}
+    <script>
+        flatpickr(".wresume-datepicker");
+    </script>
+{% endblock extra_js %}

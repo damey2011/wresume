@@ -1,0 +1,12 @@
+{% extends 'blogs/manager/index.html' %}
+{% load static i18n %}
+{% block title %}{% trans 'Create Category' %}{% endblock title %}
+{% block manager_content %}
+    {% trans 'Create Category' as form_title %}
+    {% trans 'Create' as submit_text %}
+    {% include 'includes/form.html' with form_title=form_title submit_text=submit_text %}
+{% endblock manager_content %}
+
+{% block breadcrumbs %}
+    <p data-aos="fade-up" data-aos-delay="100"><a href="/">Home</a> &bullet; <a href="{% url 'blogs_public:categories' %}">Categories</a> &bullet; <a href="#" class="text-white">{% trans 'Create Category' %}</a></p>
+{% endblock %}

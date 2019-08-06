@@ -62,3 +62,5 @@ sql_proxy.sh
 
 django-saas-*.json
 cloud_sql_proxy.sh
+
+media/*

@@ -1,0 +1,32 @@
+{% extends 'blogs/manager/index.html' %}
+{% load static i18n %}
+{% block title %}{% trans 'Manage Categories' %}{% endblock title %}
+{% block manager_content %}
+    <h3 class="h4 text-black mb-4 mt-4">{% trans 'Categories List' %}</h3>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date Added</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cat in categories %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ cat.category }}</td>
+                <td>{{ cat.created }}</td>
+                <td><a href="{% url 'blogs_public:delete-category' cat.id %}" class="text-danger">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock manager_content %}
+
+
+{% block breadcrumbs %}
+    <p data-aos="fade-up" data-aos-delay="100"><a href="/">Home</a> &bullet; <a href="{% url 'blogs_public:categories' %}" class="text-white">Categories</a></p>
+{% endblock %}

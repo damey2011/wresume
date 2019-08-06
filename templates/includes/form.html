@@ -1,0 +1,32 @@
+{% load i18n static widget_tweaks general_tags %}
+<form action="{{ form_action }}" method="post" class="form-box" id="{{ form_id }}">
+    {% csrf_token %}
+    <h3 class="h4 text-black mb-4">{{ form_title }}</h3>
+    {% include 'includes/non_field_errors.html' %}
+    {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+    <div class="row">
+        {% for field in form.visible_fields %}
+            {% is_text_area field as is_textarea %}
+            <div class="form-group {% if two_per_row and not is_textarea %}col-lg-6{% else %}col-lg-12{% endif %}">
+                {% if with_label %}
+                    <label class="form-label">
+                        {{ field.label }}
+                    </label>
+                    {% render_field field|add_class:'form-control' placeholder=field.label %}
+                {% else %}
+                    {% render_field field|add_class:'form-control' placeholder=field.label %}
+                {% endif %}
+                {% for error in field.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <input type="checkbox" name="remember" class="d-none" checked>
+    {{ pre_submit_content }}
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary btn-pill" value="{{ submit_text }}">
+    </div>
+</form>

@@ -1,0 +1,10 @@
+{% load general_tags %}
+<form action="{% url 'home:change-site' %}?next={{ request.get_full_path }}" method="get" id="domain-form">
+    {% user_sites as sites %}
+    {% selected_site as selected_site %}
+    <select name="site" id="site" class="form-control" style="max-width: 300px; margin: 0 auto;">
+        {% for site in sites %}
+            <option value="{{ site.id }}" {% if selected_site == site.id %}selected{% endif %}>{{ site.domain_url }}</option>
+        {% endfor %}
+    </select>
+</form>

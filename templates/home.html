@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+    Home
+{% endblock title %}
+{% block content %}
+
+    <div class="site-wrap">
+
+        {% include 'includes/header.html' %}
+        {% include 'includes/intro.html' %}
+        {% include 'includes/plan-list.html' %}
+        {% include 'includes/what-we-do.html' %}
+        {% include 'includes/the-team.html' %}
+        {% include 'includes/why-choose-us.html' %}
+        {% include 'includes/contact-us.html' %}
+        {% include 'includes/footer.html' %}
+
+    </div> <!-- .site-wrap -->
+
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'account/auth-ext.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans 'Verification Email Sent' %}
+{% endblock title %}
+
+{% block left_title %}
+    {% trans 'Verification Email Sent' %}
+{% endblock left_title %}
+
+{% block left_desc %}
+{% endblock left_desc %}
+
+{% block left_action %}
+{% endblock left_action %}
+
+{% block right_body %}
+    {% trans 'We just want to be sure your email is valid for good reasons. Please check your email for a message from us containing information on confirming your account.' %}
+    <div class="mt-4">
+        <a href="{% url 'account_login' %}" class="btn btn-primary py-3 px-5 btn-pill">{% trans 'Sign In' %}</a>
+    </div>
+{% endblock right_body %}
+
+{% block right_title %}
+    {% trans 'You page is just minutes away !' %}
+{% endblock right_title %}

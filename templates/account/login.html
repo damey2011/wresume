@@ -1,0 +1,18 @@
+{% extends 'account/auth-ext.html' %}
+{% load i18n widget_tweaks static %}
+{% block title %}{% trans 'Login' %}{% endblock %}
+{% block left_title %}{% trans 'Login' %}{% endblock left_title %}
+{% block left_desc %}
+    {% url 'account_signup' as signup_url %}
+    {% blocktrans %}<div>You do not have an account ? <a href="{{ signup_url }}">Sign Up</a></div>{% endblocktrans %}
+{% endblock left_desc %}
+{% block left_action %}
+
+{% endblock left_action %}
+{% block right_title %}
+    {% trans 'Login to your account' %}
+{% endblock right_title %}
+{% block form_action %}
+    {% url 'account_login' %}
+{% endblock form_action %}
+{% block submit_text %}{% trans 'Login' %}{% endblock %}

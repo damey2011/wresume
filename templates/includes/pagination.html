@@ -1,0 +1,51 @@
+{% load i18n %}
+
+{% if paginator_type == 'LV' %}
+    {% if is_paginated or page_obj.has_other_pages %}
+        <nav aria-label="" class="mt-5 d-block">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans 'Previous' %}</a></li>
+                {% else %}
+                    <li class="disabled page-item"><a class="page-link disabled" href="#">{% trans 'Previous' %}</a></li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="page-item active"><a class="page-link disabled" href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans 'Next' %}</a></li>
+                {% else %}
+                    <li class="disabled page-item"><a class="page-link disabled" href="#">{% trans 'Next' %}</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% else %}
+    {% if object_list.has_other_pages %}
+        <nav aria-label="" class="mt-5 d-block">
+            <ul class="pagination">
+                {% if object_list.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ object_list.previous_page_number }}">{% trans 'Previous' %}</a></li>
+                {% else %}
+                    <li class="disabled"><span>{% trans 'Previous' %}</span></li>
+                {% endif %}
+                {% for i in object_list.paginator.page_range %}
+                    {% if object_list.number == i %}
+                        <li class="page-item active">{{ i }}</li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if object_list.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ object_list.next_page_number }}">{% trans 'Next' %}</a></li>
+                {% else %}
+                    <li class="disabled"><span>{% trans 'Next' %}</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endif %}

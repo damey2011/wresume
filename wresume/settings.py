@@ -13,6 +13,8 @@ import os
 from decouple import config, Csv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.urls import reverse_lazy
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SITE_ID = 1
@@ -26,7 +28,7 @@ SECRET_KEY = '$v32^f-3x4ft8zy2++6ss91&(x)fo#m**ld+9=tx!o43t09c7m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = config('ALLOWED_HOST', cast=Csv(), default='localhost')
+ALLOWED_HOSTS = config('ALLOWED_HOST', cast=Csv(), default='*')
 
 # Application definition
 
@@ -39,7 +41,10 @@ SHARED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'widget_tweaks',
     'users',
+    'blogs',
+    'resumes',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -65,9 +70,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'widget_tweaks',
+    'debug_toolbar',
     'users',
     'resumes',
     'blogs',
+    'froala_editor',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -86,6 +94,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
+INTERNAL_IPS = [
+    'localhost',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -172,13 +185,23 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 TENANT_MODEL = 'users.Client'
 
 AUTH_USER_MODEL = 'users.User'
 
-DEFAULT_FILE_STORAGE = 'tenant_schemas.storage.TenantFileSystemStorage'
+DEFAULT_FILE_STORAGE = 'wresume.utils.MyFileStorage'
 
-ACCOUNT_AUTHENTICATION_METHOD = ['username', 'email']
+TENANT_LIMIT_SET_CALLS = True
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 
 ACCOUNT_EMAIL_REQUIRED = True
 
@@ -192,13 +215,49 @@ ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 
-ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignUpForm'
+ACCOUNT_FORMS = {
+    'login': 'allauth.account.forms.LoginForm',
+    'signup': 'users.forms.SignUpForm',
+    # 'add_email': 'allauth.account.forms.AddEmailForm',
+    # 'change_password': 'allauth.account.forms.ChangePasswordForm',
+    # 'set_password': 'allauth.account.forms.SetPasswordForm',
+    # 'reset_password': 'allauth.account.forms.ResetPasswordForm',
+    # 'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
+    # 'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+}
+
+ACCOUNT_ADAPTER = 'users.adapters.AccountAdapter'
 
 ACCOUNT_USERNAME_MIN_LENGTH = 2
 
+PUBLIC_SCHEMA_URLCONF = 'wresume.urls_public'
+
+PUBLIC_SCHEMA_NAME = 'public'
+
+LOGIN_URL = reverse_lazy('account_login')
+
 if DEBUG:
-    SITE_DOMAIN = 'localhost:8000'
+    SITE_DOMAIN = 'localhost'
     DEFAULT_USER_PASSWORD = 'greatness2011'
 else:
     SITE_DOMAIN = 'wresu.me'
     DEFAULT_USER_PASSWORD = '48sfNdfd4NnU?49$*(9'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'neefemee@gmail.com'
+EMAIL_HOST_PASSWORD = 'Greatness2012..'
+
+FROALA_EDITOR_PLUGINS = (
+    'align', 'char_counter', 'code_beautifier', 'code_view', 'colors', 'draggable', 'emoticons',
+    'entities', 'file', 'font_family', 'font_size', 'fullscreen', 'image_manager', 'image',
+    'inline_style',
+    'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style', 'quick_insert',
+    'quote', 'save', 'table',
+    'url', 'video'
+)
+
+FROALA_STORAGE_BACKEND = 'wresume.utils.MyFileStorage'
