@@ -1,27 +1,20 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.conf import settings
+from django.db import connection
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.views import View
-from django.views.generic import TemplateView
 
-from users.forms import SignUpForm
+from resumes.models import SiteTemplate
+from users.models import Client
 
 
-class HomePageView(View):
+class TenantAccessPublicMixin:
+    def dispatch(self, request, *args, **kwargs):
+        connection.set_tenant(Client.objects.get(schema_name=settings.PUBLIC_SCHEMA_NAME))
+        return super(TenantAccessPublicMixin, self).dispatch(request, *args, **kwargs)
+
+
+class TenantHomeView(TenantAccessPublicMixin, View):
     def get(self, request, *args, **kwargs):
-        sign_up_form = SignUpForm()
-        ctx = {
-            'sign_up_form': sign_up_form,
-            'nav_section': 'home'
-        }
-        return render(request, 'home.html', ctx)
-
-
-class DashboardView(TemplateView):
-    template_name = 'dashboard.html'
-
-
-class ChangeSiteView(View):
-    def get(self, request):
-        new_site = self.request.GET.get('site_id')
-        request.session['site_id'] = new_site
-        return HttpResponseRedirect(self.request.GET.get('next', '/'))
+        content = get_object_or_404(SiteTemplate, site=self.request.tenant).template.construct_page()
+        return HttpResponse(content)

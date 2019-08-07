@@ -1,5 +1,5 @@
 {% load i18n static widget_tweaks general_tags %}
-<form action="{{ form_action }}" method="post" class="form-box" id="{{ form_id }}">
+<form action="{{ form_action }}" method="post" class="form-box" id="{{ form_id }}" enctype="multipart/form-data">
     {% csrf_token %}
     <h3 class="h4 text-black mb-4">{{ form_title }}</h3>
     {% include 'includes/non_field_errors.html' %}

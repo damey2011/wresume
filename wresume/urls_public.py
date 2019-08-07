@@ -3,11 +3,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from home import views
+from home import views_public
 
 urlpatterns = [
-    path('', views.HomePageView.as_view(), name='public_home'),
-    path('', include('home.urls', namespace='home')),
+    path('', views_public.HomePageView.as_view(), name='public_home'),
+    path('', include('home.urls_public', namespace='home')),
     path('admin/', admin.site.urls),
     path('users/', include('allauth.urls')),
     path('users/', include('users.urls', namespace='users')),

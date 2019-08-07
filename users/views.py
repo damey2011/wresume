@@ -130,5 +130,5 @@ class MultiEntryUpdateView(MultiEntryView, UpdateView):
 class MultiEntryDeleteView(MultiEntryUpdateView):
     def get(self, request, *args, **kwargs):
         self.get_object().delete()
-        return HttpResponseRedirect(request.GET.get('next', self.get_success_url()))
+        return HttpResponseRedirect(request.GET.get('next', self.success_url))
 
