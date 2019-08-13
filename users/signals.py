@@ -1,8 +1,7 @@
-from django.core.management import call_command
 from django.db.models.signals import post_save, post_delete
 
 from users.models import User, Profile, SiteSettings, Client, SocialProfile
-from wresume.utils import create_tenant, get_tenant
+from wresume.utils import create_tenant
 from PIL import Image as Img, ImageOps
 
 
@@ -14,7 +13,7 @@ def user_created(sender, instance, created, **kwargs):
 
 
 def user_deleted(sender, instance, **kwargs):
-    get_tenant(instance).delete()
+    pass
 
 
 def resize_uploaded_image(sender, instance, **kwargs):
