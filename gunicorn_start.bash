@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 NAME="wresume"                                   # Name of the application
 DJANGODIR=/home/wresu/wresume               # Django project directory
-SOCKFILE=/home/wresu/env/run/gunicorn.sock  # we will communicte using this unix socket
+SOCKFILE=/home/wresu/wresume/env/run/gunicorn.sock  # we will communicte using this unix socket
 USER=wresu                                         # the user to run as
 GROUP=wresu                                        # the group to run as
 NUM_WORKERS=3                                       # how many worker processes should Gunicorn spawn
@@ -12,7 +12,7 @@ echo "Starting $NAME as `whoami`"
 # Activate the virtual environment
 
 cd $DJANGODIR
-source /home/wresu/env/bin/activate
+source /home/wresu/wresume/env/bin/activate
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 
