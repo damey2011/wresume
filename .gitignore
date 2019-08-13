@@ -65,4 +65,3 @@ cloud_sql_proxy.sh
 
 media/*
 wresume/settings.ini
-gunicorn_start.bash
