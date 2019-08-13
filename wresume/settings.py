@@ -26,7 +26,7 @@ SITE_ID = 1
 SECRET_KEY = '$v32^f-3x4ft8zy2++6ss91&(x)fo#m**ld+9=tx!o43t09c7m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default=True)
 
 ALLOWED_HOSTS = config('ALLOWED_HOST', cast=Csv(), default='*')
 
