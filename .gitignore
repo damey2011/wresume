@@ -64,4 +64,4 @@ django-saas-*.json
 cloud_sql_proxy.sh
 
 media/*
-wresume/settings.ini
+settings.ini
