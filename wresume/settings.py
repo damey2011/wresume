@@ -137,8 +137,8 @@ WSGI_APPLICATION = 'wresume.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'tenant_schemas.postgresql_backend',
-        'NAME': 'wresume',
-        'USER': config('DB_NAME', default='postgres'),
+        'NAME': config('DB_NAME', default='wresume'),
+        'USER': config('DB_USER', default='postgres'),
         'PASSWORD': config('DB_PASSWORD', default=''),
         'HOST': config('DB_HOST', default='localhost'),
         'PORT': 5432
