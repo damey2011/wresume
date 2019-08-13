@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}
     Sign Up
 {% endblock title %}
@@ -13,12 +14,12 @@
                         <div class="row align-items-center">
                             <div class="col-lg-6 mb-4">
                                 <h1  data-aos="fade-up" data-aos-delay="100">Wresu.me</h1>
-                                <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Create your account and access your free customized page</p>
+                                <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">{% trans 'Create your account and access your free customized page' %}</p>
                             </div>
                             <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
                                 <form action="{% block form_action %}{% url 'account_signup' %}{% endblock form_action %}" method="post" class="form-box">
                                     {% csrf_token %}
-                                    <h3 class="h4 text-black mb-4">Sign Up To Create Your Resume</h3>
+                                    <h3 class="h4 text-black mb-4">{% trans 'Sign Up To Create Your Resume' %}</h3>
                                     {% for hidden in form.hidden_fields %}
                                         {{ hidden }}
                                     {% endfor %}

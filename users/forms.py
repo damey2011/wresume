@@ -8,9 +8,15 @@ from users.models import User, Profile, SiteSettings, SocialProfile, EducationPr
 
 
 class SignUpForm(SignupForm):
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.pop('autofocus', None)
+        self.fields['email'].widget.attrs.update({'autofocus': 'autofocus'})
+
     class Meta:
         model = User
         fields = (
+            'email',
             'username',
             'email',
             'password'
