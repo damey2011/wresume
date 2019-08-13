@@ -236,12 +236,8 @@ PUBLIC_SCHEMA_NAME = 'public'
 
 LOGIN_URL = reverse_lazy('account_login')
 
-if DEBUG:
-    SITE_DOMAIN = 'localhost'
-    DEFAULT_USER_PASSWORD = 'greatness2011'
-else:
-    SITE_DOMAIN = 'wresu.me'
-    DEFAULT_USER_PASSWORD = '48sfNdfd4NnU?49$*(9'
+SITE_DOMAIN = config('SITE_DOMAIN', default='localhost')
+DEFAULT_USER_PASSWORD = config('DEFAULT_USER_PASSWORD', default='greatness2011')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
