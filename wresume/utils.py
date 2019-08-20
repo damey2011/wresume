@@ -13,6 +13,7 @@ from django.utils.safestring import mark_safe
 from django.views import View
 from django.views.generic import FormView
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from tenant_schemas.storage import TenantStorageMixin
 
 from users.models import Client
@@ -57,7 +58,11 @@ def reverse_absolute(site, path):
 
 
 def take_screenshot(url):
-    driver = webdriver.Chrome('chromedriver')
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    driver = webdriver.Chrome(executable_path=settings.CHROME_DRIVER_PATH, options=options)
     driver.get(url)
     screenshot = driver.get_screenshot_as_png()
     driver.quit()

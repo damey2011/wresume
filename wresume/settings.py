@@ -257,3 +257,5 @@ FROALA_EDITOR_PLUGINS = (
 )
 
 FROALA_STORAGE_BACKEND = 'wresume.utils.MyFileStorage'
+
+CHROME_DRIVER_PATH = config('CHROME_DRIVER_PATH', default='chromedriver')
