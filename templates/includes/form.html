@@ -9,7 +9,6 @@
     <div class="row">
         {% for field in form.visible_fields %}
             {% is_text_area field as is_textarea %}
-            {% is_editor field as is_editor %}
             <div class="form-group {% if two_per_row and not is_textarea %}col-lg-6{% else %}col-lg-12{% endif %}">
                 {% if with_label %}
                     <label class="form-label">
