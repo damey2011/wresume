@@ -1,0 +1,18 @@
+<script src="https://cdn.tiny.cloud/1/8ry8jggo7z3vd31d8fe8guazzyd2l5xzp1d9rb7ijp6izn4g/tinymce/5/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: '{{ selector|default:'#container' }}',
+        height: 300,
+        menubar: false,
+        plugins: 'advlist autolink lists link image charmap print preview anchor ' +
+            'search replace visualblocks code fullscreen insertdatetime media emoticons ' +
+            'table paste code help wordcount media table',
+        toolbar: 'undo redo | formatselect | bold italic backcolor | image code media emoticons | alignleft aligncenter alignright ' +
+            'alignjustify | bullist numlist | table removeformat | help',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '//www.tiny.cloud/css/codepen.min.css'
+        ],
+        images_upload_url: '/tinymce/upload/',
+    });
+</script>

@@ -75,7 +75,6 @@ INSTALLED_APPS = [
     'users',
     'resumes',
     'blogs',
-    'froala_editor',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -253,15 +252,21 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@wresu.me')
 
 ADMIN_EMAILS = config('ADMIN_EMAILS', default=['neefemee@gmail.com', 'adeyemidamilola3@gmail.com'])
 
-FROALA_EDITOR_PLUGINS = (
-    'align', 'char_counter', 'code_beautifier', 'code_view', 'colors', 'draggable', 'emoticons',
-    'entities', 'file', 'font_family', 'font_size', 'fullscreen', 'image_manager', 'image',
-    'inline_style',
-    'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style', 'quick_insert',
-    'quote', 'save', 'table',
-    'url', 'video'
-)
-
-FROALA_STORAGE_BACKEND = 'wresume.utils.MyFileStorage'
-
 CHROME_DRIVER_PATH = config('CHROME_DRIVER_PATH', default='chromedriver')
+
+TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, 'tiny_mce')
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 500,
+    'menubar': False,
+    'plugins': 'advlist autolink lists link image charmap print preview anchor' +
+               'search replace visualblocks code fullscreen insertdatetime media ' +
+               'table paste code help wordcount',
+    'toolbar': 'undo redo | formatselect | bold italic backcolor | image | alignleft aligncenter alignright '
+               'alignjustify | bullist numlist | removeformat | help',
+    'content_css': [
+        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+        '//www.tiny.cloud/css/codepen.min.css'
+    ],
+    'images_upload_url': '/tinymce/upload/'
+}

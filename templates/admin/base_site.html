@@ -1,0 +1,7 @@
+{% extends "admin/base_site.html" %}
+{% load general_tags %}
+{% block extrahead %}
+    {% static_url as static_url %}
+<script>window.CKEDITOR_BASEPATH = '{{ static_url }}/ckeditor/ckeditor/';</script>
+{{ block.super }}
+{% endblock %}

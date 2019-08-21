@@ -1,8 +1,10 @@
 from django import template
+from django.conf import settings
 from django.contrib.sites.models import Site
 from django.forms import Textarea
 from django.templatetags.static import static
 from django.urls import reverse
+from quilljs.fields import RichTextFormField
 
 from resumes.models import SiteTemplate
 from wresume.utils import get_absolute_site
@@ -92,3 +94,13 @@ def color_index(index):
 @register.simple_tag
 def index_is_odd(index):
     return index % 2 != 0
+
+
+@register.simple_tag
+def is_editor(field):
+    return isinstance(field.field, RichTextFormField)
+
+
+@register.simple_tag
+def static_url():
+    return settings.STATIC_URL

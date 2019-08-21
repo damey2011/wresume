@@ -1,5 +1,3 @@
-from froala_editor.fields import FroalaField
-
 from users.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -25,11 +23,7 @@ class BlogCategory(TimeStampedModel):
 
 class BlogPost(SoftDeletableModel, TimeStampedModel):
     title = models.CharField(max_length=200)
-    content = FroalaField(options={
-        'toolbarInline': True,
-        'heightMin': 250,
-        'toolbarVisibleWithoutSelection': True
-    })
+    content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.CharField(blank=True, max_length=150)
     image = models.ImageField(upload_to='post-header-images', blank=True, null=True)
@@ -71,11 +65,7 @@ class Comment(SoftDeletableModel, TimeStampedModel):
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
-    content = FroalaField(options={
-        'toolbarInline': True,
-        'heightMin': 250,
-        'toolbarVisibleWithoutSelection': True
-    })
+    content = models.TextField()
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
     def __str__(self):

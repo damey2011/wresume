@@ -6,14 +6,20 @@
 
     <div class="list-group">
         {% for post in posts %}
-            <a href="{{ post.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ post.title }}</h5>
-                    <small>{{ post.created|timesince }} {% trans 'ago' %}</small>
+            <div class="list-group-item">
+                <a href="{{ post.get_absolute_url }}" class=" list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ post.title }}</h5>
+                        <small>{{ post.created|timesince }} {% trans 'ago' %}</small>
+                    </div>
+                    <p class="mb-1">{{post.content|striptags|safe|slice:":100"}}...</p>
+                    <small>{% trans 'Last Updated' %}: {{ post.modified }}</small>
+                </a>
+                <div>
+                    <a href="{% url 'blogs_public:edit' post.id %}" class="icon icon-pencil"></a> | <a href="{% url 'blogs_public:delete' post.id %}" class="text-danger icon icon-delete"></a>
+                    | <a href="{{ post.get_absolute_url }}" class="icon icon-eye"></a>
                 </div>
-                <p class="mb-1">{{post.content|striptags|safe|slice:":100"}}...</p>
-                <small>{% trans 'Last Updated' %}: {{ post.modified }}</small>
-            </a>
+            </div>
         {% endfor %}
     </div>
 

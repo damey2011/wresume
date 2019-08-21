@@ -135,7 +135,7 @@
 
 
     {% block extra_css %}
-        {{ comment_form.media }}
+
     {% endblock extra_css %}
 </head>
 <body>
@@ -316,5 +316,6 @@
         })
     })
 </script>
+{% include 'includes/editor-script.html' with selector='#id_content' %}
 </body>
 </html>
