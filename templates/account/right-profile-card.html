@@ -1,4 +1,5 @@
-{% load i18n static %}
+{% load i18n static general_tags %}
+{% tenant_home_from_user as tenant_home %}
 <div class="mb-5 text-center border rounded course-instructor">
     <h3 class="mb-5 text-black text-uppercase h6 border-bottom pb-3">{% trans 'Profile' %}</h3>
     <div class="mb-4 text-center">
@@ -6,9 +7,12 @@
         <h3 class="h5 text-black mb-4">{{ user.get_full_name }}</h3>
         <p>{{ user.email }}</p>
         <p><strong>{% trans 'Joined: ' %}</strong>{{ user.date_joined }}</p>
+        <div class="alert alert-info">
+            Your site is live at <a href="{{ tenant_home }}">{{ tenant_home }}</a>
+        </div>
         {% if not hide_button %}
             <a href="{% url 'users:basic_profile' %}" class="btn btn-primary btn-pill">{% trans 'Edit Profile' %}</a>
         {% endif %}
-        <a href="{{ request.user.blogs_url }}" class="btn btn-default btn-pill">{% trans 'Blogs' %}</a>
+        <a href="{{ request.user.blogs_url }}" class="btn btn-info btn-pill">{% trans 'Blogs' %}</a>
     </div>
 </div>

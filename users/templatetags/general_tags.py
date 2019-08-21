@@ -5,6 +5,7 @@ from django.templatetags.static import static
 from django.urls import reverse
 
 from resumes.models import SiteTemplate
+from wresume.utils import get_tenant_url, get_tenant
 
 register = template.Library()
 
@@ -96,3 +97,9 @@ def index_is_odd(index):
 @register.simple_tag
 def static_url():
     return settings.STATIC_URL
+
+
+@register.simple_tag(takes_context=True)
+def tenant_home_from_user(context):
+    request = context.get('request')
+    return get_tenant_url(get_tenant(request.user))

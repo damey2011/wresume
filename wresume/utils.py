@@ -25,7 +25,11 @@ def create_tenant(user):
 
 
 def get_tenant(user):
-    return Client.objects.get(user=user)
+    try:
+        tenant = Client.objects.get(user=user)
+    except Client.MultipleObjectsReturned:
+        tenant = Client.objects.filter(user=user).first()
+    return tenant
 
 
 def get_site():
@@ -103,7 +107,7 @@ class SiteAwareView:
             return self.request.user.client_set.get(pk=int(self.request.GET.get('site')))
         if self.request.session.get('site_id'):
             return self.request.user.client_set.get(pk=int(self.request.session['site_id']))
-        site_object = self.request.user.client_set.first()
+        site_object = get_tenant(self.request.user)
         self.request.session['site_id'] = site_object.id
         return site_object
 

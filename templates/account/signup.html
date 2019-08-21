@@ -18,7 +18,7 @@
                                 <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">{% trans 'Create your account and access your free customized page' %}</p>
                             </div>
                             <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
-                                <form action="{% block form_action %}{% url 'account_signup' %}{% endblock form_action %}" method="post" class="form-box">
+                                <form action="{% block form_action %}{% url 'account_signup' %}{% endblock form_action %}" method="post" class="form-box" style="padding: 24px;">
                                     {% csrf_token %}
                                     {% include 'includes/logo.html' %}
                                     <h3 class="h4 text-black mb-4">{% trans 'Sign Up To Create Your Resume' %}</h3>

@@ -9,7 +9,8 @@
         </div>
         <div class="row mb-5 align-items-center">
             <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-                <img src="{% static 'images/new-images/beverage-blog-blogger-1799342.jpg' %}" alt="Image" class="img-fluid">
+                {% static 'images/reg-screenshots/1.png' as image_url %}
+                {% include 'includes/screenshot-embed.html' with image_url=image_url %}
             </div>
             <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
                 <h2 class="text-black mb-4">Sign Up</h2>
@@ -25,7 +26,8 @@
 
         <div class="row mb-5 align-items-center">
             <div class="col-lg-7 mb-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
-                <img src="{% static 'images/new-images/checklist-1622517_640.png' %}" alt="Image" class="img-fluid">
+                {% static 'images/reg-screenshots/2.png' as image_url %}
+                {% include 'includes/screenshot-embed.html' with image_url=image_url %}
             </div>
             <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
                 <h2 class="text-black mb-4">Fill in data form</h2>
@@ -41,7 +43,8 @@
 
         <div class="row mb-5 align-items-center">
             <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-                <img src="{% static 'images/new-images/blur-choice-choose-977246.jpg' %}" alt="Image" class="img-fluid">
+                {% static 'images/reg-screenshots/3.png' as image_url %}
+                {% include 'includes/screenshot-embed.html' with image_url=image_url %}
             </div>
             <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
                 <h2 class="text-black mb-4">Choose/Build Template</h2>

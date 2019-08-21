@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
                                     {% block right %}
-                                        <form action="{% block form_action %}{% url 'account_signup' %}{% endblock form_action %}" method="post" class="form-box">
+                                        <form action="{% block form_action %}{% url 'account_signup' %}{% endblock form_action %}" method="post" class="form-box" style="padding: 24px;">
                                             {% csrf_token %}
                                             {% include 'includes/logo.html' %}
                                             <h3 class="h4 text-black mb-4">{% block right_title %}Sign Up To Create Your Resume{% endblock right_title %}</h3>
