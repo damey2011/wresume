@@ -65,4 +65,4 @@ cloud_sql_proxy.sh
 
 media/*
 wresume/settings.ini
-static_files/*
+static/*
