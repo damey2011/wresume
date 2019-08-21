@@ -2,7 +2,7 @@ body {
 	line-height: 1.7;
 	color: lighten($black, 50%);
 	font-weight: 300;
-	font-size: $font-size-base + .1rem;
+	font-size: $font-size-base;
 }
 ::-moz-selection { 
 	background: $black;

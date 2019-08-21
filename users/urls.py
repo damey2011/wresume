@@ -126,7 +126,7 @@ urlpatterns = [
     path('banner/', views.MultiEntryView.as_view(
         extra_context={'banner_tab': True},
         form_class=BannerMediaForm,
-        form_title=_('Add banner you would want to use on your page'),
+        form_title=_('Add banners you would want to use on your page (slide is applied when more than one is used)'),
         success_url=reverse_lazy('users:banner'),
         inject_initial=['user'],
         model=BannerMedia,

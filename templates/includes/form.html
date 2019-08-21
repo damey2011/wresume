@@ -1,7 +1,7 @@
 {% load i18n static widget_tweaks general_tags %}
-<form action="{{ form_action }}" method="post" class="form-box" id="{{ form_id }}" enctype="multipart/form-data">
+<form action="{{ form_action }}" method="post" class="form-box" id="{{ form_id }}" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
-    <h3 class="h4 text-black mb-4">{{ form_title }}</h3>
+    <h3 class="h4 text-black mb-4 form-title">{{ form_title }}</h3>
     {% include 'includes/non_field_errors.html' %}
     {% for hidden in form.hidden_fields %}
         {{ hidden }}
@@ -12,7 +12,7 @@
             <div class="form-group {% if two_per_row and not is_textarea %}col-lg-6{% else %}col-lg-12{% endif %}">
                 {% if with_label %}
                     <label class="form-label">
-                        {{ field.label }}
+                        {{ field.label }}{% if field.field.required %}<span class="text-danger">*</span>{% endif %} {% if field.help_text %} <span class="icon icon-question-circle" data-toggle="tooltip" data-placement="top" title="{{ field.help_text }}"></span>{% endif %}
                     </label>
                     {% render_field field|add_class:'form-control' placeholder=field.label %}
                 {% else %}

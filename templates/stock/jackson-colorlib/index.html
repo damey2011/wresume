@@ -6,26 +6,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ user.get_full_name }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="title" content="{{ tenant.sitesettings.seo_title }}" />
-    <meta name="description" content="{{ tenant.sitesettings.seo_description }}" />
-    <meta name="keywords" content="{{ tenant.sitesettings.seo_keywords }}" />
-    <meta name="author" content="{{ user.get_full_name }}" />
 
-    <!-- Facebook and Twitter integration -->
-    <meta property="og:title" content="{{ user.get_full_name }}"/>
-    <meta property="og:image" content="{% if tenant.sitesettings.logo %}{{ tenant.sitesettings.logo.url }}{% endif %}"/>
-    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
-    <meta property="og:site_name" content="Wresu.me"/>
-    <meta property="og:description" content="{{ tenant.sitesettings.seo_description }}"/>
-    <meta name="twitter:title" content="{{ user.get_full_name }}" />
-    <meta name="twitter:image" content="{% if tenant.sitesettings.logo %}{{ tenant.sitesettings.logo.url }}{% endif %}" />
-    <meta name="twitter:url" content="{{ request.build_absolute_uri }}" />
-    <meta name="twitter:card" content="" />
-
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="{% if tenant.sitesettings.favicon %}{{ tenant.sitesettings.favicon.url }}{% endif %}">
+    {% include 'stock/common-header.html' %}
 
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
@@ -135,409 +117,409 @@
 
         </aside>
 
-        {% if user.bannermedia_set.exists %}
-            <div id="colorlib-main">
-            <section id="colorlib-hero" class="js-fullheight" data-section="home">
-                <div class="flexslider js-fullheight">
-                    <ul class="slides">
-                        {% for banner in user.bannermedia_set.all %}
-                            <li style="background-image: url({{ banner.media|image_or_not }});">
-                                <div class="overlay"></div>
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
-                                            <div class="slider-text-inner js-fullheight">
-                                                <div class="desc">
-                                                    <h1>Hi! <br>{{ tenant.sitesettings.banner_title|default:'Site Settings > Banner Title' }}
-                                                    </h1>
-                                                    <h2>{{ tenant.sitesettings.banner_description|default:'Site Settings > Banner Description' }}</h2>
-                                                    {#                                                <p><a class="btn btn-primary btn-learn">Download CV <i class="icon-download4"></i></a></p>#}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </section>
-        {% endif %}
-
-        <section class="colorlib-about" data-section="about">
-            <div class="colorlib-narrow-content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
-                            <div class="col-md-12">
-                                <div class="about-desc">
-                                    <span class="heading-meta">About Me</span>
-                                    {#                                        <h2 class="colorlib-heading">Who Am I?</h2>#}
-                                    {#                                        <p>#}
-                                    {#                                            {{ user.profile.bio }}#}
-                                    {#                                        </p>#}
-                                </div>
-                            </div>
-                        </div>
-                        {#                            <div class="row">#}
-                        {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">#}
-                        {#                                    <div class="services color-1">#}
-                        {#                                        <span class="icon2"><i class="icon-bulb"></i></span>#}
-                        {#                                        <h3>Graphic Design</h3>#}
-                        {#                                    </div>#}
-                        {#                                </div>#}
-                        {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInRight">#}
-                        {#                                    <div class="services color-2">#}
-                        {#                                        <span class="icon2"><i class="icon-globe-outline"></i></span>#}
-                        {#                                        <h3>Web Design</h3>#}
-                        {#                                    </div>#}
-                        {#                                </div>#}
-                        {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInTop">#}
-                        {#                                    <div class="services color-3">#}
-                        {#                                        <span class="icon2"><i class="icon-data"></i></span>#}
-                        {#                                        <h3>Software</h3>#}
-                        {#                                    </div>#}
-                        {#                                </div>#}
-                        {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInBottom">#}
-                        {#                                    <div class="services color-4">#}
-                        {#                                        <span class="icon2"><i class="icon-phone3"></i></span>#}
-                        {#                                        <h3>Application</h3>#}
-                        {#                                    </div>#}
-                        {#                                </div>#}
-                        {#                            </div>#}
-                        <div class="row">
-                            <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
-                                <div class="hire">
-                                    <h2>{{ user.profile.bio|default:'Your Bio in profile will go in here' }}</h2>
-                                    {#                                        <a href="#" class="btn-hire">Hire me</a>#}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        {% if user.offerprofile_set.exists %}
-            <section class="colorlib-services" data-section="services">
-                <div class="colorlib-narrow-content">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
-                            <span class="heading-meta">What I do?</span>
-                            <h2 class="colorlib-heading">Here are some of my expertise</h2>
-                        </div>
-                    </div>
-                    <div class="row row-pt-md">
-                        {% for offer in user.offerprofile_set.all %}
-                            <div class="col-md-4 text-center animate-box">
-                                {% color_index forloop.counter as color_index %}
-                                <div class="services color-{{ color_index }}">
-								<span class="icon">
-                                    {% offer_icon forloop.counter0 as offer_icon %}
-									<i class="{{ offer_icon }}"></i>
-								</span>
-                                    <div class="desc">
-                                        <h3>{{ offer.title }}</h3>
-                                        <p>{{ offer.description }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </section>
-        {% endif %}
-
-        {#            <div id="colorlib-counter" class="colorlib-counters" style="background-image: url({% static 'stock/jackson-colorlib/images/cover_bg_1.jpg' %});" data-stellar-background-ratio="0.5">#}
-        {#                <div class="overlay"></div>#}
-        {#                <div class="colorlib-narrow-content">#}
-        {#                    <div class="row">#}
-        {#                    </div>#}
-        {#                    <div class="row">#}
-        {#                        <div class="col-md-3 text-center animate-box">#}
-        {#                            <span class="colorlib-counter js-counter" data-from="0" data-to="309" data-speed="5000" data-refresh-interval="50"></span>#}
-        {#                            <span class="colorlib-counter-label">Cups of coffee</span>#}
-        {#                        </div>#}
-        {#                        <div class="col-md-3 text-center animate-box">#}
-        {#                            <span class="colorlib-counter js-counter" data-from="0" data-to="356" data-speed="5000" data-refresh-interval="50"></span>#}
-        {#                            <span class="colorlib-counter-label">Projects</span>#}
-        {#                        </div>#}
-        {#                        <div class="col-md-3 text-center animate-box">#}
-        {#                            <span class="colorlib-counter js-counter" data-from="0" data-to="30" data-speed="5000" data-refresh-interval="50"></span>#}
-        {#                            <span class="colorlib-counter-label">Clients</span>#}
-        {#                        </div>#}
-        {#                        <div class="col-md-3 text-center animate-box">#}
-        {#                            <span class="colorlib-counter js-counter" data-from="0" data-to="10" data-speed="5000" data-refresh-interval="50"></span>#}
-        {#                            <span class="colorlib-counter-label">Partners</span>#}
-        {#                        </div>#}
-        {#                    </div>#}
-        {#                </div>#}
-        {#            </div>#}
-
-        {% if user.skillprofile_set.exists %}
-            <section class="colorlib-skills" data-section="skills">
-                <div class="colorlib-narrow-content">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
-                            <span class="heading-meta">My Specialty</span>
-                            <h2 class="colorlib-heading animate-box">My Skills</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        {#                        <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">#}
-                        {#                            <p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.</p>#}
-                        {#                        </div>#}
-                        {% for skill in user.skillprofile_set.all %}
-                            {% index_is_odd forloop.counter as is_odd %}
-                            <div class="col-md-6 animate-box" data-animate-effect="fadeIn{% if is_odd %}Left{% else %}Right{% endif %}">
-                                <div class="progress-wrap">
-                                    <h3>{{ skill.title }}</h3>
-                                    <div class="progress">
-                                        {% color_index forloop.counter as color_index %}
-                                        <div class="progress-bar color-{{ color_index }}" role="progressbar" aria-valuenow="{{ skill.skill_level }}"
-                                             aria-valuemin="0" aria-valuemax="100" style="width:{{ skill.skill_level }}%">
-                                            <span>{{ skill.skill_level }}%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </section>
-        {% endif %}
-
-        {% if user.educationprofile_set.exists %}
-            <section class="colorlib-education" data-section="education">
-                <div class="colorlib-narrow-content">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
-                            <span class="heading-meta">Education</span>
-                            <h2 class="colorlib-heading animate-box">Education</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
-                            <div class="fancy-collapse-panel">
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                    {% for education in user.educationprofile_set.all %}
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingEdu{{ forloop.counter }}">
-                                                <h4 class="panel-title">
-                                                    <a class="{% if not forloop.counter0 == 0 %}collapsed{% endif %}" data-toggle="collapse" data-parent="#accordion" href="#collapseEdu{{ forloop.counter }}" aria-expanded="{% if forloop.counter0 == 0 %}true{% endif %}" aria-controls="collapseEdu{{ forloop.counter }}">
-                                                        {{ education.degree }}
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseEdu{{ forloop.counter }}" class="panel-collapse collapse {% if forloop.counter0 == 0 %}in{% endif %}" role="tabpanel" aria-labelledby="headingEdu{{ forloop.counter }}">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <p>{{ education.place }}, {{ education.city }}, {{ education.country }}</p>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <p>{{ education.description }}</p>
-                                                        </div>
+        <div id="colorlib-main">
+            {% if user.bannermedia_set.exists %}
+                <section id="colorlib-hero" class="js-fullheight" data-section="home">
+                    <div class="flexslider js-fullheight">
+                        <ul class="slides">
+                            {% for banner in user.bannermedia_set.all %}
+                                <li style="background-image: url({{ banner.media|image_or_not }});">
+                                    <div class="overlay"></div>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
+                                                <div class="slider-text-inner js-fullheight">
+                                                    <div class="desc">
+                                                        <h1>Hi! <br>{{ tenant.sitesettings.banner_title|default:'Site Settings > Banner Title' }}
+                                                        </h1>
+                                                        <h2>{{ tenant.sitesettings.banner_description|default:'Site Settings > Banner Description' }}</h2>
+                                                        {#                                                <p><a class="btn btn-primary btn-learn">Download CV <i class="icon-download4"></i></a></p>#}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    {% endfor %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </section>
+            {% endif %}
+
+            <section class="colorlib-about" data-section="about">
+                <div class="colorlib-narrow-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+                                <div class="col-md-12">
+                                    <div class="about-desc">
+                                        <span class="heading-meta">About Me</span>
+                                        {#                                        <h2 class="colorlib-heading">Who Am I?</h2>#}
+                                        {#                                        <p>#}
+                                        {#                                            {{ user.profile.bio }}#}
+                                        {#                                        </p>#}
+                                    </div>
+                                </div>
+                            </div>
+                            {#                            <div class="row">#}
+                            {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">#}
+                            {#                                    <div class="services color-1">#}
+                            {#                                        <span class="icon2"><i class="icon-bulb"></i></span>#}
+                            {#                                        <h3>Graphic Design</h3>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInRight">#}
+                            {#                                    <div class="services color-2">#}
+                            {#                                        <span class="icon2"><i class="icon-globe-outline"></i></span>#}
+                            {#                                        <h3>Web Design</h3>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInTop">#}
+                            {#                                    <div class="services color-3">#}
+                            {#                                        <span class="icon2"><i class="icon-data"></i></span>#}
+                            {#                                        <h3>Software</h3>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInBottom">#}
+                            {#                                    <div class="services color-4">#}
+                            {#                                        <span class="icon2"><i class="icon-phone3"></i></span>#}
+                            {#                                        <h3>Application</h3>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            <div class="row">
+                                <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                                    <div class="hire">
+                                        <h2>{{ user.profile.bio|default:'Your Bio in profile will go in here' }}</h2>
+                                        {#                                        <a href="#" class="btn-hire">Hire me</a>#}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-        {% endif %}
 
-        {% if user.careerprofile_set.exists %}
-            <section class="colorlib-experience" data-section="experience">
-                <div class="colorlib-narrow-content">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
-                            <span class="heading-meta">Experience</span>
-                            <h2 class="colorlib-heading animate-box">Work Experience</h2>
+
+            {% if user.offerprofile_set.exists %}
+                <section class="colorlib-services" data-section="services">
+                    <div class="colorlib-narrow-content">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                                <span class="heading-meta">What I do?</span>
+                                <h2 class="colorlib-heading">Here are some of my expertise</h2>
+                            </div>
+                        </div>
+                        <div class="row row-pt-md">
+                            {% for offer in user.offerprofile_set.all %}
+                                <div class="col-md-4 text-center animate-box">
+                                    {% color_index forloop.counter as color_index %}
+                                    <div class="services color-{{ color_index }}">
+								<span class="icon">
+                                    {% offer_icon forloop.counter0 as offer_icon %}
+									<i class="{{ offer_icon }}"></i>
+								</span>
+                                        <div class="desc">
+                                            <h3>{{ offer.title }}</h3>
+                                            <p>{{ offer.description }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="timeline-centered">
-                                {% for work in user.careerprofile_set.all %}
-                                    {% index_is_odd forloop.counter as is_odd %}
-                                    <article class="timeline-entry animate-box" data-animate-effect="fadeIn{% if is_odd %}Left{% else %}Right{% endif %}">
-                                        <div class="timeline-entry-inner">
-                                            {% color_index forloop.counter as color_index %}
-                                            <div class="timeline-icon color-{{ color_index }}">
-                                                <i class="icon-pen2"></i>
-                                            </div>
+                </section>
+            {% endif %}
 
-                                            <div class="timeline-label">
-                                                <h2><a href="#">{{ work.designation }}</a> <span>{{ work.from_year }}-{{ work.to_year|default_if_none:'Present' }}</span></h2>
-                                                <p>{{ work.place }}, {{ work.city }}, {{ work.country }}</p>
-                                                <p>{{ work.description }}</p>
+            {#            <div id="colorlib-counter" class="colorlib-counters" style="background-image: url({% static 'stock/jackson-colorlib/images/cover_bg_1.jpg' %});" data-stellar-background-ratio="0.5">#}
+            {#                <div class="overlay"></div>#}
+            {#                <div class="colorlib-narrow-content">#}
+            {#                    <div class="row">#}
+            {#                    </div>#}
+            {#                    <div class="row">#}
+            {#                        <div class="col-md-3 text-center animate-box">#}
+            {#                            <span class="colorlib-counter js-counter" data-from="0" data-to="309" data-speed="5000" data-refresh-interval="50"></span>#}
+            {#                            <span class="colorlib-counter-label">Cups of coffee</span>#}
+            {#                        </div>#}
+            {#                        <div class="col-md-3 text-center animate-box">#}
+            {#                            <span class="colorlib-counter js-counter" data-from="0" data-to="356" data-speed="5000" data-refresh-interval="50"></span>#}
+            {#                            <span class="colorlib-counter-label">Projects</span>#}
+            {#                        </div>#}
+            {#                        <div class="col-md-3 text-center animate-box">#}
+            {#                            <span class="colorlib-counter js-counter" data-from="0" data-to="30" data-speed="5000" data-refresh-interval="50"></span>#}
+            {#                            <span class="colorlib-counter-label">Clients</span>#}
+            {#                        </div>#}
+            {#                        <div class="col-md-3 text-center animate-box">#}
+            {#                            <span class="colorlib-counter js-counter" data-from="0" data-to="10" data-speed="5000" data-refresh-interval="50"></span>#}
+            {#                            <span class="colorlib-counter-label">Partners</span>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+
+            {% if user.skillprofile_set.exists %}
+                <section class="colorlib-skills" data-section="skills">
+                    <div class="colorlib-narrow-content">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                                <span class="heading-meta">My Specialty</span>
+                                <h2 class="colorlib-heading animate-box">My Skills</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {#                        <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">#}
+                            {#                            <p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.</p>#}
+                            {#                        </div>#}
+                            {% for skill in user.skillprofile_set.all %}
+                                {% index_is_odd forloop.counter as is_odd %}
+                                <div class="col-md-6 animate-box" data-animate-effect="fadeIn{% if is_odd %}Left{% else %}Right{% endif %}">
+                                    <div class="progress-wrap">
+                                        <h3>{{ skill.title }}</h3>
+                                        <div class="progress">
+                                            {% color_index forloop.counter as color_index %}
+                                            <div class="progress-bar color-{{ color_index }}" role="progressbar" aria-valuenow="{{ skill.skill_level }}"
+                                                 aria-valuemin="0" aria-valuemax="100" style="width:{{ skill.skill_level }}%">
+                                                <span>{{ skill.skill_level }}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+            {% if user.educationprofile_set.exists %}
+                <section class="colorlib-education" data-section="education">
+                    <div class="colorlib-narrow-content">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                                <span class="heading-meta">Education</span>
+                                <h2 class="colorlib-heading animate-box">Education</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                                <div class="fancy-collapse-panel">
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                        {% for education in user.educationprofile_set.all %}
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingEdu{{ forloop.counter }}">
+                                                    <h4 class="panel-title">
+                                                        <a class="{% if not forloop.counter0 == 0 %}collapsed{% endif %}" data-toggle="collapse" data-parent="#accordion" href="#collapseEdu{{ forloop.counter }}" aria-expanded="{% if forloop.counter0 == 0 %}true{% endif %}" aria-controls="collapseEdu{{ forloop.counter }}">
+                                                            {{ education.degree }}
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseEdu{{ forloop.counter }}" class="panel-collapse collapse {% if forloop.counter0 == 0 %}in{% endif %}" role="tabpanel" aria-labelledby="headingEdu{{ forloop.counter }}">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p>{{ education.place }}, {{ education.city }}, {{ education.country }}</p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>{{ education.description }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+            {% if user.careerprofile_set.exists %}
+                <section class="colorlib-experience" data-section="experience">
+                    <div class="colorlib-narrow-content">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                                <span class="heading-meta">Experience</span>
+                                <h2 class="colorlib-heading animate-box">Work Experience</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="timeline-centered">
+                                    {% for work in user.careerprofile_set.all %}
+                                        {% index_is_odd forloop.counter as is_odd %}
+                                        <article class="timeline-entry animate-box" data-animate-effect="fadeIn{% if is_odd %}Left{% else %}Right{% endif %}">
+                                            <div class="timeline-entry-inner">
+                                                {% color_index forloop.counter as color_index %}
+                                                <div class="timeline-icon color-{{ color_index }}">
+                                                    <i class="icon-pen2"></i>
+                                                </div>
+
+                                                <div class="timeline-label">
+                                                    <h2><a href="#">{{ work.designation }}</a> <span>{{ work.from_year }} - {{ work.to_year|default_if_none:'Present' }}</span></h2>
+                                                    <p>{{ work.place }}, {{ work.city }}, {{ work.country }}</p>
+                                                    <p>{{ work.description }}</p>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    {% endfor %}
+
+                                    <article class="timeline-entry begin animate-box" data-animate-effect="fadeInBottom">
+                                        <div class="timeline-entry-inner">
+                                            <div class="timeline-icon color-none">
                                             </div>
                                         </div>
                                     </article>
-                                {% endfor %}
-
-                                <article class="timeline-entry begin animate-box" data-animate-effect="fadeInBottom">
-                                    <div class="timeline-entry-inner">
-                                        <div class="timeline-icon color-none">
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        {% endif %}
-
-        {% if user.worksprofile_set.exists %}
-            <section class="colorlib-work" data-section="work">
-                <div class="colorlib-narrow-content">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
-                            <span class="heading-meta">My Work</span>
-                            <h2 class="colorlib-heading animate-box">Recent Work</h2>
-                        </div>
-                    </div>
-                    {#                    <div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">#}
-                    {#                        <div class="col-md-12">#}
-                    {#                            <p class="work-menu"><span><a href="#" class="active">Graphic Design</a></span> <span><a href="#">Web Design</a></span> <span><a href="#">Software</a></span> <span><a href="#">Apps</a></span></p>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                    <div class="row">
-                        {% for work in user.worksprofile_set.all %}
-                            <div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
-                                <div class="project" style="background-image: url({{ work.image|image_or_not }});">
-                                    <div class="desc">
-                                        <div class="con">
-                                            <h3><a target="_blank" href="{{ work.link }}">{{ work.title }}</a></h3>
-                                            <span>{{ work.description }}</span>
-                                            <p class="icon">
-                                                <span><a target="_blank" href="{{ work.link }}"><i class="icon-eye"></i> View</a></span>
-                                            </p>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                        {% endfor %}
-                    </div>
-                    {#                    <div class="row">#}
-                    {#                        <div class="col-md-12 animate-box">#}
-                    {#                            <p><a href="#" class="btn btn-primary btn-lg btn-load-more">Load more <i class="icon-reload"></i></a></p>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                </div>
-            </section>
-
-        {% endif %}
-
-        {% if tenant.blogpost_set.exists %}
-            <section class="colorlib-blog" data-section="blog">
-                <div class="colorlib-narrow-content">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
-                            <span class="heading-meta">Read</span>
-                            <h2 class="colorlib-heading">Recent Blog</h2>
                         </div>
                     </div>
-                    <div class="row">
-                        {% for post in tenant.blogpost_set.all|slice:3 %}
-                            <div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
-                                <div class="blog-entry">
-                                    <a href="{{ post.get_absolute_url }}" class="blog-img"><img src="{{ post.image|image_or_not }}" class="img-responsive" alt="{{ post.title }}"></a>
-                                    <div class="desc">
-                                        <span><small>{{ post.created }} </small> | <small> <i class="icon-bubble3"></i> {{ post.comment_set.count }} comments</small></span>
-                                        <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-                                        <p>{{post.content|striptags|safe|slice:":100"}}...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 animate-box">
-                            <p><a href="{% url 'blogs:blog-post-list' %}" class="btn btn-primary btn-lg btn-load-more">Load more <i class="icon-reload"></i></a></p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        {% endif %}
+                </section>
+            {% endif %}
 
-        <section class="colorlib-contact" data-section="contact">
-            <div class="colorlib-narrow-content">
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
-                        <span class="heading-meta">Get in Touch</span>
-                        <h2 class="colorlib-heading">Contact</h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="colorlib-feature colorlib-feature-sm animate-box" data-animate-effect="fadeInLeft">
-                            <div class="colorlib-icon">
-                                <i class="icon-globe-outline"></i>
-                            </div>
-                            <div class="colorlib-text">
-                                <p><a href="#">{{ user.email }}</a></p>
-                            </div>
-                        </div>
-
-                        <div class="colorlib-feature colorlib-feature-sm animate-box" data-animate-effect="fadeInLeft">
-                            <div class="colorlib-icon">
-                                <i class="icon-map"></i>
-                            </div>
-                            <div class="colorlib-text">
-                                <p>{{ user.profile.city }}</p>
-                            </div>
-                        </div>
-
-                        <div class="colorlib-feature colorlib-feature-sm animate-box" data-animate-effect="fadeInLeft">
-                            <div class="colorlib-icon">
-                                <i class="icon-phone"></i>
-                            </div>
-                            <div class="colorlib-text">
-                                <p><a href="tel://">{{ user.profile.phone }}</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-7 col-md-push-1">
+            {% if user.worksprofile_set.exists %}
+                <section class="colorlib-work" data-section="work">
+                    <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box" data-animate-effect="fadeInRight">
-                                <form action="" method="post" novalidate id="contact-form">
-                                    <div class="alert alert-success d-none" id="contact-success-alert"></div>
-                                    {{ contact_form.client }}
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        {% render_field contact_form.name|add_class:'form-control' placeholder='Name' %}
-                                        <small id="error_{{ contact_form.name.name }}" class="error-text"></small>
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                                <span class="heading-meta">My Work</span>
+                                <h2 class="colorlib-heading animate-box">Recent Work</h2>
+                            </div>
+                        </div>
+                        {#                    <div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">#}
+                        {#                        <div class="col-md-12">#}
+                        {#                            <p class="work-menu"><span><a href="#" class="active">Graphic Design</a></span> <span><a href="#">Web Design</a></span> <span><a href="#">Software</a></span> <span><a href="#">Apps</a></span></p>#}
+                        {#                        </div>#}
+                        {#                    </div>#}
+                        <div class="row">
+                            {% for work in user.worksprofile_set.all %}
+                                <div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
+                                    <div class="project" style="background-image: url({{ work.image|image_or_not }});">
+                                        <div class="desc">
+                                            <div class="con">
+                                                <h3><a target="_blank" href="{{ work.link }}">{{ work.title }}</a></h3>
+                                                <span>{{ work.description }}</span>
+                                                <p class="icon">
+                                                    <span><a target="_blank" href="{{ work.link }}"><i class="icon-eye"></i> View</a></span>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        {% render_field contact_form.email|add_class:'form-control' placeholder='Email' %}
-                                        <small id="error_{{ contact_form.email.name }}" class="error-text"></small>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {#                    <div class="row">#}
+                        {#                        <div class="col-md-12 animate-box">#}
+                        {#                            <p><a href="#" class="btn btn-primary btn-lg btn-load-more">Load more <i class="icon-reload"></i></a></p>#}
+                        {#                        </div>#}
+                        {#                    </div>#}
+                    </div>
+                </section>
+
+            {% endif %}
+
+            {% if tenant.blogpost_set.exists %}
+                <section class="colorlib-blog" data-section="blog">
+                    <div class="colorlib-narrow-content">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                                <span class="heading-meta">Read</span>
+                                <h2 class="colorlib-heading">Recent Blog</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% for post in tenant.blogpost_set.all|slice:3 %}
+                                <div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
+                                    <div class="blog-entry">
+                                        <a href="{{ post.get_absolute_url }}" class="blog-img"><img src="{{ post.image|image_or_not }}" class="img-responsive" alt="{{ post.title }}"></a>
+                                        <div class="desc">
+                                            <span><small>{{ post.created }} </small> | <small> <i class="icon-bubble3"></i> {{ post.comment_set.count }} comments</small></span>
+                                            <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+                                            <p>{{post.content|striptags|safe|slice:":100"}}...</p>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        {% render_field contact_form.subject|add_class:'form-control' placeholder='Subject' %}
-                                        <small id="error_{{ contact_form.subject.name }}" class="error-text"></small>
-                                    </div>
-                                    <div class="form-group">
-                                        {% render_field contact_form.message|add_class:'form-control' placeholder='Message' %}
-                                        <small id="error_{{ contact_form.message.name }}" class="error-text"></small>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="submit" class="btn btn-primary btn-send-message" id="contact_submit_btn" name="contact_form_submit" value="Send Message">
-                                    </div>
-                                </form>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 animate-box">
+                                <p><a href="{% url 'blogs:blog-post-list' %}" class="btn btn-primary btn-lg btn-load-more">Load more <i class="icon-reload"></i></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+            <section class="colorlib-contact" data-section="contact">
+                <div class="colorlib-narrow-content">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                            <span class="heading-meta">Get in Touch</span>
+                            <h2 class="colorlib-heading">Contact</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="colorlib-feature colorlib-feature-sm animate-box" data-animate-effect="fadeInLeft">
+                                <div class="colorlib-icon">
+                                    <i class="icon-globe-outline"></i>
+                                </div>
+                                <div class="colorlib-text">
+                                    <p><a href="#">{{ user.email }}</a></p>
+                                </div>
+                            </div>
+
+                            <div class="colorlib-feature colorlib-feature-sm animate-box" data-animate-effect="fadeInLeft">
+                                <div class="colorlib-icon">
+                                    <i class="icon-map"></i>
+                                </div>
+                                <div class="colorlib-text">
+                                    <p>{{ user.profile.city }}</p>
+                                </div>
+                            </div>
+
+                            <div class="colorlib-feature colorlib-feature-sm animate-box" data-animate-effect="fadeInLeft">
+                                <div class="colorlib-icon">
+                                    <i class="icon-phone"></i>
+                                </div>
+                                <div class="colorlib-text">
+                                    <p><a href="tel://{{ user.profile.phone }}">{{ user.profile.phone }}</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-md-push-1">
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box" data-animate-effect="fadeInRight">
+                                    <form action="" method="post" novalidate id="contact-form">
+                                        <div class="alert alert-success d-none" id="contact-success-alert"></div>
+                                        {{ contact_form.client }}
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            {% render_field contact_form.name|add_class:'form-control' placeholder='Name' %}
+                                            <small id="error_{{ contact_form.name.name }}" class="error-text"></small>
+                                        </div>
+                                        <div class="form-group">
+                                            {% render_field contact_form.email|add_class:'form-control' placeholder='Email' %}
+                                            <small id="error_{{ contact_form.email.name }}" class="error-text"></small>
+                                        </div>
+                                        <div class="form-group">
+                                            {% render_field contact_form.subject|add_class:'form-control' placeholder='Subject' %}
+                                            <small id="error_{{ contact_form.subject.name }}" class="error-text"></small>
+                                        </div>
+                                        <div class="form-group">
+                                            {% render_field contact_form.message|add_class:'form-control' placeholder='Message' %}
+                                            <small id="error_{{ contact_form.message.name }}" class="error-text"></small>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-primary btn-send-message" id="contact_submit_btn" name="contact_form_submit" value="Send Message">
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
         </div><!-- end:colorlib-main -->
     </div><!-- end:container-wrap -->
@@ -561,53 +543,9 @@
 
 <!-- MAIN JS -->
 <script src="{% static 'stock/jackson-colorlib/js/main.js' %}"></script>
-<script>
-    document.querySelector('#contact-form').addEventListener('submit', function (e) {
-        e.preventDefault()
-        let alert_el = document.querySelector('#contact-success-alert')
-        alert_el.classList.add('d-none')
-        let data = new FormData(document.querySelector('#contact-form'))
-        data.append('is_ajax', 'true')
 
-        let err_els = document.querySelectorAll('small[id^=error_]')
-        for (let el of err_els) {
-            el.innerHTML = ''
-        }
+{% include 'stock/contact-form-script.html' %}
 
-        let submit_btn = document.querySelector('#contact_submit_btn')
-        let originalText = submit_btn.innerHTML
-        submit_btn.innerHTML = 'Submitting...'
-        submit_btn.disabled = true
-
-        $.ajax({
-            url: '{{ request.get_full_path }}',
-            data: data,
-            method: 'post',
-            contentType: false,
-            processData: false,
-            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            success: function (data) {
-                submit_btn.innerHTML = originalText
-                submit_btn.disabled = false
-                document.querySelector('#contact-form').reset()
-                if (alert_el.classList.contains('d-none')) {
-                    alert_el.classList.remove('d-none')
-                }
-                alert_el.innerHTML = 'Thanks. Your message has been received, I\'ll get back to you shortly.'
-            },
-            error: function (data) {
-                submit_btn.innerHTML = originalText
-                submit_btn.disabled = false
-                data = JSON.parse(data.responseText)
-                for (let key in data) {
-                    if (data.hasOwnProperty(key)) {
-                        document.querySelector('#error_' + key).innerHTML = data[key][0]
-                    }
-                }
-            }
-        })
-    })
-</script>
 </body>
 </html>
 

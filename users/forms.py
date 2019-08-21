@@ -1,5 +1,3 @@
-from copy import copy, deepcopy
-
 from allauth.account.forms import SignupForm
 from django import forms
 
@@ -56,6 +54,11 @@ class SettingsForm(forms.ModelForm):
             'seo_description': forms.Textarea(attrs={'rows': 3}),
             'seo_keywords': forms.Textarea(attrs={'rows': 3}),
         }
+        labels = {
+            'seo_title': 'SEO Title',
+            'seo_description': 'SEO Description',
+            'seo_keywords': 'SEO Keywords'
+        }
 
 
 class ResumeForm(forms.ModelForm):
@@ -70,6 +73,9 @@ class ResumeForm(forms.ModelForm):
         widgets = {
             'date_of_birth': forms.TextInput(attrs={'class': 'wresume-datepicker'}),
             'bio': forms.Textarea(attrs={'rows': 4})
+        }
+        labels = {
+            'bio': 'Bio/Summary'
         }
 
 
@@ -103,6 +109,9 @@ class EducationForm(forms.ModelForm):
             'user': forms.HiddenInput,
             'description': forms.Textarea(attrs={'rows': '3'})
         }
+        labels = {
+            'place': 'Institution'
+        }
 
 
 class CareerForm(forms.ModelForm):
@@ -124,6 +133,17 @@ class CareerForm(forms.ModelForm):
             'user': forms.HiddenInput,
             'description': forms.Textarea(attrs={'rows': '3'})
         }
+        labels = {
+            'place': 'Company/Organization',
+            'to_year': 'To year',
+            'to_month': 'To month'
+        }
+        help_texts = {
+            'designation': 'Your position in the company',
+            'description': 'Your job description and roles in the company',
+            'to_year': 'Leave blank for present',
+            'to_month': 'Leave blank for present'
+        }
 
 
 class SkillForm(forms.ModelForm):
@@ -139,6 +159,14 @@ class SkillForm(forms.ModelForm):
             'user': forms.HiddenInput,
             'description': forms.Textarea(attrs={'rows': '3'})
         }
+        labels = {
+            'title': 'Skill Name'
+        }
+        help_texts = {
+            'title': 'e.g. Sewing, Coding, Python, Excel etc',
+            'skill_level': 'Rate this skill from 0-100',
+            'description': 'You can include certifications and degrees associated with this skills'
+        }
 
 
 class WorksForm(forms.ModelForm):
@@ -148,11 +176,20 @@ class WorksForm(forms.ModelForm):
             'user',
             'title',
             'description',
+            'link',
             'image'
         )
         widgets = {
             'user': forms.HiddenInput,
             'description': forms.Textarea(attrs={'rows': '3'})
+        }
+        labels = {
+            'title': 'Work/Project Name'
+        }
+        help_texts = {
+            'link': 'A URL to showcase the work (if applicable)',
+            'image': 'An image we can display on the site for the works section',
+            'description': 'Tell us what this work entailed and the kind of project'
         }
 
 
@@ -194,5 +231,6 @@ class ContactDataForm(forms.ModelForm):
             'client'
         )
         widgets = {
-            'client': forms.HiddenInput
+            'client': forms.HiddenInput,
+            'message': forms.Textarea(attrs={'rows': 3})
         }

@@ -1,10 +1,11 @@
 @charset "UTF-8";
 /* Base */
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 body {
   line-height: 1.7;
   color: gray;
   font-weight: 300;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 ::-moz-selection {
@@ -721,6 +722,10 @@ h1, h2, h3, h4, h5,
 }
 
 /* Blocks */
+body {
+  font-family: "Lato", sans-serif;
+}
+
 .intro-section {
   position: relative;
 }
@@ -742,11 +747,10 @@ h1, h2, h3, h4, h5,
   font-size: 2.5rem;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.4rem;
 }
 .intro-section p {
   color: rgba(255, 255, 255, 0.5);
-  font-size: 1.1rem;
 }
 
 .img-absolute {
@@ -796,7 +800,7 @@ h1, h2, h3, h4, h5,
 }
 
 .form-box {
-  padding: 40px;
+  padding: 24px 10px 10px;
   background: #fff;
   border-radius: 7px;
 }
@@ -1328,6 +1332,27 @@ label.form-label {
   #regHome {
     display: none;
   }
+}
+
+.form-title {
+  text-transform: uppercase;
+  font-size: 15px;
+  color: grey !important;
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+
+input.form-control {
+  height: 40px !important;
+  font-family: "Lato", sans-serif;
+}
+
+textarea {
+  font-family: "Lato", sans-serif;
+}
+
+label {
+  font-size: 15px;
 }
 
 /*# sourceMappingURL=style.css.map */

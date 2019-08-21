@@ -9,13 +9,17 @@
     <div class="mt-4">
         {% for object in object_list %}
             {% with object.id as item_id %}
-                <div class="accordion" id="accordion_{{ item_id }}">
+                <div class="accordion mb-2" id="accordion_{{ item_id }}">
                     <div class="card">
                         <div class="card-header" id="heading_{{ item_id }}">
                             <h2 class="mb-0">
                                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_{{ item_id }}" aria-expanded="false" aria-controls="collapse_{{ item_id }}">
                                     {{ object }}
                                 </button>
+                                <span class="float-right">
+                                    <a href="" class="icon icon-pencil text-info" style="font-size: 20px;"></a> |
+                                    <a href="" class="icon icon-trash text-danger" style="font-size: 20px;"></a>
+                                </span>
                             </h2>
                         </div>
                         <div id="collapse_{{ item_id }}" class="collapse" aria-labelledby="heading_{{ item_id }}" data-parent="#accordion_{{ item_id }}">
@@ -25,7 +29,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="text-right mb-3">
-                                            <a href="{{ object.edit_url }}" class="text-primary">{% trans 'Edit' %}</a>
+                                            <a href="{{ object.edit_url }}" class="text-primary">{% trans 'Edit' %}</a> |
                                             <a href="{{ object.delete_url }}" class="text-danger">{% trans 'Delete' %}</a>
                                         </div>
                                     </div>
@@ -43,6 +47,11 @@
                     </div>
                 </div>
             {% endwith %}
+
+        {% empty %}
+            <div class="alert alert-info">
+                <strong>List Empty</strong>: No Entry Yet
+            </div>
         {% endfor %}
     </div>
     {% trans 'Submit' as submit_text %}

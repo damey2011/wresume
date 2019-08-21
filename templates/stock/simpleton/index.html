@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+{% load static general_tags widget_tweaks %}
+{% tenant as tenant %}
+{% t_user tenant as user %}
+<head>
+    <title>{{ user.get_full_name }} - Resume</title>
+
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="description" content="The Curriculum Vitae of Joe Bloggs."/>
+    <meta charset="UTF-8">
+
+    <link type="text/css" rel="stylesheet" href="{% static 'stock/simpleton/css/style.css' %}">
+    <link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
+
+    {% include 'stock/common-header.html' %}
+
+    <!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body id="top">
+<div id="cv" class="instaFade">
+    <div class="mainDetails">
+        <div id="headshot" class="quickFade">
+            <img src="{{ user.photo|image_or_not }}" alt="{{ user.get_full_name }}" />
+        </div>
+
+        <div id="name">
+            <h1 class="quickFade delayTwo">{{ user.get_full_name }}</h1>
+            <h2 class="quickFade delayThree">Job Title</h2>
+        </div>
+
+        <div id="contactDetails" class="quickFade delayFour">
+            <ul>
+                <li>e: <a href="mailto:{{ user.email }}" target="_blank">{{ user.email }}</a></li>
+                {#                <li>w: <a href="http://www.bloggs.com">www.bloggs.com</a></li>#}
+                <li>b: <a href="{% url 'blogs:blog-post-list' %}">Blogs</a></li>
+                <li>m: {{ user.profile.phone }}</li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div id="mainArea" class="quickFade delayFive">
+        <section>
+            <article>
+                <div class="sectionTitle">
+                    <h1>Personal Profile</h1>
+                </div>
+
+                <div class="sectionContent">
+                    <p>{{ user.profile.bio|default:'Your Bio in profile will go in here' }}</p>
+                </div>
+            </article>
+            <div class="clear"></div>
+        </section>
+
+
+        <section>
+            <div class="sectionTitle">
+                <h1>Work Experience</h1>
+            </div>
+
+            <div class="sectionContent">
+                {% for work in user.careerprofile_set.all %}
+                    <article>
+                        <h2>{{ work.designation }}</h2>
+                        <p>{{ work.place }}, {{ work.city }}, {{ work.country }}</p>
+                        <p class="subDetails">
+                            {{ work.from_year }} - {{ work.to_year|default_if_none:'Present' }}
+                        </p>
+                        <p>{{ work.description }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+            <div class="clear"></div>
+        </section>
+
+
+        <section>
+            <div class="sectionTitle">
+                <h1>Key Skills</h1>
+            </div>
+
+            <div class="sectionContent">
+                <ul class="keySkills">
+                    {% for skill in user.skillprofile_set.all %}
+                        <li>{{ skill.title }} ({{ skill.skill_level }}%)</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </section>
+
+
+        <section>
+            <div class="sectionTitle">
+                <h1>Education</h1>
+            </div>
+
+            <div class="sectionContent">
+                {% for education in user.educationprofile_set.all %}
+                    <article>
+                        <h2>{{ education.place }}, {{ education.city }}, {{ education.country }}</h2>
+                        <p class="subDetails">{{ education.degree }}</p>
+                        <p>{{ education.description }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+            <div class="clear"></div>
+        </section>
+
+    </div>
+</div>
+</body>
+</html>

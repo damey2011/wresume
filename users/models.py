@@ -66,7 +66,7 @@ class SiteSettings(models.Model):
     data = JSONField(default=dict)
 
     def __str__(self):
-        return self.favicon
+        return self.client.domain_url
 
 
 class SocialProfile(SoftDeletableModel):
@@ -111,13 +111,13 @@ MONTHS = (
 
 
 class EducationProfile(SoftDeletableModel):
-    place = models.CharField(max_length=100, null=True, blank=True)
-    city = models.CharField(max_length=100, null=True, blank=True)
-    country = models.CharField(max_length=100, null=True, blank=True)
-    degree = models.CharField(max_length=100, null=True, blank=True)
+    place = models.CharField(max_length=100, default='')
+    city = models.CharField(max_length=100, default='')
+    country = models.CharField(max_length=100, default='')
+    degree = models.CharField(max_length=100, default='')
     description = models.TextField(blank=True, null=True)
     from_month = models.CharField(max_length=10, choices=MONTHS, blank=True, null=True)
-    from_year = models.CharField(max_length=4, blank=True, null=True)
+    from_year = models.CharField(max_length=4, default='2019')
     to_month = models.CharField(max_length=10, choices=MONTHS, blank=True, null=True)
     to_year = models.CharField(max_length=4, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -135,13 +135,13 @@ class EducationProfile(SoftDeletableModel):
 
 
 class CareerProfile(SoftDeletableModel):
-    designation = models.CharField(max_length=100, null=True, blank=True)
-    place = models.CharField(max_length=100, null=True, blank=True)
-    city = models.CharField(max_length=100, null=True, blank=True)
-    country = models.CharField(max_length=100, null=True, blank=True)
+    designation = models.CharField(max_length=100, default='')
+    place = models.CharField(max_length=100, default='')
+    city = models.CharField(max_length=100, default='')
+    country = models.CharField(max_length=100, default='')
     description = models.TextField(blank=True, null=True)
-    from_month = models.CharField(max_length=10, choices=MONTHS, blank=True, null=True)
-    from_year = models.CharField(max_length=4, blank=True, null=True)
+    from_month = models.CharField(max_length=10, choices=MONTHS, null=True, blank=True)
+    from_year = models.CharField(max_length=4, default='2019')
     to_month = models.CharField(max_length=10, choices=MONTHS, blank=True, null=True)
     to_year = models.CharField(max_length=4, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -160,6 +160,7 @@ class CareerProfile(SoftDeletableModel):
 
 class ExtraCurricularProfile(SoftDeletableModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, default='')
     description = models.TextField(null=True, blank=True)
 
 
@@ -169,7 +170,7 @@ def title_text_image_user_aware_upload_to(instance, filename):
 
 class TitleTextImageModel(SoftDeletableModel, TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200, null=True, blank=True)
+    title = models.CharField(max_length=200, default='')
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True, upload_to=title_text_image_user_aware_upload_to)
 
@@ -185,6 +186,9 @@ class BannerMedia(SoftDeletableModel, TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     media = models.FileField(upload_to=banner_media_user_aware_upload_to, validators=[FileExtensionValidator(
         allowed_extensions=['mp4', 'mov', '3gp', 'png', 'jpg', 'gif'])])
+
+    def __str__(self):
+        return self.user.get_full_name()
 
 
 class WorksProfile(TitleTextImageModel):
@@ -216,7 +220,7 @@ class OfferProfile(TitleTextImageModel):
 
 
 class SkillProfile(SoftDeletableModel, TimeStampedModel):
-    title = models.CharField(max_length=100, null=True, blank=True)
+    title = models.CharField(max_length=100, default='')
     skill_level = models.IntegerField(default=100, validators=[MinValueValidator(0), MaxValueValidator(100)])
     description = models.TextField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

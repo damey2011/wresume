@@ -16,7 +16,25 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/aos.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.0.0">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Wresu.me" />
+    <meta name="description" content="A web resume and portfolio builder for everyone" />
+    <meta name="keywords" content="online resume, free portfolio, free resume" />
+    <meta name="author" content="Wresu.me" />
+
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="Wresu.me"/>
+    <meta property="og:image" content="{% static 'images/new-images/logo.png' %}"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="og:site_name" content="Wresu.me"/>
+    <meta property="og:description" content="A web resume and portfolio builder for everyone"/>
+    <meta name="twitter:title" content="Wresu.me" />
+    <meta name="twitter:image" content="{% static 'images/new-images/logo.png' %}" />
+    <meta name="twitter:url" content="{{ request.build_absolute_uri }}" />
+    <meta name="twitter:card" content="" />
+
 
     <link rel="shortcut icon" href="{% static 'images/new-images/logo.png' %}">
     <style>
@@ -41,12 +59,12 @@
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
-<script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+{#<script src="{% static 'js/jquery.countdown.min.js' %}"></script>#}
 <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
 <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
 <script src="{% static 'js/aos.js' %}"></script>
-<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
-<script src="{% static 'js/jquery.sticky.js' %}"></script>
+{#<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>#}
+{#<script src="{% static 'js/jquery.sticky.js' %}"></script>#}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     document.querySelector('#site').addEventListener('change', function(e){
@@ -62,6 +80,9 @@
             'Content-Type': 'application/json'
         },
     });
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 </script>
 {% block extra_js %}
 

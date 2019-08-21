@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+body {
+	font-family: 'Lato', sans-serif;
+}
+
 .intro-section {
 	position: relative;
 	&, .container > .row {
@@ -28,11 +34,11 @@
 		font-size: 2.5rem;
 		font-weight: 700;
 		color: $white;
-		margin-bottom: 1.5rem;
+		margin-bottom: 1.4rem;
 	}
 	p {
 		color: rgba(255,255,255,.5);
-		font-size: 1.1rem;
+		//font-size: 1.1rem;
 		// max-width: 400px;
 	}
 
@@ -83,7 +89,7 @@
 }
 
 .form-box {
-	padding: 40px;
+	padding: 24px 10px 10px;
 	background: $white;
 	border-radius: 7px;
 }
@@ -655,3 +661,27 @@ label.form-label {
 		display: none;
 	}
 }
+
+.form-title {
+	text-transform: uppercase;
+	font-size: 15px;
+	color: grey !important;
+	letter-spacing: 1px;
+	line-height: 1.4;
+}
+
+input {
+	&.form-control {
+		height: 40px !important;
+		font-family: 'Lato', sans-serif;
+	}
+}
+
+textarea {
+	font-family: 'Lato', sans-serif;
+}
+
+label {
+	font-size: 15px;
+}
+
