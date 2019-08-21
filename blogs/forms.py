@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from blogs.models import BlogPost, BlogCategory
+from blogs.models import BlogPost, BlogCategory, Comment
 
 
 class BlogPostForm(forms.ModelForm):
@@ -37,4 +37,20 @@ class BlogCategoryForm(forms.ModelForm):
         )
         widgets = {
             'site': forms.HiddenInput
+        }
+
+
+class BlogCommentForm(forms.ModelForm):
+    email = forms.EmailField(required=True, widget=forms.EmailInput)
+
+    class Meta:
+        model = Comment
+        fields = (
+            'name',
+            'email',
+            'post',
+            'content'
+        )
+        widgets = {
+            'post': forms.HiddenInput,
         }

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static general_tags widget_tweaks %}
+<head>
+    <meta charset="UTF-8">
+    {% tenant as tenant %}
+    {% t_user tenant as user %}
+    <title>{% block title %}{{ post.title }} - Wresu.me{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Tangerine:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body {
+            line-height: 200%;
+            letter-spacing: 1px;
+            font-family: 'Lato', "Helvetica Neue", Helvetica, sans-serif;
+        }
+
+        .header {
+            padding-top: 20px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .date {
+            font-family: Georgia, Times, "Times New Roman", serif;
+        }
+
+        .mugshot {
+            width: 50px;
+            height: 50px;
+        }
+
+        .img-gallery {
+            padding-top: 30px;
+        }
+
+        .gallery {
+            align-content: center;
+        }
+
+        .gallery:before {
+            margin-top: -30px;
+        }
+
+        .gallery:after {
+            margin-bottom: 30px;
+        }
+
+        .name {
+            padding-top: 10px;
+        }
+
+        .dash {
+            display: inline-block;
+            width: 50px;
+            border-top: 2px solid #bb0a1a;
+        }
+
+        .likes {
+            display: block;
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+
+        .fa-heart {
+            color: #bb0a1a;
+        }
+
+        .img-hero {
+            max-width: 100%;
+        }
+
+        .quote {
+            font-family: 'Tangerine', "Brush Script MT", cursive;
+            font-size: 35px;
+            font-weight: bold;
+            line-height: 150%;
+            border: none;
+            padding: 5% 10%;
+            text-align: center;
+        }
+
+        .content {
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            min-width: 100%;
+            resize: none;
+        }
+
+        #submit {
+            padding: 0;
+            margin: 0;
+            border: none;
+            background-color: #fff;
+            color: #337ab7;
+        }
+
+        .footer {
+            margin-top: 20px;
+        }
+
+        .footer p {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        .margin-top-xs {
+            margin-top: 24px;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="{{ post.title }}" />
+    <meta name="description" content="{{ post.seo_desc }}" />
+    <meta name="keywords" content="{{ post.seo_keywords }}" />
+    <meta name="author" content="{{ user.get_full_name }}" />
+
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="{{ post.title }}"/>
+    <meta property="og:image" content="{{ post.image|image_or_not }}"/>
+    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="og:site_name" content="Wresu.me"/>
+    <meta property="og:description" content="{{ tenant.sitesettings.seo_description }}"/>
+    <meta name="twitter:title" content="{{ user.get_full_name }}" />
+    <meta name="twitter:image" content="{% if tenant.sitesettings.logo %}{{ tenant.sitesettings.logo.url }}{% endif %}" />
+    <meta name="twitter:url" content="{{ request.build_absolute_uri }}" />
+    <meta name="twitter:card" content="" />
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="{% if tenant.sitesettings.favicon %}{{ tenant.sitesettings.favicon.url }}{% endif %}">
+
+
+    {% block extra_css %}
+        {{ comment_form.media }}
+    {% endblock extra_css %}
+</head>
+<body>
+<div class="container-fluid">
+
+    {% block body %}
+        <!-- HEADER -->
+        <div class="row">
+            <div class="header text-center">
+                <div class="col-sm-4 col-xs-12">
+                    {% current_domain_site as site %}
+                    <p><a href="{{ site }}">Home</a></p>
+                </div>
+                <div class="col-sm-4 col-sm-12">
+                    <img src="{{ post.author.photo|image_or_not }}" class="mugshot" alt="{{ post.author.get_full_name }}">
+                    <p class="name">{{ post.author.get_full_name }}</p>
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                    {#                <p class="search"><i class="fa fa-search"></i><a href="#"> SEARCH</a></p>#}
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOG TITLE -->
+        <div class="row">
+            <div class="title text-center">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <h1>{{ post.title }}</h1>
+                    <small class="date">{{ post.created }}</small>
+                </div>
+                <div class="col-xs-2 col-xs-offset-5">
+                    <span class="dash"></span>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <!-- BLOG POST -->
+        <div class="row">
+            <div class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3 text-justify">
+                <p class="content">
+                    {{ post.content|safe }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="row">
+            <div class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3 text-center">
+                <span class="dash"></span>
+                <span class="likes"><i class="fa fa-heart"></i> We love comments</span>
+                <form action="" method="post" id="comment-form">
+                    {% csrf_token %}
+                    {{ comment_form.post }}
+
+                    <div class="margin-top-xs">
+                        {% render_field comment_form.name|add_class:'form-control margin-top-xs' placeholder='Your Name' %}
+                        <small id="error_{{ contact_form.name.name }}" class="error-text"></small>
+                    </div>
+
+                    <div class="margin-top-xs">
+                        {% render_field comment_form.email|add_class:'form-control' placeholder='Your Email' %}
+                        <small id="error_{{ contact_form.email.name }}" class="error-text"></small>
+                    </div>
+
+                    <div class="margin-top-xs text-left">
+                        {{ comment_form.content }}
+                        <small id="error_{{ contact_form.content.name }}" class="error-text"></small>
+                    </div>
+                </form>
+                <div style="margin-top: 16px;">
+                    <p class="pull-left">
+                        <a href="#">Share</a>
+                    </p>
+                    <p class="pull-right">
+                        <button type="submit" name="submit" class="btn btn-primary" id="submit-btn">Post Comment</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row">
+            <div class="footer">
+                <div class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3 text-center">
+                    <div class="col-xs-12 col-sm-6">
+                        {% if post.previous_post %}
+                            <p><a href="{{ post.previous_post.get_absolute_url }}"><i class="fa fa-arrow-left"></i> PREVIOUS ARTICLE</a></p>
+                            <small>{{ post.previous_post.title }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        {% if post.next_post %}
+                            <p><a href="{{ post.next_post.get_absolute_url }}">NEXT ARTICLE <i class="fa fa-arrow-right"></i></a></p>
+                            <small>{{ post.next_post.title }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="padding: 24px;">
+            <div class="row">
+                <div class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3 text-center">
+                    <span class="dash"></span>
+                    <span class="likes"><i class="fa fa-heart"></i> Comments</span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3">
+                    <div>
+                        <dl>
+                            {% for comment in post.comment_set.all %}
+                                <dd>
+                                    <strong>{{ comment.name }}</strong>
+                                    <br>
+                                    <span class="dash"></span>
+                                </dd>
+                                <dt>{{ comment.content|safe }}</dt>
+                                <br>
+                            {% endfor %}
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {% endblock body %}
+
+</div>
+<script src="{% static 'stock/jackson-colorlib/js/jquery.min.js' %}"></script>
+<script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1200,
+    })
+</script>
+<script>
+    document.querySelector('#comment-form').addEventListener('submit', function (e) {
+        e.preventDefault()
+        let data = new FormData(document.querySelector('#comment-form'))
+        data.append('is_ajax', 'true')
+
+        let err_els = document.querySelectorAll('small[id^=error_]')
+        for (let el of err_els) {
+            el.innerHTML = ''
+        }
+
+        let submit_btn = document.querySelector('#submit-btn')
+        let originalText = submit_btn.innerHTML
+        submit_btn.innerHTML = 'Submitting...'
+        submit_btn.disabled = true
+
+        $.ajax({
+            url: '{{ request.get_full_path }}',
+            data: data,
+            method: 'post',
+            contentType: false,
+            processData: false,
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            success: function (data) {
+                window.location.reload()
+            },
+            error: function (data) {
+                submit_btn.innerHTML = originalText
+                submit_btn.disabled = false
+                data = JSON.parse(data.responseText)
+                for (let key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        document.querySelector('#error_' + key).innerHTML = data[key][0]
+                    }
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

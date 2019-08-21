@@ -1,3 +1,9 @@
+{% load widget_tweaks %}
+<style>
+    .error-text {
+        color: red;
+    }
+</style>
 <div class="site-section bg-light" id="contact-section">
     <div class="container">
 
@@ -9,37 +15,31 @@
                 <h2 class="section-title mb-3">Message Us</h2>
                 <p class="mb-5">You can reach us through the contact form or at <a href="mailto:heyo@wresu.me">heyo@wresu.me</a>.</p>
 
-                <form method="post" data-aos="fade">
-                    <div class="form-group row">
-                        <div class="col-md-6 mb-3 mb-lg-0">
-                            <input type="text" class="form-control" placeholder="First name">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="Last name">
-                        </div>
-                    </div>
+                <form action="" method="post" novalidate id="contact-form" data-aos="fade">
+                    <div class="alert alert-success d-none" id="contact-success-alert"></div>
 
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <input type="text" class="form-control" placeholder="Subject">
-                        </div>
+                    {{ contact_form.client }}
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {% render_field contact_form.name|add_class:'form-control' placeholder='Name' %}
+                        <small id="error_{{ contact_form.name.name }}" class="error-text"></small>
                     </div>
-
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <input type="email" class="form-control" placeholder="Email">
-                        </div>
+                    <div class="form-group">
+                        {% render_field contact_form.email|add_class:'form-control' placeholder='Email' %}
+                        <small id="error_{{ contact_form.email.name }}" class="error-text"></small>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <textarea class="form-control" id="" cols="30" rows="10" placeholder="Write your message here."></textarea>
-                        </div>
+                    <div class="form-group">
+                        {% render_field contact_form.subject|add_class:'form-control' placeholder='Subject' %}
+                        <small id="error_{{ contact_form.subject.name }}" class="error-text"></small>
+                    </div>
+                    <div class="form-group">
+                        {% render_field contact_form.message|add_class:'form-control' placeholder='Message' %}
+                        <small id="error_{{ contact_form.message.name }}" class="error-text"></small>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-6">
-
-                            <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Send Message">
+                            <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" id="contact_submit_btn" name="contact_form_submit" value="Send Message">
                         </div>
                     </div>
 
@@ -48,3 +48,51 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelector('#contact-form').addEventListener('submit', function (e) {
+        e.preventDefault()
+        let alert_el = document.querySelector('#contact-success-alert')
+        alert_el.classList.add('d-none')
+        let data = new FormData(document.querySelector('#contact-form'))
+        data.append('is_ajax', 'true')
+
+        let err_els = document.querySelectorAll('small[id^=error_]')
+        for (let el of err_els) {
+            el.innerHTML = ''
+        }
+
+        let submit_btn = document.querySelector('#contact_submit_btn')
+        let originalText = submit_btn.innerHTML
+        submit_btn.innerHTML = 'Submitting...'
+        submit_btn.disabled = true
+
+        $.ajax({
+            url: '{{ request.get_full_path }}',
+            data: data,
+            method: 'post',
+            contentType: false,
+            processData: false,
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            success: function (data) {
+                submit_btn.innerHTML = originalText
+                submit_btn.disabled = false
+                document.querySelector('#contact-form').reset()
+                if (alert_el.classList.contains('d-none')) {
+                    alert_el.classList.remove('d-none')
+                }
+                alert_el.innerHTML = 'Thanks. Your message has been received, We\'ll get back to you shortly.'
+            },
+            error: function (data) {
+                submit_btn.innerHTML = originalText
+                submit_btn.disabled = false
+                data = JSON.parse(data.responseText)
+                for (let key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        document.querySelector('#error_' + key).innerHTML = data[key][0]
+                    }
+                }
+            }
+        })
+    })
+</script>

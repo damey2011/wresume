@@ -1324,4 +1324,10 @@ label.form-label {
   font-weight: 600;
 }
 
+@media (max-width: 991.98px) {
+  #regHome {
+    display: none;
+  }
+}
+
 /*# sourceMappingURL=style.css.map */

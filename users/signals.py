@@ -1,5 +1,6 @@
 from django.db.models.signals import post_save, post_delete
 
+from resumes.models import SiteTemplate, Template
 from users.models import User, Profile, SiteSettings, Client, SocialProfile
 from wresume.utils import create_tenant
 from PIL import Image as Img, ImageOps
@@ -49,6 +50,9 @@ def resize_uploaded_image(sender, instance, **kwargs):
 def create_client_settings(sender, instance, created, **kwargs):
     if created:
         SiteSettings.objects.create(client=instance)
+        templates = Template.objects.filter(name='Wresume Default')
+        if templates.exists():
+            SiteTemplate.objects.create(template=templates.first(), site=instance)
         # call_command('migrate_schemas', executor='parallel')
 
 

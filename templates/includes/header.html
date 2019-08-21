@@ -13,7 +13,11 @@
 
     <div class="container-fluid">
         <div class="d-flex align-items-center">
-            <div class="site-logo mr-auto w-25"><a href="index.html">Wresu.me</a></div>
+            <div class="site-logo mr-auto w-25">
+                <div>
+                    {% include 'includes/logo.html' with white_bg=True %}
+                </div>
+            </div>
 
             <div class="mx-auto text-center">
                 <nav class="site-navigation position-relative text-right" role="navigation">
@@ -23,7 +27,7 @@
                             <li><a class="{% if nav_section == 'blog' %}active{% endif %}" href="{% url 'blogs_public:list' %}" class="nav-link">{% trans 'Blog Manager' %}</a></li>
                             <li><a class="{% if nav_section == 'page' %}active{% endif %}" href="{% url 'resume:list' %}" class="nav-link">{% trans 'Page Manager' %}</a></li>
                         {% else %}
-                            <li><a href="#courses-section" class="nav-link">{% trans 'About Us' %}</a></li>
+                            <li><a href="#programs-section" class="nav-link">{% trans 'How it works' %}</a></li>
                             <li><a href="{% url 'account_signup' %}" class="nav-link">{% trans 'Start' %}</a></li>
                         {% endif %}
                     </ul>

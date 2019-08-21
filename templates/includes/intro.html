@@ -1,19 +1,22 @@
 {% load static widget_tweaks %}
 <div class="intro-section full" id="home-section">
 
-    <div class="slide-1" style="background-image: url('{% static 'images/hero_1.jpg' %}');" data-stellar-background-ratio="0.5">
+    <div class="slide-1" style="background-image: url('{% static 'images/new-images/homebanner.jpg' %}');" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-12">
                     <div class="row align-items-center">
                         <div class="col-lg-6 mb-4">
-                            <h1  data-aos="fade-up" data-aos-delay="100">Wresu.me</h1>
-                            <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">A resume and document management service aimed at everyone in the workforce especially school leavers.</p>
-                            <p data-aos="fade-up" data-aos-delay="300"><a href="#" class="btn btn-primary py-3 px-5 btn-pill">Create Resume</a></p>
+                            <h1  data-aos="fade-up" data-aos-delay="100">Wresu.me <small style="font-size: 13px;">beta</small></h1>
+                            <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">
+                                Online resume/portfolio for everyone.
+                                <small style="font-size: 12px;">Please do not freak out if you encounter an error, as the application is still work in progress, rather endeavor to let us know through the contact form at the end of the page.</small>
+                            </p>
+                            <p data-aos="fade-up" data-aos-delay="300"><a href="{% url 'account_signup' %}" class="btn btn-primary py-3 px-5 btn-pill">Start</a></p>
                         </div>
 
                         <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
-                            <form action="{% url 'account_signup' %}" method="post" class="form-box">
+                            <form action="{% url 'account_signup' %}" method="post" class="form-box" id="regHome">
                                 {% csrf_token %}
                                 <h3 class="h4 text-black mb-4">Sign Up To Create Your Resume</h3>
                                 {% for hidden in sign_up_form.hidden_fields %}

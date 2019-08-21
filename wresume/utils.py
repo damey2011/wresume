@@ -2,16 +2,12 @@ import os
 from urllib.parse import urljoin
 
 from django import forms
-from django.contrib import messages
 from django.contrib.sites.models import Site
-from django.core.files import File
 from django.core.files.storage import FileSystemStorage
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import connection
 from django.utils.encoding import filepath_to_uri
 from django.utils.safestring import mark_safe
-from django.views import View
-from django.views.generic import FormView
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from tenant_schemas.storage import TenantStorageMixin
@@ -127,3 +123,11 @@ class MyFileStorage(TenantStorageMixin, FileSystemStorage):
         if url is not None:
             url = url.lstrip('/')
         return urljoin(self.base_url, url)
+
+
+def get_tenant_url(tenant):
+    domain = Site.objects.get_current().domain
+    subdomain = tenant.schema_name + '.' if tenant.schema_name != settings.PUBLIC_SCHEMA_NAME else ''
+    if 'localhost' in domain:
+        return 'http://' + subdomain + domain
+    return 'https://' + subdomain + domain

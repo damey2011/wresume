@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Tangerine:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body {
+            line-height: 200%;
+            letter-spacing: 1px;
+            font-family: 'Lato', "Helvetica Neue", Helvetica, sans-serif;
+        }
+
+        .header {
+            padding-top: 20px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .date {
+            font-family: Georgia, Times, "Times New Roman", serif;
+        }
+
+        .mugshot {
+            width: 50px;
+            height: 50px;
+        }
+
+        .img-gallery {
+            padding-top: 30px;
+        }
+
+        .gallery {
+            align-content: center;
+        }
+
+        .gallery:before {
+            margin-top: -30px;
+        }
+
+        .gallery:after {
+            margin-bottom: 30px;
+        }
+
+        .name {
+            padding-top: 10px;
+        }
+
+        .dash {
+            display: inline-block;
+            width: 50px;
+            border-top: 2px solid #bb0a1a;
+        }
+
+        .likes {
+            display: block;
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+
+        .fa-heart {
+            color: #bb0a1a;
+        }
+
+        .img-hero {
+            max-width: 100%;
+        }
+
+        .quote {
+            font-family: 'Tangerine', "Brush Script MT", cursive;
+            font-size: 35px;
+            font-weight: bold;
+            line-height: 150%;
+            border: none;
+            padding: 5% 10%;
+            text-align: center;
+        }
+
+        .content {
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            min-width: 100%;
+            resize: none;
+        }
+
+        #submit {
+            padding: none;
+            margin: none;
+            border: none;
+            background-color: #fff;
+            color: #337ab7;
+        }
+
+        .footer {
+            margin-top: 20px;
+        }
+
+        .footer p {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+
+    <!-- HEADER -->
+    <div class="row">
+        <div class="header text-center">
+            <div class="col-sm-4 col-xs-12">
+                <p><a href="#">VISUAL ARTS</a></p>
+            </div>
+            <div class="col-sm-4 col-sm-12">
+                <img src="https://media.creativemornings.com/uploads/user/avatar/120448/profile-circle.png" class="mugshot" alt="Noah Andrews Avatar">
+                <p class="name">Noah Andrews</p>
+            </div>
+            <div class="col-sm-4 col-xs-12">
+                <p class="search"><i class="fa fa-search"></i><a href="#"> SEARCH</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLOG TITLE -->
+    <div class="row">
+        <div class="title text-center">
+            <div class="col-xs-10 col-xs-offset-1">
+                <h1>The World of Charles & Ray Eames</h1>
+                <small class="date">12 January 2016</small>
+            </div>
+            <div class="col-xs-2 col-xs-offset-5">
+                <span class="dash"></span>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <!-- BLOG POST -->
+    <div class="row">
+        <div class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3 text-justify">
+            <p class="content">
+                With a grand sense of adventure, Charles and Ray Eames turned their curiosity and boundless enthusiasm into creations that established them as truly great husband and wife design team. Their unique synergy led to a whole new look in furniture. Lean and
+                modern. Playful and functional. Sleek, sophisticated, and beautifully simple. That was and is the "Eames look".
+            </p>
+            <p class="content">
+                <img class="img-hero img-responsive" src="https://images.pexels.com/photos/94644/pexels-photo-94644.jpeg" alt="Furniture Design" />
+            </p>
+            <p class="content">
+                That look and their relationship with Herman Miller started with moulded plywood chairs in the late 1940s and includes the world-renowned Eames lounge chair, now in the permanent collection of the Museum of Modern Art in New York.
+            </p>
+            <p class="content">
+                Charles and Ray achieved their monumental success by approaching each project the same way: Does it interest and intrigue us? Can we make it better? Will we have "serious fun" doing it? Does it interest and intrigue us? Can we make it better? Will we
+                have "serious fun" doing it?
+            </p>
+            <blockquote class="quote">
+                <p>
+                    &ldquo;Choose your corner, pick away at it carefully, intensely, & to the best of your ability, & that way, you might change the world.&rdquo;
+                </p>
+                <footer>Charles Eames</footer>
+            </blockquote>
+            <p class="content">
+                They loved their work, which was a combination of art and science, design and architecture, process and product, style and function. <q>The details are not
+                details</q>, said Charles. <q>They make the product</q>.
+            </p>
+            <p class="content">
+                A problem-solver who encouraged experimentation among his staff, Charles once said his dream was <q>to have people working on useless projects. These have the
+                germ of new concepts</q>.
+            </p>
+
+            <!-- Stacked Gallery -->
+            <div class="row gallery">
+                <div class="col-xs-12 col-sm-6 img-gallery" data-aos="flip-left">
+                    <img class="img-hero img-responsive" src="https://images.pexels.com/photos/133919/pexels-photo-133919.jpeg" alt="Furniture Design" />
+                </div>
+                <div class="col-xs-12 col-sm-6 img-gallery" data-aos="flip-right">
+                    <img class="img-hero img-responsive" src="https://images.pexels.com/photos/226378/pexels-photo-226378.jpeg" alt="Furniture Design" />
+                </div>
+                <div class="col-xs-12 col-sm-6 img-gallery" data-aos="flip-left">
+                    <img class="img-hero img-responsive" src="https://images.pexels.com/photos/31053/pexels-photo-31053.jpg" alt="Furniture Design" />
+                </div>
+                <div class="col-xs-12 col-sm-6 img-gallery" data-aos="flip-right">
+                    <img class="img-hero img-responsive" src="https://images.pexels.com/photos/2812/black-couch-furniture-living-room.jpg" alt="Furniture Design" />
+                </div>
+            </div>
+
+            <p class="content">
+                Their own concepts evolved over time, not overnight. As Charles noted about the developement of the Moulded Plywood Chairs, <q>Yes, it was a flash of inspiration</q>, he said, <q>a kind
+                of 30-year flash</q>.
+            </p>
+            <p class="content">
+                With these two, one thing always seemed to lead to another. Their revolutionary work in moulded plywood led to their breakthrough work in moulded fibreglass seating. A magazine contest led to their highly innovative "Case Study" house. Their love of photography
+                led to film making, including a huge seven-screen presentation at the Moscow World's Fair in 1959, in a dome designed by their friend and colleague, Buckminster Fuller.
+            </p>
+            <p class="content">
+                Graphic design led to showroom design, toy collecting to toy inventing. And a wooden plank contraption for taking naps, rigged up by their friend, director Billy Wilder, led to their acclaimed chaise lounge design.
+            </p>
+            <p class="content">
+                A design critic once said that this extraordinary couple <q>just wanted to make the
+                world a better place</q>. That they did. They also made it a lot more interesting.
+            </p>
+        </div>
+    </div>
+
+    <!-- Comments -->
+    <div class="row">
+        <div class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3 text-center">
+            <span class="dash"></span>
+            <span class="likes"><i class="fa fa-heart"></i> 325 Likes</span>
+            <textarea class="form-control" rows="5" placeholder="Write a comment..."></textarea>
+            <p class="pull-left">
+                <a href="#">Bookmark</a>
+                <a href="#">Share</a>
+                <a href="#">More</a>
+            </p>
+            <p class="pull-right">
+                <button type="submit" name="submit" id="submit">Post Comment</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="row">
+        <div class="footer">
+            <div class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3 text-center">
+                <div class="col-xs-12 col-sm-6">
+                    <p><a href="#"><i class="fa fa-arrow-left"></i> PREVIOUS ARTICLE</a></p>
+                    <small>How INSTRMNT Watches Are Made</small>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <p><a href="#">NEXT ARTICLE <i class="fa fa-arrow-right"></i></a></p>
+                    <small>The Corner House in Kitashirakawa</small>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1200,
+    })
+</script>
+</body>
+</html>

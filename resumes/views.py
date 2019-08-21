@@ -23,9 +23,10 @@ class HomePageView(View):
 
 class ListTemplatesView(LoginRequiredMixin, SiteAwareView, ListView):
     extra_context = {'nav_section': 'page', 'is_templates': True}
+    context_object_name = 'templates'
 
     def get_queryset(self):
-        return Template.objects.filter(owner=self.request.user, is_public=True)
+        return Template.objects.filter(is_public=True)
 
     template_name = 'resumes/list.html'
 
@@ -43,9 +44,7 @@ class ListMyTemplatesView(LoginRequiredMixin, SiteAwareView, ListView):
 class PreviewMyTemplateView(DetailView):
     extra_context = {'nav_section': 'page', 'is_my_templates': True}
     template_name = 'resumes/construct_template.html'
-
-    def get_queryset(self):
-        return Template.objects.filter(is_public=False)
+    queryset = Template.objects.all()
 
     def get_context_data(self, **kwargs):
         ctx = super(PreviewMyTemplateView, self).get_context_data(**kwargs)
@@ -64,6 +63,8 @@ class PreviewMyTemplateView(DetailView):
                 'gjs-js': self.get_object().js,
             }
             return JsonResponse(response, safe=False, status=status.HTTP_200_OK)
+        if self.get_object().template_path:
+            return render(request, self.get_object().get_default_template_path(), {})
         return super(PreviewMyTemplateView, self).get(request, *args, **kwargs)
 
 

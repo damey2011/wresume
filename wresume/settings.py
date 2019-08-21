@@ -237,15 +237,19 @@ PUBLIC_SCHEMA_NAME = 'public'
 LOGIN_URL = reverse_lazy('account_login')
 
 SITE_DOMAIN = config('SITE_DOMAIN', default='localhost')
-DEFAULT_USER_PASSWORD = config('DEFAULT_USER_PASSWORD', default='greatness2011')
+DEFAULT_USER_PASSWORD = config('DEFAULT_USER_PASSWORD', default='fjsnfjsnfj3m')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'neefemee@gmail.com'
-EMAIL_HOST_PASSWORD = 'Greatness2012..'
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.zoho.com')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='noreply@wresu.me')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='Greatness2011..')
+
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@wresu.me')
+
+ADMIN_EMAILS = config('ADMIN_EMAILS', default=['neefemee@gmail.com', 'adeyemidamilola3@gmail.com'])
 
 FROALA_EDITOR_PLUGINS = (
     'align', 'char_counter', 'code_beautifier', 'code_view', 'colors', 'draggable', 'emoticons',

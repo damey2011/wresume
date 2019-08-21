@@ -25,6 +25,10 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    def blogs_url(self):
+        from wresume.utils import get_tenant, get_tenant_url
+        return get_tenant_url(get_tenant(self)) + reverse('blogs:blog-post-list', urlconf='wresume.urls')
+
 
 class Client(TenantMixin):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -184,6 +188,8 @@ class BannerMedia(SoftDeletableModel, TimeStampedModel):
 
 
 class WorksProfile(TitleTextImageModel):
+    link = models.URLField(default='', blank=True, null=True)
+
     def __str__(self):
         return self.title
 

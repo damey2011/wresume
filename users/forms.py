@@ -3,6 +3,7 @@ from copy import copy, deepcopy
 from allauth.account.forms import SignupForm
 from django import forms
 
+from resumes.models import ContactFormData
 from users.models import User, Profile, SiteSettings, SocialProfile, EducationProfile, CareerProfile, SkillProfile, \
     WorksProfile, OfferProfile, BannerMedia
 
@@ -179,4 +180,19 @@ class BannerMediaForm(forms.ModelForm):
         )
         widgets = {
             'user': forms.HiddenInput,
+        }
+
+
+class ContactDataForm(forms.ModelForm):
+    class Meta:
+        model = ContactFormData
+        fields = (
+            'name',
+            'email',
+            'subject',
+            'message',
+            'client'
+        )
+        widgets = {
+            'client': forms.HiddenInput
         }

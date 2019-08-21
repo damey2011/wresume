@@ -1,0 +1,39 @@
+{% extends 'stock/jackson-colorlib/single-post.html' %}
+{% load general_tags static %}
+{% block title %}
+    Blog Posts
+{% endblock title %}
+{% tenant as tenant %}
+{% t_user tenant as user %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'stock/jackson-colorlib/css/style.css' %}">
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <section class="colorlib-blog" data-section="blog">
+            <div class="colorlib-narrow-content">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                        <a href="/" class="heading-meta">{{ user.username }}</a>
+                        <a href="/"><img style="max-height: 60px;" src="{{ user.photo|image_or_not }}" alt="{{ user.get_full_name }}"></a>
+                        <h2 class="colorlib-heading"><a href="/">Home</a> / Blogs</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for post in posts %}
+                        <div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
+                            <div class="blog-entry">
+                                <a href="{{ post.get_absolute_url }}" class="blog-img"><img src="{{ post.image|image_or_not }}" class="img-responsive" alt="{{ post.title }}"></a>
+                                <div class="desc">
+                                    <span><small>{{ post.created }} </small> | <small> <i class="icon-bubble3"></i> {{ post.comment_set.count }} comments</small></span>
+                                    <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+                                    <p>{{post.content|striptags|safe|slice:":100"}}...</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock body %}

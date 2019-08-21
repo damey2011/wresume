@@ -44,6 +44,18 @@ class BlogPost(SoftDeletableModel, TimeStampedModel):
             self.slug = slugify(self.title)
         super(BlogPost, self).save(*args, **kwargs)
 
+    def previous_post(self):
+        qs = BlogPost.objects.filter(id__lt=self.id)
+        if qs.exists():
+            return qs.last()
+        return None
+
+    def next_post(self):
+        qs = BlogPost.objects.filter(id__gt=self.id)
+        if qs.exists():
+            return qs.first()
+        return None
+
     def get_absolute_url(self):
         return reverse_absolute(self.site,
                                 reverse('blogs:blog-post', kwargs={'slug': self.slug}, urlconf='wresume.urls'))
@@ -57,11 +69,20 @@ class BlogPost(SoftDeletableModel, TimeStampedModel):
 
 class Comment(SoftDeletableModel, TimeStampedModel):
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
-    content = FroalaField()
-    parent = models.ForeignKey('self', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    content = FroalaField(options={
+        'toolbarInline': True,
+        'heightMin': 250,
+        'toolbarVisibleWithoutSelection': True
+    })
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.content[:25]
+
+    class Meta:
+        ordering = ['-created']
 
 
 @receiver(post_save, sender=BlogPost)

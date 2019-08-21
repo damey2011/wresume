@@ -1,8 +1,11 @@
 from django import template
+from django.contrib.sites.models import Site
 from django.forms import Textarea
+from django.templatetags.static import static
 from django.urls import reverse
 
 from resumes.models import SiteTemplate
+from wresume.utils import get_absolute_site
 
 register = template.Library()
 
@@ -11,6 +14,12 @@ register = template.Library()
 def user_sites(context):
     request = context['request']
     return request.user.client_set.all()
+
+
+@register.simple_tag(takes_context=True)
+def current_domain_site(context):
+    request = context.get('request')
+    return request.scheme + '://' + request.META.get('HTTP_HOST')
 
 
 @register.simple_tag(takes_context=True)
@@ -42,3 +51,44 @@ def get_attr(obj, attr):
     if hasattr(obj, 'get_' + attr + '_display'):
         return getattr(obj, 'get_' + attr + '_display', '')()
     return getattr(obj, attr, '')
+
+
+@register.filter
+def image_or_not(image_field):
+    if image_field:
+        return image_field.url
+    return static('images/new-images/noimage.png')
+
+
+@register.simple_tag(takes_context=True)
+def tenant(context):
+    request = context.get('request')
+    return request.tenant
+
+
+@register.simple_tag
+def t_user(tenant_):
+    return tenant_.user
+
+
+@register.simple_tag
+def offer_icon(index):
+    icons = [
+        'icon-bulb',
+        'icon-data',
+        'icon-phone3',
+        'icon-layers2',
+    ]
+    return icons[index % len(icons)]
+
+
+@register.simple_tag
+def color_index(index):
+    if index < 8:
+        return index
+    return index % 7
+
+
+@register.simple_tag
+def index_is_odd(index):
+    return index % 2 != 0

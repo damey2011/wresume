@@ -9,5 +9,6 @@
         {% if not hide_button %}
             <a href="{% url 'users:basic_profile' %}" class="btn btn-primary btn-pill">{% trans 'Edit Profile' %}</a>
         {% endif %}
+        <a href="{{ request.user.blogs_url }}" class="btn btn-default btn-pill">{% trans 'Blogs' %}</a>
     </div>
 </div>
