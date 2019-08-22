@@ -252,7 +252,12 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@wresu.me')
 
 ADMIN_EMAILS = config('ADMIN_EMAILS', default=['neefemee@gmail.com', 'adeyemidamilola3@gmail.com'])
 
-ADMINS = zip(['Damilola', 'Damilola'], ADMIN_EMAILS)
+ADMINS = [
+    ('Damilola', 'neefemee@gmail.com'),
+    ('Damilola', 'adeyemidamilola3@gmail.com')
+]
+
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 CHROME_DRIVER_PATH = config('CHROME_DRIVER_PATH', default='chromedriver')
 
