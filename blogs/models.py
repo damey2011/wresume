@@ -35,7 +35,7 @@ class BlogPost(SoftDeletableModel, TimeStampedModel):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.title)[:100]
         super(BlogPost, self).save(*args, **kwargs)
 
     def previous_post(self):
