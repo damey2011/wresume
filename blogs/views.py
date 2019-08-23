@@ -24,8 +24,8 @@ class BlogPostView(TenantAccessPublicMixin, DetailView):
         form = BlogCommentForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Your comment was added', 'success')
-            return HttpResponseRedirect(request.get_full_path)
+            # messages.success(request, 'Your comment was added', 'success')
+            return HttpResponseRedirect(request.get_full_path())
         if 'is_ajax' in request.POST:
             return JsonResponse(form.errors, status=400)
         ctx = self.get_context_data()

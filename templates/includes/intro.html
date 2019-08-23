@@ -19,6 +19,7 @@
                             <form action="{% url 'account_signup' %}" method="post" class="form-box" id="regHome" style="padding: 36px;">
                                 {% csrf_token %}
                                 <h3 class="h4 text-black mb-4">Sign Up Now</h3>
+                                {% include 'includes/messages.html' %}
                                 {% for hidden in sign_up_form.hidden_fields %}
                                     {{ hidden }}
                                 {% endfor %}
