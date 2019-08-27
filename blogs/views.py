@@ -12,7 +12,7 @@ from home.views import TenantAccessPublicMixin
 
 class BlogPostView(TenantAccessPublicMixin, DetailView):
     queryset = BlogPost.objects.all()
-    template_name = 'stock/jackson-colorlib/single-post.html'
+    template_name = 'blog-templates/default/single-post.html'
     context_object_name = 'post'
 
     def get_context_data(self, **kwargs):
@@ -34,7 +34,7 @@ class BlogPostView(TenantAccessPublicMixin, DetailView):
 
 
 class BlogPostListView(TenantAccessPublicMixin, ListView):
-    template_name = 'stock/jackson-colorlib/post-list.html'
+    template_name = 'blog-templates/default/post-list.html'
     context_object_name = 'posts'
 
     def get_queryset(self):

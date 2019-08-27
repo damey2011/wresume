@@ -40,3 +40,7 @@ class TenantHomeView(TenantAccessPublicMixin, View):
         if 'is_ajax' in request.POST:
             return JsonResponse(form.errors, status=400)
         return self.get_response({'contact_form': form})
+
+
+def test(request):
+    return render(request, 'stock/bulma-dark/index.html')
