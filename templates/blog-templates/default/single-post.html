@@ -124,26 +124,8 @@
             margin-top: 24px;
         }
     </style>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="title" content="{{ post.title }}" />
-    <meta name="description" content="{{ post.seo_desc }}" />
-    <meta name="keywords" content="{{ post.seo_keywords }}" />
-    <meta name="author" content="{{ user.get_full_name }}" />
 
-    <!-- Facebook and Twitter integration -->
-    <meta property="og:title" content="{{ post.title }}"/>
-    <meta property="og:image" content="{{ post.image|image_or_not }}"/>
-    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
-    <meta property="og:site_name" content="Wresu.me"/>
-    <meta property="og:description" content="{{ tenant.sitesettings.seo_description }}"/>
-    <meta name="twitter:title" content="{{ user.get_full_name }}" />
-    <meta name="twitter:image" content="{% if tenant.sitesettings.logo %}{{ tenant.sitesettings.logo.url }}{% endif %}" />
-    <meta name="twitter:url" content="{{ request.build_absolute_uri }}" />
-    <meta name="twitter:card" content="" />
-
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="{% if tenant.sitesettings.favicon %}{{ tenant.sitesettings.favicon.url }}{% endif %}">
-
+    {% include 'blog-templates/shared-header-single.html' %}
 
     {% block extra_css %}
 

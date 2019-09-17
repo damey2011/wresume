@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, post_delete
 
 from resumes.models import SiteTemplate, Template
 from users.models import User, Profile, SiteSettings, Client, SocialProfile
-from wresume.utils import create_tenant
+from wresume.utils import create_tenant, get_tenant
 from PIL import Image as Img, ImageOps
 
 

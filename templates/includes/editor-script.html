@@ -1,30 +1,48 @@
 <script src="https://cdn.tiny.cloud/1/8ry8jggo7z3vd31d8fe8guazzyd2l5xzp1d9rb7ijp6izn4g/tinymce/5/tinymce.min.js"></script>
 <script>
-    tinymce.init({
-        selector: '{{ selector|default:'#container' }}',
-        height: 300,
-        menubar: false,
-        plugins: 'advlist autolink lists link image charmap print preview anchor ' +
-            'search replace visualblocks code fullscreen insertdatetime media emoticons ' +
-            'table paste help wordcount media table codesample',
-        codesample_languages: [
-            {text: 'HTML/XML', value: 'markup'},
-            {text: 'JavaScript', value: 'javascript'},
-            {text: 'CSS', value: 'css'},
-            {text: 'PHP', value: 'php'},
-            {text: 'Ruby', value: 'ruby'},
-            {text: 'Python', value: 'python'},
-            {text: 'Java', value: 'java'},
-            {text: 'C', value: 'c'},
-            {text: 'C#', value: 'csharp'},
-            {text: 'C++', value: 'cpp'}
-        ],
-        toolbar: 'undo redo | formatselect | bold italic backcolor | image code codesample media emoticons | alignleft aligncenter alignright ' +
-            'alignjustify | bullist numlist | table removeformat | help',
-        content_css: [
-            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-            '//www.tiny.cloud/css/codepen.min.css'
-        ],
-        images_upload_url: '/tinymce/upload/',
+    document.addEventListener("turbolinks:load", function() {
+        loadTinyMCE()
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        loadTinyMCE()
+    });
+
+    function loadTinyMCE() {
+        tinymce.init({
+            selector: '{{ selector|default:'#container' }}',
+            height: {{ height|default:300 }},
+            menubar: false,
+            plugins: 'advlist autolink lists link image charmap print preview anchor ' +
+                'visualblocks code fullscreen insertdatetime media emoticons ' +
+                'table paste help wordcount media table codesample',
+            codesample_languages: [
+                {text: 'HTML/XML', value: 'markup'},
+                {text: 'JavaScript', value: 'javascript'},
+                {text: 'CSS', value: 'css'},
+                {text: 'PHP', value: 'php'},
+                {text: 'Ruby', value: 'ruby'},
+                {text: 'Python', value: 'python'},
+                {text: 'Java', value: 'java'},
+                {text: 'C', value: 'c'},
+                {text: 'C#', value: 'csharp'},
+                {text: 'C++', value: 'cpp'}
+            ],
+            toolbar: '{{ toolbar|default:'undo redo | formatselect | bold italic backcolor | image code codesample media emoticons | alignleft aligncenter | bullist numlist | table removeformat | help' }}',
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tiny.cloud/css/codepen.min.css'
+            ],
+            powerpaste_word_import: 'clean',
+            powerpaste_html_import: 'clean',
+            images_upload_url: '/tinymce/upload/',
+            setup: function (ed)
+            {
+                ed.on('init', function ()
+                {
+                    this.execCommand("fontName", false, "helvetica, arial, sans-serif");
+                });
+            }
+        });
+    }
 </script>

@@ -11,43 +11,63 @@
         <div class="site-section">
             <div class="container">
 
-{#            {% trans 'Not all templates can accommodate all the information provided, so you might want to select templates based on the information you want shown or create a custom template for yourself. And also, every field is optional' as desc %}#}
-{#            {% include 'includes/alert.html' with desc=desc %}#}
+                {#            {% trans 'Not all templates can accommodate all the information provided, so you might want to select templates based on the information you want shown or create a custom template for yourself. And also, every field is optional' as desc %}#}
+                {#            {% include 'includes/alert.html' with desc=desc %}#}
 
                 <div class="row">
                     <div class="col-lg-8 mb-5">
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="justify-content: flex-end;">
                             <li class="nav-item">
-                                <a class="nav-link {% if basic_tab %}active{% endif %}" href="{% url 'users:basic_profile' %}">{% trans 'Basic Profile' %}</a>
+                                <a class="nav-link {% if basic_tab %}active{% endif %}" id="pills-basic-tab" href="{% url 'users:basic_profile' %}">Basic</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {% if resume_tab %}active{% endif %}" href="{% url 'users:resume' %}">{% trans 'Profile' %}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if settings_tab %}active{% endif %}" href="{% url 'users:settings' %}">{% trans 'Account' %}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if social_tab %}active{% endif %}" href="{% url 'users:social' %}">{% trans 'Social' %}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if education_tab %}active{% endif %}" href="{% url 'users:education' %}">{% trans 'Education' %}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if careers_tab %}active{% endif %}" href="{% url 'users:careers' %}">{% trans 'Career' %}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if skills_tab %}active{% endif %}" href="{% url 'users:skills' %}">{% trans 'Skills' %}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if works_tab %}active{% endif %}" href="{% url 'users:works' %}">{% trans 'Works' %}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if offer_tab %}active{% endif %}" href="{% url 'users:offer' %}">{% trans 'Offer' %}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if banner_tab %}active{% endif %}" href="{% url 'users:banner' %}">{% trans 'Banner' %}</a>
+                                <a class="nav-link {% if advanced_tab %}active{% endif %}" id="pills-advanced-tab" href="{% url 'users:settings' %}">Advanced</a>
                             </li>
                         </ul>
+
+                        {% if basic_tab %}
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link {% if basic_profile_tab %}active{% endif %}" href="{% url 'users:basic_profile' %}"> <span class="icon-user-o"></span> {% trans 'Account' %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if resume_tab %}active{% endif %}" href="{% url 'users:resume' %}"> <span class="icon-pencil-square-o"></span> {% trans 'Profile' %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if banner_tab %}active{% endif %}" href="{% url 'users:banner' %}"> <span class="icon-view_carousel"></span> {% trans 'Banner' %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if education_tab %}active{% endif %}" href="{% url 'users:education' %}"> <span class="icon-graduation-cap"></span> {% trans 'Education' %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if careers_tab %}active{% endif %}" href="{% url 'users:careers' %}"> <span class="icon-briefcase"></span> {% trans 'Career' %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if skills_tab %}active{% endif %}" href="{% url 'users:skills' %}"> <span class="icon-build"></span> {% trans 'Skills' %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if others_tab %}active{% endif %}" href="{% url 'users:others' %}"><span class="icon-work"></span> {% trans 'Others' %}</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+
+                        {% if advanced_tab %}
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link {% if settings_tab %}active{% endif %}" href="{% url 'users:settings' %}"> <span class="icon-settings_ethernet"></span> {% trans 'Site' %}</a>
+                                </li>
+                                {#                                <li class="nav-item">#}
+                                {#                                    <a class="nav-link {% if works_tab %}active{% endif %}" href="{% url 'users:works' %}"><span class="icon-work"></span> {% trans 'Works' %}</a>#}
+                                {#                                </li>#}
+                                {#                                <li class="nav-item">#}
+                                {#                                    <a class="nav-link {% if offer_tab %}active{% endif %}" href="{% url 'users:offer' %}"> <span class="icon-handshake-o"></span> {% trans 'Offer' %}</a>#}
+                                {#                                </li>#}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if social_tab %}active{% endif %}" href="{% url 'users:social' %}"> <span class="icon-share"></span> {% trans 'Social' %}</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+
                         <div>
                             {% block profile_content %}
 

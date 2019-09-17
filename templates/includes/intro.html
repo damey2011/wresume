@@ -24,9 +24,13 @@
                                     {{ hidden }}
                                 {% endfor %}
                                 {% for field in sign_up_form.visible_fields %}
-                                    <div class="form-group">
+                                    <div class="{% if field.name == 'username' %}input-group{% endif %} form-group">
                                         {% render_field field class='form-control' placeholder=field.label %}
-                                    </div>
+                                        {% if field.name == 'username' %}
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2">.wresu.me</span>
+                                            </div>
+                                        {% endif %}                                    </div>
                                 {% endfor %}
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-primary btn-pill" value="Sign up">

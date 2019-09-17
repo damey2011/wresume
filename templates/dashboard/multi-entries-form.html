@@ -17,28 +17,28 @@
                                     {{ object }}
                                 </button>
                                 <span class="float-right">
-                                    <a href="" class="icon icon-pencil text-info" style="font-size: 20px;"></a> |
-                                    <a href="" class="icon icon-trash text-danger" style="font-size: 20px;"></a>
+                                    <a href="{{ object.edit_url }}" class="icon icon-pencil text-info" style="font-size: 20px;"></a> |
+                                    <a href="{{ object.delete_url }}" class="icon icon-trash text-danger" style="font-size: 20px;"></a>
                                 </span>
                             </h2>
                         </div>
                         <div id="collapse_{{ item_id }}" class="collapse" aria-labelledby="heading_{{ item_id }}" data-parent="#accordion_{{ item_id }}">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="text-right mb-3">
-                                            <a href="{{ object.edit_url }}" class="text-primary">{% trans 'Edit' %}</a> |
-                                            <a href="{{ object.delete_url }}" class="text-danger">{% trans 'Delete' %}</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                {#                                <div class="row">#}
+                                {#                                    <div class="col-sm-6">#}
+                                {#                                    </div>#}
+                                {#                                    <div class="col-sm-6">#}
+                                {#                                        <div class="text-right mb-3">#}
+                                {#                                            <a href="{{ object.edit_url }}" class="text-primary">{% trans 'Edit' %}</a> |#}
+                                {#                                            <a href="{{ object.delete_url }}" class="text-danger">{% trans 'Delete' %}</a>#}
+                                {#                                        </div>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
                                 <table class="table table-striped">
                                     {% for field in form.visible_fields %}
                                         <tr>
                                             <th>{{ field.label }}</th>
-                                            <td>{% get_attr object field.name %}</td>
+                                            <td>{% get_attr object field.name as val %}{{ val|safe }}</td>
                                         </tr>
                                     {% endfor %}
                                 </table>
@@ -53,13 +53,26 @@
                 <strong>List Empty</strong>: No Entry Yet
             </div>
         {% endfor %}
+
+        {% if not is_update %}
+            <button class="btn btn-info" id="add-entry-toggle">{{ add_item_title }} + </button>
+        {% endif %}
+
     </div>
     {% trans 'Submit' as submit_text %}
-    {% include 'includes/form.html' with form_title=form_title submit_text=submit_text with_label=True two_per_row=True %}
+    <div id="add-entry-form" class="{% if not is_update %}d-none{% endif %}">
+        {% include 'includes/form.html' with form_title=form_title submit_text=submit_text with_label=True two_per_row=True %}
+    </div>
 {% endblock profile_content %}
 
 {% block extra_js %}
     <script>
         flatpickr(".wresume-datepicker");
+        document.querySelector('#add-entry-toggle').addEventListener('click', function (event) {
+            document.querySelector('#add-entry-form').classList.toggle('d-none');
+        })
     </script>
+    {% if others_tab %}
+        {% include 'includes/editor-script.html' with selector='#id_content' height=300 %}
+    {% endif %}
 {% endblock extra_js %}

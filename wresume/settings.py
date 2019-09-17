@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'widget_tweaks',
     'debug_toolbar',
+    'turbolinks',
     'users',
     'resumes',
     'blogs',
@@ -88,6 +89,7 @@ MIDDLEWARE = [
     'tenant_schemas.middleware.TenantMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'turbolinks.middleware.TurbolinksMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -250,10 +252,10 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='Greatness2011..')
 
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@wresu.me')
 
-ADMIN_EMAILS = config('ADMIN_EMAILS', default=['neefemee@gmail.com', 'adeyemidamilola3@gmail.com'])
+ADMIN_EMAILS = config('ADMIN_EMAILS', default=['me@dammy.co', 'adeyemidamilola3@gmail.com'])
 
 ADMINS = [
-    ('Damilola', 'neefemee@gmail.com'),
+    ('Damilola', 'me@dammy.co'),
     ('Damilola', 'adeyemidamilola3@gmail.com')
 ]
 
@@ -261,20 +263,21 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 CHROME_DRIVER_PATH = config('CHROME_DRIVER_PATH', default='chromedriver')
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
+if not DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'mail_admins': {
+                'level': 'ERROR',
+                'class': 'django.utils.log.AdminEmailHandler'
+            }
         },
+        'loggers': {
+            'django.request': {
+                'handlers': ['mail_admins'],
+                'level': 'ERROR',
+                'propagate': True,
+            },
+        }
     }
-}

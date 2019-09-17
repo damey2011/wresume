@@ -31,10 +31,13 @@
                     <div class="col-lg-8 mb-5">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link {% if is_blog_posts %}active{% endif %}" href="{% url 'blogs_public:list' %}">Blog Posts</a>
+                                <a class="nav-link {% if is_templates_list %}active{% endif %}" href="{% url 'blogs_public:template-list' %}">Templates</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {% if is_categories %}active{% endif %}" href="{% url 'blogs_public:categories' %}">Post Categories</a>
+                                <a class="nav-link {% if is_blog_posts %}active{% endif %}" href="{% url 'blogs_public:list' %}">Posts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if is_categories %}active{% endif %}" href="{% url 'blogs_public:categories' %}">Categories</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {% if is_create_category %}active{% endif %}" href="{% url 'blogs_public:create-categories' %}">Create Category</a>

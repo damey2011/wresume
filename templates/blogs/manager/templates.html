@@ -1,0 +1,35 @@
+{% extends 'blogs/manager/index.html' %}
+{% load static i18n general_tags %}
+{% block title %}{% trans 'Manage Template' %}{% endblock title %}
+{% block manager_content %}
+    <div class="mt-4">
+        <div class="row">
+            {% for temp in templates %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ temp.get_screenshot_url }}" alt="{{ temp.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ temp.name }}</h5>
+                            {#                    <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p>#}
+                            {% is_active_for_current_site temp.id True as is_active %}
+                            {% if is_active %}
+                                <a href="{% url 'blogs_public:template-deactivate' pk=temp.id %}?next={{ request.get_full_path }}" class="text-warning">{% trans 'Dectivate' %}</a>
+                            {% else %}
+                                <a href="{% url 'blogs_public:template-activate' pk=temp.id %}?next={{ request.get_full_path }}" class="text-success">{% trans 'Activate' %}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include 'includes/pagination.html' with paginator_type='LV' %}
+
+
+{% endblock manager_content %}
+
+
+{% block breadcrumbs %}
+    <p data-aos="fade-up" data-aos-delay="100"><a href="/">{% trans 'Home' %}</a> &bullet; <a href="{% url 'blogs_public:list' %}" class="text-white">{% trans 'Posts' %}</a></p>
+{% endblock %}

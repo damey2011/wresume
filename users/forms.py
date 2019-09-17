@@ -3,7 +3,7 @@ from django import forms
 
 from resumes.models import ContactFormData
 from users.models import User, Profile, SiteSettings, SocialProfile, EducationProfile, CareerProfile, SkillProfile, \
-    WorksProfile, OfferProfile, BannerMedia
+    WorksProfile, OfferProfile, BannerMedia, CustomProfile
 
 
 class SignUpForm(SignupForm):
@@ -26,6 +26,11 @@ class SignUpForm(SignupForm):
 
 
 class UserForm(forms.ModelForm):
+    def __init__(self, **kwargs):
+        super(UserForm, self).__init__(**kwargs)
+        self.fields['email'].widget.attrs['readonly'] = True
+        self.fields['username'].widget.attrs['readonly'] = True
+
     class Meta:
         model = User
         fields = (
@@ -33,8 +38,15 @@ class UserForm(forms.ModelForm):
             'username',
             'first_name',
             'last_name',
+            'title',
             'photo'
         )
+        labels = {
+            'title': 'Job Title (e.g. Software Developer)'
+        }
+        help_texts = {
+            'username': None
+        }
 
 
 class SettingsForm(forms.ModelForm):
@@ -43,8 +55,8 @@ class SettingsForm(forms.ModelForm):
         fields = (
             'favicon',
             'logo',
-            'banner_title',
-            'banner_description',
+            # 'banner_title',
+            # 'banner_description',
             'seo_title',
             'seo_description',
             'seo_keywords',
@@ -233,4 +245,18 @@ class ContactDataForm(forms.ModelForm):
         widgets = {
             'client': forms.HiddenInput,
             'message': forms.Textarea(attrs={'rows': 3})
+        }
+
+
+class CustomProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomProfile
+        fields = (
+            'header',
+            'sub_header',
+            'content',
+            'user'
+        )
+        widgets = {
+            'user': forms.HiddenInput
         }

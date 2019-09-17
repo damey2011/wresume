@@ -3,17 +3,30 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 
 from blogs.forms import BlogCommentForm
-from blogs.models import BlogPost
+from blogs.models import BlogPost, SiteBlogTemplate, BlogCategory
 from home.views import TenantAccessPublicMixin
 
 
-class BlogPostView(TenantAccessPublicMixin, DetailView):
+class TemplateSelector:
+    template_file_name = ''
+
+    def template_prefix(self):
+        ts = SiteBlogTemplate.objects.filter(client=self.request.tenant)
+        if ts.exists():
+            return ts.first().template.template_folder
+        return SiteBlogTemplate.objects.order_by('created').first().template.template_folder
+
+    def get_template_names(self):
+        return [self.template_prefix() + self.template_file_name]
+
+
+class BlogPostView(TenantAccessPublicMixin, TemplateSelector, DetailView):
     queryset = BlogPost.objects.all()
-    template_name = 'blog-templates/default/single-post.html'
     context_object_name = 'post'
+    template_file_name = 'index.html'
 
     def get_context_data(self, **kwargs):
         ctx = super(BlogPostView, self).get_context_data(**kwargs)
@@ -33,9 +46,40 @@ class BlogPostView(TenantAccessPublicMixin, DetailView):
         return render(request, self.template_name, ctx)
 
 
-class BlogPostListView(TenantAccessPublicMixin, ListView):
-    template_name = 'blog-templates/default/post-list.html'
+class BlogPostListView(TenantAccessPublicMixin, TemplateSelector, ListView):
+    # template_name = 'blog-templates/default/post-list.html'
+    template_file_name = 'index.html'
     context_object_name = 'posts'
+
+    def get_context(self, **kwargs):
+        ctx = super(BlogPostListView, self).get_context_data(**kwargs)
+        ctx['featured'] = self.get_queryset().filter(is_featured=True)
+        return ctx
+
+    def get_queryset(self):
+        return BlogPost.objects.filter(site=self.request.tenant)
+
+
+class BlogTestView(TenantAccessPublicMixin, TemplateSelector, TemplateView):
+    template_file_name = 'index.html'
+
+
+class BlogCategoryView(TenantAccessPublicMixin, TemplateSelector, ListView):
+    template_file_name = 'category.html'
+
+    def get_queryset(self):
+        return BlogPost.objects.filter(site=self.request.tenant)
+
+
+class BlogCategoriesView(TenantAccessPublicMixin, TemplateSelector, ListView):
+    template_file_name = 'category-list.html'
+
+    def get_queryset(self):
+        return BlogCategory.objects.filter(site=self.request.tenant)
+
+
+class BlogArchivesView(TenantAccessPublicMixin, TemplateSelector, ListView):
+    template_file_name = 'archive.html'
 
     def get_queryset(self):
         return BlogPost.objects.filter(site=self.request.tenant)

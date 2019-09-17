@@ -94,11 +94,11 @@
             </nav>
 
             <div class="colorlib-footer">
-                <p>
-                    <small style="font-size: 10px;">&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    </small>
-                </p>
+                {#                <p>#}
+                {#                    <small style="font-size: 10px;">&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->#}
+                {#                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>#}
+                {#                    </small>#}
+                {#                </p>#}
                 <ul>
                     {% if user.socialprofile.facebook %}
                         <li><a href="{{ user.socialprofile.facebook }}"><i class="icon-facebook2"></i></a></li>
@@ -118,33 +118,49 @@
         </aside>
 
         <div id="colorlib-main">
-            {% if user.bannermedia_set.exists %}
-                <section id="colorlib-hero" class="js-fullheight" data-section="home">
-                    <div class="flexslider js-fullheight">
-                        <ul class="slides">
-                            {% for banner in user.bannermedia_set.all %}
-                                <li style="background-image: url({{ banner.media|image_or_not }});">
-                                    <div class="overlay"></div>
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
-                                                <div class="slider-text-inner js-fullheight">
-                                                    <div class="desc">
-                                                        <h1>Hi! <br>{{ tenant.sitesettings.banner_title|default:'Site Settings > Banner Title' }}
-                                                        </h1>
-                                                        <h2>{{ tenant.sitesettings.banner_description|default:'Site Settings > Banner Description' }}</h2>
-                                                        {#                                                <p><a class="btn btn-primary btn-learn">Download CV <i class="icon-download4"></i></a></p>#}
-                                                    </div>
+            <section id="colorlib-hero" class="js-fullheight" data-section="home">
+                <div class="flexslider js-fullheight">
+                    <ul class="slides">
+                        {% for banner in user.bannermedia_set.all %}
+                            <li style="background-image: url({{ banner.media|image_or_not }});">
+                                <div class="overlay"></div>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
+                                            <div class="slider-text-inner js-fullheight">
+                                                <div class="desc">
+                                                    <h1>Hi! <br>{{ tenant.sitesettings.banner_title|default:'Site Settings > Banner Title' }}
+                                                    </h1>
+                                                    <h2>{{ tenant.sitesettings.banner_description|default:'Site Settings > Banner Description' }}</h2>
+                                                    {#                                                <p><a class="btn btn-primary btn-learn">Download CV <i class="icon-download4"></i></a></p>#}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </section>
-            {% endif %}
+                                </div>
+                            </li>
+                        {% empty %}
+                            <li style="background-image: url({% static 'images/default-banner.jpg' %});">
+                                <div class="overlay"></div>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
+                                            <div class="slider-text-inner js-fullheight">
+                                                <div class="desc">
+                                                    <h1>Hi! <br>{{ tenant.sitesettings.banner_title|default:'Site Settings > Banner Title' }}
+                                                    </h1>
+                                                    <h2>{{ tenant.sitesettings.banner_description|default:'Site Settings > Banner Description' }}</h2>
+                                                    {#                                                <p><a class="btn btn-primary btn-learn">Download CV <i class="icon-download4"></i></a></p>#}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
 
             <section class="colorlib-about" data-section="about">
                 <div class="colorlib-narrow-content">

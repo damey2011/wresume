@@ -5,6 +5,7 @@ def replace_statics():
     template_path = input('Enter Template Path: ')
     prefix_replace = input('Enter Prefix to Remove: ')
     static_folder = input('Enter the folder where static files are contained: ')
+    static_cat = input('Should categorize static: ')
     """
         /Users/oluwanifemi/PycharmProjects/wresume/templates/stock/paiva/index.html
         ./Marcelo Paiva - Product Designer and Educator_files/
@@ -34,7 +35,11 @@ def replace_statics():
 
         for css in css_tags:
             href = css['href'].replace(prefix_replace, '')
-            css['href'] = "{% static '" + static_folder + "/css/" + href + "' %}"
+            if '//' not in href:
+                if static_cat:
+                    css['href'] = "{% static '" + static_folder + "/css/" + href + "' %}"
+                else:
+                    css['href'] = "{% static '" + static_folder + href + "' %}"
 
         for script in script_tags:
             if script.get('src'):
@@ -42,11 +47,19 @@ def replace_statics():
                     script.decompose()
                 else:
                     src = script['src'].replace(prefix_replace, '')
-                    script['src'] = "{% static '" + static_folder + "/js/" + src + "' %}"
+                    if '//' not in src:
+                        if static_cat:
+                            script['src'] = "{% static '" + static_folder + "/js/" + src + "' %}"
+                        else:
+                            script['src'] = "{% static '" + static_folder + src + "' %}"
 
         for img in img_tags:
             src = img['src'].replace(prefix_replace, '')
-            img['src'] = "{% static '" + static_folder + "/img/" + src + "' %}"
+            if '//' not in src:
+                if static_cat:
+                    img['src'] = "{% static '" + static_folder + "/img/" + src + "' %}"
+                else:
+                    img['src'] = "{% static '" + static_folder + src + "' %}"
 
         file.truncate(0)
         file.write(bs.prettify())

@@ -6,9 +6,9 @@
                 <div class="col-12">
                     <div class="row justify-content-center align-items-center text-center">
                         <div class="col-lg-6">
-                            <h1 data-aos="fade-up" data-aos-delay="0">{{ title }}</h1>
+                            <h1 data-aos="fade-up" data-aos-delay="0">{{ form_title|truncatewords:3|default_if_none:title }}</h1>
                             {% block breadcrumbs %}
-                                <p data-aos="fade-up" data-aos-delay="100"><a href="/">Home</a> &bullet; <a href="#" class="text-white">Dashboard</a></p>
+                                <p data-aos="fade-up" data-aos-delay="100"><a href="/">Home</a> &bullet; <a href="/dashboard/">Dashboard</a> &bullet; <a href="#" class="text-white">{{ form_title }}</a></p>
                             {% endblock %}
                             {% include 'includes/change-site.html' %}
                         </div>

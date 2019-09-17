@@ -670,7 +670,7 @@ label.form-label {
 	line-height: 1.4;
 }
 
-input {
+input, select {
 	&.form-control {
 		height: 40px !important;
 		font-family: 'Lato', sans-serif;
@@ -755,5 +755,22 @@ label {
 
 	img {
 		width: 100%;
+	}
+}
+
+.tox.tox-tinymce {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+
+.tox-statusbar__branding {
+	display: none;
+}
+
+.force-font {
+	font-family: 'Lato', sans-serif;
+	* {
+		font-family: 'Lato', sans-serif;
 	}
 }

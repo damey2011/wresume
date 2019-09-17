@@ -7,11 +7,11 @@ from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, TemplateView
 from django.utils.translation import ugettext as __
 
 from blogs.forms import BlogPostForm, BlogCategoryForm
-from blogs.models import BlogPost, BlogCategory, BlogImage
+from blogs.models import BlogPost, BlogCategory, BlogImage, Template, SiteBlogTemplate
 from wresume.utils import SiteAwareView
 
 
@@ -97,6 +97,34 @@ class CreateCategoryView(LoginRequiredMixin, SuccessMessageMixin, SiteAwareView,
 
     def get_queryset(self):
         return BlogCategory.objects.filter(site=self.get_site())
+
+
+class BlogTemplatesView(LoginRequiredMixin, SuccessMessageMixin, SiteAwareView, ListView):
+    extra_context = {'is_templates_list': True, 'nav_section': 'blog'}
+    queryset = Template.objects.all()
+    template_name = 'blogs/manager/templates.html'
+    context_object_name = 'templates'
+
+
+class ActivateBlogTemplateView(LoginRequiredMixin, SuccessMessageMixin, SiteAwareView, View):
+    def get(self, request, pk, *args, **kwargs):
+        SiteBlogTemplate.objects.filter(client=self.get_site()).delete()
+        SiteBlogTemplate.objects.create(template_id=pk, client=self.get_site())
+        template = get_object_or_404(Template, pk=pk)
+        messages.success(request, __('%(temp)s is now active for %(site)s') % {'temp': template.name,
+                                                                               'site': self.get_site().domain_url})
+        return HttpResponseRedirect(request.GET.get('next', reverse('blogs_public:template-list')))
+
+
+class DeActivateBlogTemplateView(LoginRequiredMixin, SuccessMessageMixin, SiteAwareView, View):
+    def get(self, request, pk, *args, **kwargs):
+        SiteBlogTemplate.objects.filter(site=self.get_site()).delete()
+        template = get_object_or_404(Template, pk=pk)
+        messages.success(
+            request, __('%(temp)s has been deactivated for %(site)s') % {'temp': template.name,
+                                                                         'site': self.get_site().domain_url}
+        )
+        return HttpResponseRedirect(request.GET.get('next', reverse('blogs_public:template-list')))
 
 
 @method_decorator(csrf_exempt, name='dispatch')

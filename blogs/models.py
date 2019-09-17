@@ -1,3 +1,5 @@
+from django.templatetags.static import static
+
 from users.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -25,6 +27,7 @@ class BlogPost(SoftDeletableModel, TimeStampedModel):
     title = models.CharField(max_length=200)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_featured = models.BooleanField(default=False)
     slug = models.CharField(blank=True, max_length=150)
     image = models.ImageField(upload_to='post-header-images', blank=True, null=True)
     category = models.ForeignKey(to=BlogCategory, null=True, on_delete=models.CASCADE)
@@ -112,3 +115,27 @@ class BlogImage(models.Model):
 
     def __str__(self):
         return str(self.pk)
+
+
+class Template(SoftDeletableModel, TimeStampedModel):
+    name = models.CharField(max_length=200)
+    screenshot = models.ImageField(upload_to='templates/screenshots/', null=True)
+    template_folder = models.CharField(max_length=1000, default='')
+
+    def __str__(self):
+        return self.template_folder
+
+    def get_screenshot_url(self):
+        if self.template_folder:
+            return self.screenshot.__str__()
+        if self.screenshot:
+            return self.screenshot.url
+        return static('images/new-images/noimage.png')
+
+
+class SiteBlogTemplate(TimeStampedModel):
+    client = models.OneToOneField(Client, on_delete=models.CASCADE)
+    template = models.ForeignKey(Template, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.client.schema_name}-{self.template.template_folder}'

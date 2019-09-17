@@ -43,4 +43,4 @@ class TenantHomeView(TenantAccessPublicMixin, View):
 
 
 def test(request):
-    return render(request, 'stock/bulma-dark/index.html')
+    return render(request, 'stock/bulma-light/index.html')

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -11,9 +12,9 @@ from users.models import SiteSettings, EducationProfile
 from wresume.utils import SiteAwareView
 
 
-class BasicProfileView(UpdateView):
+class BasicProfileView(LoginRequiredMixin, UpdateView):
     template_name = 'dashboard/basic.html'
-    extra_context = {'basic_tab': True, 'form_title': _('Edit Basic Details')}
+    extra_context = {'basic_profile_tab': True, 'form_title': _('Edit Basic Details'), 'basic_tab': True}
     form_class = UserForm
 
     def get_success_url(self):
@@ -27,9 +28,9 @@ class BasicProfileView(UpdateView):
         return super(BasicProfileView, self).form_valid(form)
 
 
-class ResumeFormView(UpdateView):
+class ResumeFormView(LoginRequiredMixin, UpdateView):
     template_name = 'dashboard/profile.html'
-    extra_context = {'resume_tab': True, 'form_title': _('Profile Details')}
+    extra_context = {'resume_tab': True, 'form_title': _('Profile Details'), 'basic_tab': True}
     form_class = ResumeForm
 
     def form_valid(self, form):
@@ -43,9 +44,9 @@ class ResumeFormView(UpdateView):
         return self.request.user.profile
 
 
-class SocialFormView(UpdateView):
+class SocialFormView(LoginRequiredMixin, UpdateView):
     template_name = 'dashboard/profile.html'
-    extra_context = {'social_tab': True, 'form_title': _('Social Details')}
+    extra_context = {'social_tab': True, 'form_title': _('Social Details'), 'advanced_tab': True}
     form_class = SocialForm
 
     def form_valid(self, form):
@@ -59,9 +60,9 @@ class SocialFormView(UpdateView):
         return self.request.user.socialprofile
 
 
-class SettingsView(SiteAwareView, UpdateView):
+class SettingsView(LoginRequiredMixin, SiteAwareView, UpdateView):
     template_name = 'dashboard/site-settings.html'
-    extra_context = {'settings_tab': True}
+    extra_context = {'settings_tab': True, 'advanced_tab': True}
     form_class = SettingsForm
     success_url = reverse_lazy('users:settings')
 
@@ -80,11 +81,12 @@ class SettingsView(SiteAwareView, UpdateView):
         return super(SettingsView, self).form_valid(form)
 
 
-class MultiEntryView(SiteAwareView, FormView):
+class MultiEntryView(LoginRequiredMixin, SiteAwareView, FormView):
     template_name = 'dashboard/multi-entries-form.html'
     extra_context = {'settings_tab': True}
     form_class = EducationForm
     form_title = _('Add Education Entry')
+    add_item_title = _('Add Entry')
     success_message = _('Your profile has been updated successfully')
     success_url = reverse_lazy('resumes:education')
     inject_initial = []
@@ -111,6 +113,7 @@ class MultiEntryView(SiteAwareView, FormView):
     def get_context_data(self, **kwargs):
         ctx = super(MultiEntryView, self).get_context_data(**kwargs)
         ctx['form_title'] = self.form_title
+        ctx['add_item_title'] = self.add_item_title
         ctx['object_list'] = self.get_object_list()
         return ctx
 
@@ -123,6 +126,11 @@ class MultiEntryView(SiteAwareView, FormView):
 class MultiEntryUpdateView(MultiEntryView, UpdateView):
     form_title = _('Update Education Entry')
 
+    def get_context_data(self, **kwargs):
+        ctx = super(MultiEntryUpdateView, self).get_context_data(**kwargs)
+        ctx['is_update'] = True
+        return ctx
+
     def get_object(self, queryset=None):
         return get_object_or_404(self.model, pk=self.kwargs.get('pk'))
 
@@ -130,6 +138,6 @@ class MultiEntryUpdateView(MultiEntryView, UpdateView):
 class MultiEntryDeleteView(MultiEntryUpdateView):
     def get(self, request, *args, **kwargs):
         self.get_object().delete()
-        messages.success(request, 'Item has been deleted successfully', 'success')
+        messages.success(request, 'Entry has been deleted successfully', 'success')
         return HttpResponseRedirect(request.GET.get('next', self.success_url))
 

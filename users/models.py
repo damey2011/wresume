@@ -20,6 +20,7 @@ def full_profile_photo_upload_to(instance, filename):
 
 class User(AbstractUser):
     photo = models.ImageField(upload_to=profile_photo_upload_to, null=True, blank=True)
+    title = models.CharField(max_length=200, null=True, blank=True)
     full_photo = models.ImageField(upload_to=full_profile_photo_upload_to, null=True, blank=True)
 
     def __str__(self):
@@ -229,9 +230,32 @@ class SkillProfile(SoftDeletableModel, TimeStampedModel):
         return str(self.skill_level) + '% proficiency level,' + self.title
 
     @property
+    def level(self):
+        sk_lv = self.skill_level
+        if sk_lv >= 85:
+            return 'Veteran'
+        elif 70 < sk_lv < 85:
+            return 'Senior'
+        elif 60 < sk_lv < 70:
+            return 'Mid-Level'
+        elif 50 < sk_lv < 60:
+            return 'Junior'
+        return 'Beginner'
+
+    @property
     def edit_url(self):
         return reverse('users:skills-edit', kwargs={'pk': self.id})
 
     @property
     def delete_url(self):
         return reverse('users:skills-delete', kwargs={'pk': self.id})
+
+
+class CustomProfile(SoftDeletableModel, TimeStampedModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    header = models.CharField(max_length=200)
+    sub_header = models.CharField(max_length=200, blank=True, null=True)
+    content = models.TextField()
+
+    def __str__(self):
+        return f'{self.header} - {self.sub_header}'

@@ -4,6 +4,7 @@ from django.forms import Textarea
 from django.templatetags.static import static
 from django.urls import reverse
 
+from blogs.models import SiteBlogTemplate
 from resumes.models import SiteTemplate
 from wresume.utils import get_tenant_url, get_tenant
 
@@ -35,10 +36,12 @@ def upload_url(context):
 
 
 @register.simple_tag(takes_context=True)
-def is_active_for_current_site(context, template_id):
+def is_active_for_current_site(context, template_id, is_blog=False):
     request = context['request']
     site_id = request.session.get('site_id')
-    return SiteTemplate.objects.filter(template_id=template_id, site_id=site_id).exists()
+    if not is_blog:
+        return SiteTemplate.objects.filter(template_id=template_id, site_id=site_id).exists()
+    return SiteBlogTemplate.objects.filter(template_id=template_id, client_id=site_id).exists()
 
 
 @register.simple_tag
@@ -50,7 +53,10 @@ def is_text_area(field):
 def get_attr(obj, attr):
     if hasattr(obj, 'get_' + attr + '_display'):
         return getattr(obj, 'get_' + attr + '_display', '')()
-    return getattr(obj, attr, '')
+    val = getattr(obj, attr, '')
+    if not val:
+        return ''
+    return val
 
 
 @register.filter
@@ -58,6 +64,13 @@ def image_or_not(image_field):
     if image_field:
         return image_field.url
     return static('images/new-images/noimage.png')
+
+
+@register.filter
+def image_or_def(image_field):
+    if image_field:
+        return image_field.url
+    return static('images/default-banner.jpg')
 
 
 @register.simple_tag(takes_context=True)
@@ -103,3 +116,8 @@ def static_url():
 def tenant_home_from_user(context):
     request = context.get('request')
     return get_tenant_url(get_tenant(request.user))
+
+
+@register.filter
+def social_username(link):
+    return link.split('/')[-1] if link else ''

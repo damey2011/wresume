@@ -14,4 +14,7 @@
     <script>
         flatpickr(".wresume-datepicker");
     </script>
+
+    {% include 'includes/editor-script.html' with selector='#id_bio' height=180 toolbar='bold italic | image emoticons link | alignleft aligncenter | bullist numlist' %}
+
 {% endblock extra_js %}
