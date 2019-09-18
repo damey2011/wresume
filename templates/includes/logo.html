@@ -1,7 +1,7 @@
 {% load static general_tags %}
 {% current_domain_site as site %}
 <div class="{% if center %}m-auto{% endif %} mt-3 mb-3">
-    <a href="{{ site }}" {% if white_bg %}style="padding: 15px 8px 20px; background-color: white;"{% endif %}>
+    <a href="{{ site }}" {% if white_bg %}style="padding: 15px 8px 20px; background-color: white; border-radius: 5px;"{% endif %}>
         <img style="height: {{ height|default:'40px' }}; width: {{ width|default:'auto' }}" src="{% static 'images/new-images/logo.png' %}" alt="">
     </a>
 </div>
