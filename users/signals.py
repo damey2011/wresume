@@ -1,6 +1,10 @@
+from django.core.management import call_command
 from django.db.models.signals import post_save, post_delete
 
+from resumes.constants import STOCK_TEMPLATES
 from resumes.models import SiteTemplate, Template
+from blogs.models import SiteBlogTemplate, Template as BlogTemplate
+from users.management.commands.load_blog_templates import BLOG_TEMPLATES
 from users.models import User, Profile, SiteSettings, Client, SocialProfile
 from wresume.utils import create_tenant, get_tenant
 from PIL import Image as Img, ImageOps
@@ -49,11 +53,23 @@ def resize_uploaded_image(sender, instance, **kwargs):
 
 def create_client_settings(sender, instance, created, **kwargs):
     if created:
+        # Settle Default Site Template
         SiteSettings.objects.create(client=instance)
-        templates = Template.objects.filter(name='Wresume Default')
+        templates = Template.objects.filter(name='CV Portfolio')
         if templates.exists():
             SiteTemplate.objects.create(template=templates.first(), site=instance)
-        # call_command('migrate_schemas', executor='parallel')
+        else:
+            if len(STOCK_TEMPLATES):
+                call_command('load_default_templates')
+                SiteTemplate.objects.create(template=templates.first(), site=instance)
+        # Settle Default Blog Template
+        blog_templates = BlogTemplate.objects.filter(name='Eden')
+        if blog_templates.exists():
+            SiteBlogTemplate.objects.create(template=blog_templates.first(), site=instance)
+        else:
+            if len(BLOG_TEMPLATES):
+                call_command('load_blog_templates')
+                SiteBlogTemplate.objects.create(template=blog_templates.first(), site=instance)
 
 
 post_save.connect(resize_uploaded_image, sender=User)

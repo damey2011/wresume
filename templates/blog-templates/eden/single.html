@@ -6,13 +6,34 @@
         .error-text {
             color: red;
         }
+        .post-content-container img{
+            width: 100%;
+            height: auto;
+        }
+        .single-post-banner {
+            background: url({{ post.image|image_or_def }}) !important;
+            background-size: cover !important;
+            position: relative !important;
+            height: 300px;
+        }
+        .single-post-banner:after {
+            position: absolute;
+            content: '';
+            left: 0;
+            top: 0;
+            background-color: rgba(0,0,0,0.33);
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/vs2015.min.css">
 {% endblock extra_css %}
 {% block body %}
     <!--================Home Banner Area =================-->
     <section class="banner_area">
-        <div class="banner_inner d-flex align-items-center">
+        <div class="banner_inner d-flex align-items-center single-post-banner">
             <div class="container">
                 <div class="banner_content d-md-flex justify-content-between align-items-center">
                     <div class="mb-3 mb-md-0">
@@ -21,12 +42,7 @@
                         </h2>
                     </div>
                     <div class="page_link">
-                        <a href="{% url 'blogs:blog-post-list' %}">
-                            Home
-                        </a>
-                        <a>
-                            Blog Details
-                        </a>
+
                     </div>
                 </div>
             </div>
@@ -38,7 +54,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 posts-list">
-                    <div class="single-post">
+                    <div class="single-post post-content-container">
                         {{ post.content|safe }}
                     </div>
                     <div class="navigation-top">
@@ -269,7 +285,7 @@
                             </h3>
                             {% for post in related %}
                                 <div class="media post_item">
-                                    <img alt="post" src="{% static 'blog-assets/eden/img/blog/popular-post/post2.jpg' %}"/>
+                                    <img alt="post" src="{{ post.image|image_or_def }}" style="height: 60px; width: 60px; min-width: 60px; object-fit: cover;"/>
                                     <div class="media-body">
                                         <a href="{{ post.get_absolute_url }}">
                                             <h3>
@@ -277,7 +293,7 @@
                                             </h3>
                                         </a>
                                         <p>
-                                            {{ post.created|timesince }}
+                                            {{ post.created|timesince }} ago
                                         </p>
                                     </div>
                                 </div>
@@ -291,7 +307,7 @@
 {% endblock body %}
 
 {% block extra_js %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
     {% include 'blog-templates/shared-comment-script.html' with editor_instance_name='comment_editor' editor_field_selector='#id_content' %}
     {% include 'includes/editor-script.html' with selector='#id_content' instance_name='comment_editor' height=180 toolbar='bold italic | image emoticons link codesample | alignleft aligncenter | bullist numlist' %}
     <script>

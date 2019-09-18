@@ -8,6 +8,7 @@ from django.contrib.sites.models import Site
 from django.core.files.storage import FileSystemStorage
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import connection
+from django.forms import ClearableFileInput
 from django.utils.encoding import filepath_to_uri
 from django.utils.safestring import mark_safe
 from selenium import webdriver
@@ -143,3 +144,8 @@ def random_string(string_length=10):
     """Generate a random string of fixed length """
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(string_length))
+
+
+class CustomClearableFileInput(ClearableFileInput):
+    template_name = 'widgets/clearable-file-input.html'
+    clear_checkbox_label = 'remove current'

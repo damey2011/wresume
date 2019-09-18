@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.forms',
     'widget_tweaks',
     'debug_toolbar',
     'turbolinks',
@@ -200,6 +201,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+# I added this in order to be able to load the widget templates from our own, check
+# https://stackoverflow.com/a/46208414/6791750
 
 TENANT_MODEL = 'users.Client'
 

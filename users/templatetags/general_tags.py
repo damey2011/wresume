@@ -1,3 +1,4 @@
+import mimetypes
 from html import escape
 
 from django import template
@@ -130,3 +131,8 @@ def social_username(link):
 @register.filter
 def escape_html(content):
     return escape(content)
+
+
+@register.simple_tag
+def is_file_image(file):
+    return 'image' in mimetypes.guess_type(file.path)[0]

@@ -169,7 +169,7 @@
 		display: block;
 		width: 25px;
 		height: 3px;
-		background: var(--primary_color);
+		background: var(--primary-color);
 		margin: auto;
 		margin-bottom: 4px;
 		transition: all 400ms linear;

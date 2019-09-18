@@ -1,5 +1,8 @@
 from html import escape
 
+import requests
+from bs4 import BeautifulSoup
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.templatetags.static import static
 
 from users.models import User
@@ -42,6 +45,16 @@ class BlogPost(SoftDeletableModel, TimeStampedModel):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)[:100]
+        if not self.image:
+            # If no image is provided, pick from the content if available
+            soup = BeautifulSoup(self.content, 'html.parser')
+            images = soup.find_all('img')
+            if len(images):
+                url = images[0]['src']
+                # download the object
+                resp = requests.get(url)
+                file = SimpleUploadedFile(self.title[:10], resp.content, resp.headers['content-type'])
+                self.image = file
         super(BlogPost, self).save(*args, **kwargs)
 
     def previous_post(self):

@@ -6,7 +6,7 @@
 {% block manager_content %}
     {% trans 'Write Post' as form_title %}
     {% trans 'Create Post' as submit_text %}
-    {% include 'includes/form.html' with form_title=page_title|default:form_title with_label=True submit_text=page_title|default:submit_text %}
+    {% include 'includes/form.html' with two_per_row=True form_title=page_title|default:form_title with_label=True submit_text=page_title|default:submit_text %}
 {% endblock manager_content %}
 {% block extra_js %}
     {% include 'includes/editor-script.html' with selector='#id_content' %}

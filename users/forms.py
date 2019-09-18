@@ -4,6 +4,7 @@ from django import forms
 from resumes.models import ContactFormData
 from users.models import User, Profile, SiteSettings, SocialProfile, EducationProfile, CareerProfile, SkillProfile, \
     WorksProfile, OfferProfile, BannerMedia, CustomProfile
+from wresume.utils import CustomClearableFileInput
 
 
 class SignUpForm(SignupForm):
@@ -47,6 +48,9 @@ class UserForm(forms.ModelForm):
         help_texts = {
             'username': None
         }
+        widgets = {
+            'photo': CustomClearableFileInput
+        }
 
 
 class SettingsForm(forms.ModelForm):
@@ -68,7 +72,9 @@ class SettingsForm(forms.ModelForm):
             'seo_description': forms.Textarea(attrs={'rows': 3}),
             'seo_keywords': forms.Textarea(attrs={'rows': 3}),
             'primary_color': forms.TextInput(attrs={'class': 'jscolor'}),
-            'secondary_color': forms.TextInput(attrs={'class': 'jscolor'})
+            'secondary_color': forms.TextInput(attrs={'class': 'jscolor'}),
+            'favicon': CustomClearableFileInput,
+            'logo': CustomClearableFileInput
         }
         labels = {
             'seo_title': 'SEO Title',
@@ -199,7 +205,8 @@ class WorksForm(forms.ModelForm):
         )
         widgets = {
             'user': forms.HiddenInput,
-            'description': forms.Textarea(attrs={'rows': '3'})
+            'description': forms.Textarea(attrs={'rows': '3'}),
+            'image': CustomClearableFileInput
         }
         labels = {
             'title': 'Work/Project Name'
@@ -222,7 +229,8 @@ class OfferForm(forms.ModelForm):
         )
         widgets = {
             'user': forms.HiddenInput,
-            'description': forms.Textarea(attrs={'rows': '3'})
+            'description': forms.Textarea(attrs={'rows': '3'}),
+            'image': CustomClearableFileInput
         }
 
 
@@ -235,6 +243,7 @@ class BannerMediaForm(forms.ModelForm):
         )
         widgets = {
             'user': forms.HiddenInput,
+            'media': CustomClearableFileInput
         }
 
 

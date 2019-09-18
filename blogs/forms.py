@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from blogs.models import BlogPost, BlogCategory, Comment
+from wresume.utils import CustomClearableFileInput
 
 
 class BlogPostForm(forms.ModelForm):
@@ -9,6 +10,7 @@ class BlogPostForm(forms.ModelForm):
         model = BlogPost
         fields = (
             'title',
+            'is_featured',
             'content',
             'image',
             'category',
@@ -19,12 +21,18 @@ class BlogPostForm(forms.ModelForm):
         )
         labels = {
             'seo_keywords': _('SEO keywords (seperate with commas)'),
-            'seo_desc': _('SEO Description')
+            'seo_desc': _('SEO Description'),
+            'is_featured': _('Show in Featured Section')
+        }
+        help_texts = {
+            'is_featured': 'This can only take maximum of four active posts at a time, you might '
+                           'need to unmark old posts to accommodate new ones in the list.'
         }
         widgets = {
             'author': forms.HiddenInput,
             'seo_desc': forms.Textarea(attrs={'rows': 2}),
-            'site': forms.HiddenInput
+            'site': forms.HiddenInput,
+            'image': CustomClearableFileInput
         }
 
 

@@ -1,0 +1,22 @@
+{% load general_tags %}
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+{% if widget.is_initial %}
+    {% is_file_image widget.value as is_image %}
+    <div class="file-upload" style="margin-top: 8px;">
+    <a href="{{ widget.value.url }}">
+        {% if is_image %}
+            <img src="{{ widget.value.url }}" style="width: auto; height: 30px; min-height: 30px; border-radius: 4px;" alt="">
+        {% else %}
+            <span style="font-size: 11px;">View Current</span>
+        {% endif %}
+    </a>
+    {% if not widget.required %}
+        <div class="form-check d-inline">
+            <input type="checkbox" class="form-check-input" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}">
+            <label for="{{ widget.checkbox_id }}" class="form-check-label" style="font-size: 11px;">{{ widget.clear_checkbox_label }}</label>
+        </div>
+    {% endif %}
+{% endif %}
+{% if widget.is_initial %}
+    </div>
+{% endif %}

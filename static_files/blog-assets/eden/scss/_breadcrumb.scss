@@ -40,6 +40,13 @@
 
 
 
+.single-post-banner {
+	.banner_content {
+		h2 {
+			font-size: 40px !important;
+		}
+	}
+}
 
 .blog_banner{
 	min-height: 660px;
@@ -115,10 +122,11 @@
 				color: #666666;
 				font-size: 15px;
 			}
-			.page_link{
+			.page_link {
 				padding: 25px;
 				display: inline-block;
 				a{
+					margin-left: 5px;
 					font-size: 15px;
 					color: $white;
 					font-family: $paraFont;

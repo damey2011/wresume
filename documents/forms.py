@@ -1,6 +1,7 @@
 from django import forms
 
 from documents.models import Document
+from wresume.utils import CustomClearableFileInput
 
 
 class DocumentForm(forms.ModelForm):
@@ -13,5 +14,6 @@ class DocumentForm(forms.ModelForm):
             'user'
         )
         widgets = {
-            'user': forms.HiddenInput
+            'user': forms.HiddenInput,
+            'doc': CustomClearableFileInput
         }

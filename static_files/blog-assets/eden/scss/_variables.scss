@@ -1,11 +1,11 @@
 /*font Variables*/
-$headingFont: 'Josefin Sans', sans-serif;
-$paraFont: 'Open Sans', sans-serif;
+$headingFont: 'Istok Web', sans-serif;
+$paraFont: 'Yantramanav', sans-serif;
 
 
 /*Color Variables*/
-$baseColor: #ff7a7f;
-$baseColorLight: #ec473a;
+$baseColor: var(--primary-color);
+$baseColorLight: rgba(var(--primary-color), .85);
 $dip: #33353b;
 $dip2: #0a0a0a;
 
@@ -13,14 +13,15 @@ $heading: #33363e;
 $pfont: #797979; 
 $white: #fff;
 $bg_one: #fbf1f2;
-$title-color: #2a2a2a;
+$title-color: var(--primary-alt);
 $border: #e8edf1;
 
 
 
 
 /*=================== fonts ====================*/
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,600,700|Open+Sans:400,600,700');
+//@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,600,700|Open+Sans:400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Yantramanav&display=swap');
 
 // Mixins
 @mixin transition($property: all, $duration: 300ms, $animate: linear, $delay:0s){

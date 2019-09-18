@@ -76,11 +76,12 @@ class BlogPostListView(TenantAccessPublicMixin, TemplateSelector, ListView):
     extra_context = {'is_home_tab': True}
     paginate_by = 25
 
-    def get_context(self, **kwargs):
+    def get_context_data(self, **kwargs):
         ctx = super(BlogPostListView, self).get_context_data(**kwargs)
-        featured = self.get_queryset().filter(is_featured=True)
-        ctx['featured'] = featured
+        ctx['featured_posts'] = self.get_queryset().filter(is_featured=True)
         ctx['total_posts'] = self.get_queryset().count()
+        if ctx['total_posts'] > 3:
+            ctx['posts'] = self.get_queryset().exclude(pk__in=ctx['featured_posts'].values_list('pk', flat=True))
         return ctx
 
     def get_queryset(self):
