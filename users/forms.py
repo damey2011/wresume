@@ -57,6 +57,8 @@ class SettingsForm(forms.ModelForm):
             'logo',
             # 'banner_title',
             # 'banner_description',
+            'primary_color',
+            'secondary_color',
             'seo_title',
             'seo_description',
             'seo_keywords',
@@ -65,11 +67,15 @@ class SettingsForm(forms.ModelForm):
             'banner_description': forms.Textarea(attrs={'rows': 3}),
             'seo_description': forms.Textarea(attrs={'rows': 3}),
             'seo_keywords': forms.Textarea(attrs={'rows': 3}),
+            'primary_color': forms.TextInput(attrs={'class': 'jscolor'}),
+            'secondary_color': forms.TextInput(attrs={'class': 'jscolor'})
         }
         labels = {
             'seo_title': 'SEO Title',
             'seo_description': 'SEO Description',
-            'seo_keywords': 'SEO Keywords'
+            'seo_keywords': 'SEO Keywords',
+            'primary_color': 'Theme',
+            'secondary_color': 'Fallback Color'
         }
 
 

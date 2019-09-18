@@ -5,6 +5,7 @@ from django.contrib.postgres.fields import JSONField
 from django.core.validators import FileExtensionValidator, MinValueValidator, MaxValueValidator
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel, SoftDeletableModel
 from tenant_schemas.models import TenantMixin
@@ -25,6 +26,10 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+    def home_url(self):
+        from wresume.utils import get_tenant, get_tenant_url
+        return get_tenant_url(get_tenant(self)) + reverse('home:tenant_home', urlconf='wresume.urls')
 
     def blogs_url(self):
         from wresume.utils import get_tenant, get_tenant_url
@@ -58,6 +63,8 @@ def site_settings_user_aware_upload_to(instance, filename):
 class SiteSettings(models.Model):
     favicon = models.ImageField(upload_to=site_settings_user_aware_upload_to, null=True, blank=True)
     logo = models.ImageField(upload_to=site_settings_user_aware_upload_to, null=True, blank=True)
+    primary_color = models.CharField(max_length=100, default='#557A95')
+    secondary_color = models.CharField(max_length=100, default='#557A95')
     seo_title = models.CharField(max_length=200, null=True, blank=True)
     seo_description = models.TextField(null=True, blank=True)
     seo_keywords = models.TextField(help_text=_('Seperate with comma'), null=True, blank=True)
@@ -68,6 +75,33 @@ class SiteSettings(models.Model):
 
     def __str__(self):
         return self.client.domain_url
+
+    def save(self, *args, **kwargs):
+        color_fields = ['primary_color', 'secondary_color']
+        for field in color_fields:
+            if not getattr(self, field).startswith('#'):
+                setattr(self, field, '#' + getattr(self, field))
+        super(SiteSettings, self).save(*args, **kwargs)
+
+    @property
+    def primary_rgb(self):
+        color = self.primary_color.replace('#', '')
+        return ','.join(list(str(int(color[i:i + 2], 16)) for i in (0, 2, 4)))
+
+    @property
+    def secondary_rgb(self):
+        color = self.secondary_color.replace('#', '')
+        return ','.join(list(str(int(color[i:i + 2], 16)) for i in (0, 2, 4)))
+
+    @property
+    def alt_primary(self):
+        clr = [str(int(int(unit)/2)) for unit in self.primary_rgb.split(',')]
+        return ','.join(clr)
+
+    @property
+    def alt_secondary(self):
+        clr = [str(int(int(unit) / 2)) for unit in self.secondary_rgb.split(',')]
+        return ','.join(clr)
 
 
 class SocialProfile(SoftDeletableModel):
@@ -259,3 +293,11 @@ class CustomProfile(SoftDeletableModel, TimeStampedModel):
 
     def __str__(self):
         return f'{self.header} - {self.sub_header}'
+
+    @property
+    def edit_url(self):
+        return reverse('users:others-edit', kwargs={'pk': self.id})
+
+    @property
+    def delete_url(self):
+        return reverse('users:others-delete', kwargs={'pk': self.id})

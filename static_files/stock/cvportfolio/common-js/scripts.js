@@ -99,7 +99,7 @@ function enableRadialProgress(){
 				
 			},
 			from: { color: '#aaa', width: 1 },
-			to: { color: '#FEAE01', width: 3 },
+			to: { color: radial_color, width: 3 },
 			// Set default step function for all animate calls
 			step: function(state, circle) {
 				circle.path.setAttribute('stroke', state.color);

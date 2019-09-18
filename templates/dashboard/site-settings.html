@@ -5,3 +5,6 @@
     {% trans 'Submit' as submit_text %}
     {% include 'includes/form.html' with form_title=form_title submit_text=submit_text with_label=True two_per_row=True %}
 {% endblock profile_content %}
+{% block extra_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js"></script>
+{% endblock extra_js %}

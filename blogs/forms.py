@@ -42,6 +42,7 @@ class BlogCategoryForm(forms.ModelForm):
 
 class BlogCommentForm(forms.ModelForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput)
+    parent_id = forms.CharField(required=False, widget=forms.HiddenInput)
 
     class Meta:
         model = Comment
@@ -49,7 +50,8 @@ class BlogCommentForm(forms.ModelForm):
             'name',
             'email',
             'post',
-            'content'
+            'content',
+            'parent_id'
         )
         widgets = {
             'post': forms.HiddenInput,

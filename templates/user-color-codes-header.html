@@ -1,0 +1,10 @@
+<style>
+    :root {
+        --primary-color: {{ tenant.sitesettings.primary_color|default:'#ff7a7f' }};
+        --seconday-color: {{ tenant.sitesettings.secondary_color|default:'#ff7a7f' }};
+        --primary-color-code: {{ tenant.sitesettings.primary_rgb|default:'0,102,204' }};
+        --secondary-color-code: {{ tenant.sitesettings.secondary_rgb|default:'0,102,204' }};
+        --primary-alt: rgb({{ tenant.sitesettings.alt_primary }});
+        --secondary-alt: rgb({{ tenant.sitesettings.alt_secondary }});
+    }
+</style>

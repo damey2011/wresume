@@ -1,3 +1,5 @@
+from html import escape
+
 from django.templatetags.static import static
 
 from users.models import User
@@ -34,6 +36,7 @@ class BlogPost(SoftDeletableModel, TimeStampedModel):
     seo_desc = models.TextField(blank=True)
     seo_keywords = models.CharField(max_length=100, blank=True)
     post_image = models.ImageField(upload_to='blog-post-headers', blank=True, null=True)
+    views = models.IntegerField(default=0)
     site = models.ForeignKey(Client, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
@@ -42,13 +45,13 @@ class BlogPost(SoftDeletableModel, TimeStampedModel):
         super(BlogPost, self).save(*args, **kwargs)
 
     def previous_post(self):
-        qs = BlogPost.objects.filter(id__lt=self.id)
+        qs = BlogPost.objects.filter(id__lt=self.id, site=self.site)
         if qs.exists():
             return qs.last()
         return None
 
     def next_post(self):
-        qs = BlogPost.objects.filter(id__gt=self.id)
+        qs = BlogPost.objects.filter(id__gt=self.id, site=self.site)
         if qs.exists():
             return qs.first()
         return None
@@ -69,13 +72,17 @@ class Comment(SoftDeletableModel, TimeStampedModel):
     name = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     content = models.TextField()
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.content[:25]
 
     class Meta:
         ordering = ['-created']
+
+    @property
+    def escaped_content(self):
+        return escape(self.content)
 
 
 @receiver(post_save, sender=BlogPost)

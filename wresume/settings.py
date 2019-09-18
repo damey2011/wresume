@@ -45,6 +45,7 @@ SHARED_APPS = [
     'users',
     'blogs',
     'resumes',
+    'documents',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -58,7 +59,8 @@ TENANT_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'resumes',
-    'blogs'
+    'blogs',
+    'documents'
 ]
 
 INSTALLED_APPS = [
@@ -75,6 +77,7 @@ INSTALLED_APPS = [
     'turbolinks',
     'users',
     'resumes',
+    'documents',
     'blogs',
     'allauth',
     'allauth.account',
@@ -97,6 +100,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 INTERNAL_IPS = [
     'localhost',

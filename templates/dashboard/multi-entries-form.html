@@ -41,6 +41,25 @@
                                             <td>{% get_attr object field.name as val %}{{ val|safe }}</td>
                                         </tr>
                                     {% endfor %}
+
+                                    {# For Document Manager #}
+                                    {% if nav_section == 'document' %}
+                                        <tr>
+                                            <th>Shareable Link</th>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" readonly class="form-control" value="{{ object.public_url }}" placeholder="Copy Link" id="copy-input-{{ object.id }}">
+                                                    <span class="input-group-btn">
+                                                    <button class="btn btn-default" onclick="copyToCP(event, '#copy-input-{{ object.id }}')" type="button" id="copy-button" data-toggle="tooltip" data-placement="button" title="Copy to Clipboard">
+                                                    Copy
+                                                  </button>
+                                                </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                    {# For Document Manager #}
+
                                 </table>
                             </div>
                         </div>
@@ -71,6 +90,15 @@
         document.querySelector('#add-entry-toggle').addEventListener('click', function (event) {
             document.querySelector('#add-entry-form').classList.toggle('d-none');
         })
+
+        {% if nav_section == 'document' %}
+            function copyToCP(event, selector) {
+                document.querySelector(selector).select();
+                document.execCommand('copy');
+                $(event.target).notify("Copied", 'success');
+            }
+        {% endif %}
+
     </script>
     {% if others_tab %}
         {% include 'includes/editor-script.html' with selector='#id_content' height=300 %}

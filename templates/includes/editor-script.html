@@ -8,6 +8,8 @@
         loadTinyMCE()
     });
 
+    let {{ instance_name|default:'editor' }};
+
     function loadTinyMCE() {
         tinymce.init({
             selector: '{{ selector|default:'#container' }}',
@@ -38,6 +40,7 @@
             images_upload_url: '/tinymce/upload/',
             setup: function (ed)
             {
+                {{ instance_name|default:'editor' }} = ed
                 ed.on('init', function ()
                 {
                     this.execCommand("fontName", false, "helvetica, arial, sans-serif");

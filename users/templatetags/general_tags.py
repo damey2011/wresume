@@ -1,3 +1,5 @@
+from html import escape
+
 from django import template
 from django.conf import settings
 from django.forms import Textarea
@@ -56,14 +58,16 @@ def get_attr(obj, attr):
     val = getattr(obj, attr, '')
     if not val:
         return ''
+    if hasattr(val, 'url'):
+        return '<a href="{}" target="_blank">View</a>'.format(val.url)
     return val
 
 
 @register.filter
-def image_or_not(image_field):
+def image_or_not(image_field, default=static('images/new-images/noimage.png')):
     if image_field:
         return image_field.url
-    return static('images/new-images/noimage.png')
+    return default
 
 
 @register.filter
@@ -121,3 +125,8 @@ def tenant_home_from_user(context):
 @register.filter
 def social_username(link):
     return link.split('/')[-1] if link else ''
+
+
+@register.filter
+def escape_html(content):
+    return escape(content)

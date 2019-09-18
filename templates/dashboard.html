@@ -16,14 +16,16 @@
 
                 <div class="row">
                     <div class="col-lg-8 mb-5">
-                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="justify-content: flex-end;">
-                            <li class="nav-item">
-                                <a class="nav-link {% if basic_tab %}active{% endif %}" id="pills-basic-tab" href="{% url 'users:basic_profile' %}">Basic</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if advanced_tab %}active{% endif %}" id="pills-advanced-tab" href="{% url 'users:settings' %}">Advanced</a>
-                            </li>
-                        </ul>
+                        {% if basic_tab or advanced_tab %}
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="justify-content: flex-end;">
+                                <li class="nav-item">
+                                    <a class="nav-link {% if basic_tab %}active{% endif %}" id="pills-basic-tab" href="{% url 'users:basic_profile' %}">Basic</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if advanced_tab %}active{% endif %}" id="pills-advanced-tab" href="{% url 'users:settings' %}">Advanced</a>
+                                </li>
+                            </ul>
+                        {% endif %}
 
                         {% if basic_tab %}
                             <ul class="nav nav-tabs">

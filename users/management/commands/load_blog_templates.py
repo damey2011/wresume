@@ -7,11 +7,11 @@ from blogs.models import Template
 class Command(BaseCommand):
     def handle(self, *args, **options):
         temps = [
-            {
-                'name': 'Callie',
-                'template_folder': 'blog-templates/callie/',
-                'screenshot': static('blog-assets/callie/img/screenshot.png')
-            },
+            # {
+            #     'name': 'Callie',
+            #     'template_folder': 'blog-templates/callie/',
+            #     'screenshot': static('blog-assets/callie/img/screenshot.png')
+            # },
             {
                 'name': 'Eden',
                 'template_folder': 'blog-templates/eden/',

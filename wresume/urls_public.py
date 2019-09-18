@@ -14,6 +14,7 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
     path('blogs/', include('blogs.urls_public', namespace='blogs_public')),
     path('builder/', include('resumes.urls', namespace='resume')),
+    path('docs/', include('documents.public_urls', namespace='docs_public')),
     path('tinymce/upload/', HandleEditorUpload.as_view()),
     path('b/', include('blogs.urls', namespace='blogs'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

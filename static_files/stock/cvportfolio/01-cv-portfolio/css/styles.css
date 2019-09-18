@@ -58,7 +58,7 @@ a, button{ display: inline-block; text-decoration: none; color: inherit; line-he
 
 a:focus, a:active, a:hover,
 button:focus, button:active, button:hover,
-a b.light-color:hover{ text-decoration: none; color: #FFA804; }
+a b.light-color:hover{ text-decoration: none; color: var(--primary-color); }
 
 b{ font-weight: 600; }
 
@@ -87,7 +87,7 @@ b.max-bold{ font-weight: 700; }
 .section .heading{ margin-bottom: 60px; }
 
 .section .heading:before{ content:''; height: 10px; width: 50px; border-radius: 5px;
-	margin-bottom: 20px; display: block; background: #FFA804; }
+	margin-bottom: 20px; display: block; background: var(--primary-color); }
 	
 .margin-t-10{ margin-top: 10px; }
 
@@ -96,7 +96,7 @@ b.max-bold{ font-weight: 700; }
 
 .margin-tb-30{ margin-top: 30px; margin-bottom: 30px; }
 
-.font-yellow{ color: #FFA600; }
+.font-yellow{ color: rgba(var(--primary-color-code), .9); }
 
 .font-semi-white{ color: #ddd; }
 
@@ -109,7 +109,7 @@ b.max-bold{ font-weight: 700; }
 
 header{ position: absolute; top: 30px; left: 0; right: 0; z-index: 100; }
 
-header .heading-wrapper{ border-radius: 5px; padding: 30px 40px 20px; background: #FFAD01; color: #fff; }
+header .heading-wrapper{ border-radius: 5px; padding: 30px 40px 20px; background: rgba(var(--primary-color-code), .75); color: #fff; }
 
 header .info{ margin-bottom: 10px; }
 
@@ -118,7 +118,7 @@ header .info .icon{ float: left; font-size: 30px; }
 header .info .right-area{ margin-left: 45px; }
 
 header .downlad-btn{ padding: 15px 30px; border-radius: 4px; float: right; margin-top: 30px;
-	box-shadow: inset 0 0px 4px rgba(0,0,0,.3); background: #FFAD01; color: #fff; 
+	box-shadow: inset 0 0px 4px rgba(var(--primary-color-code),.3); background: rgba(var(--primary-color-code),.85); color: #fff;
 	-webkit-transition: all .2s ease; transition: all .2s ease; }
 
 header .downlad-btn:hover{ -webkit-transform: translateY(-4px); transform: translateY(-4px); }
@@ -145,10 +145,10 @@ header .downlad-btn:hover{ -webkit-transform: translateY(-4px); transform: trans
 .intro .information > li{ display: block; margin: 5px 0; }
 
 .intro .social-icons > li > a{ height: 35px; line-height: 35px; width: 35px; border-radius: 20px; 
-	overflow: hidden; z-index: 1; position: relative; margin: 0 5px 5px; background: #887392; color: #fff; }
+	overflow: hidden; z-index: 1; position: relative; margin: 0 5px 5px; background: rgba(var(--primary-color-code),.75); color: #fff; }
 
 .intro .social-icons > li > a:after{ content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-	top: 0; z-index: -1; border-radius: 20px; background: #FFA804; 
+	top: 0; z-index: -1; border-radius: 20px; background: var(--primary-color); 
 	-webkit-transition: all .2s ease; transition: all .2s ease;
 	-webkit-transform: scale(0); transform: scale(0); }
 
@@ -165,7 +165,7 @@ header .downlad-btn:hover{ -webkit-transform: translateY(-4px); transform: trans
 
 .portfolio-section .portfolioFilter a{ margin: 10px 10px 0 0; }
 
-.portfolio-section .portfolioFilter a.current{  color: #FFA804; }
+.portfolio-section .portfolioFilter a.current{  color: var(--primary-color); }
 
 .portfolio-section .portfolioContainer{ margin-left: -15px; margin-right: -15px; }
 
@@ -198,14 +198,22 @@ header .downlad-btn:hover{ -webkit-transform: translateY(-4px); transform: trans
 7. EXPERIENCE SECTION
 --------------------------------- */
 
-.experience-section{ background: #28023D; color: #fff; }
+.experience-section{ background: var(--primary-alt); color: #fff; }
 
 .experience .list > li{ display: block; position: relative; margin-bottom: 10px; padding-left: 20px; }
 
 .experience .list > li:before{ content: ''; position: absolute; top: 50%; left: 0; height: 10px; 
 	width: 10px; margin-top: -5px; display: block; border-radius: 10px; border: 2px solid #fff; }
+.experience-section .font-lite-black {
+	color: rgba(255,255,255,0.7) !important;
+}
+.experience-section.section .heading:before {
+	background: rgba(255,255,255,0.7);
+}
+.experience. .font-yellow {
+	color: rgba(255,255,255,0.7);
+}
 
-	
 /* ---------------------------------
 8. EDUCATION SECTION
 --------------------------------- */
@@ -219,7 +227,7 @@ header .downlad-btn:hover{ -webkit-transform: translateY(-4px); transform: trans
 
 .education-wrapper .education:after{ content:''; position: absolute; top: 8px; left: -58px; width: 16px; 
 	height: 16px; border-radius: 10px; z-index: 1;
-	box-shadow: 0 0 0 8px rgba(255,171,0, .4); background: #FFAB00; }
+	box-shadow: 0 0 0 8px rgba(var(--primary-color-code), .4); background: var(--primary-color); }
 	
 	
 /* ---------------------------------
@@ -258,5 +266,16 @@ header .downlad-btn:hover{ -webkit-transform: translateY(-4px); transform: trans
 10. FOOTER
 --------------------------------- */
 
-.copyright{ text-align: center; padding: 30px 0; background: #28023D; }
+.copyright{ text-align: center; padding: 30px 0; background: var(--primary-alt);color: white; }
 
+.btn-prt {
+	background: var(--primary-color);
+	border-color: var(--primary-color);
+	cursor: pointer;
+}
+
+.btn-prt:hover {
+	background: var(--primary-color);
+	opacity: 0.8;
+	border-color: var(--primary-color);
+}

@@ -17,7 +17,7 @@
         submit_btn.disabled = true
 
         $.ajax({
-            url: '{{ request.get_full_path }}',
+            url: '{{ action_url|default:request.get_full_path }}',
             data: data,
             method: 'post',
             contentType: false,

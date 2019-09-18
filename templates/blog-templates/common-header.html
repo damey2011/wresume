@@ -1,0 +1,33 @@
+{% load general_tags static %}
+<title>Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="title" content="{{ post.title|default:'Blog' }}" />
+<meta name="description" content="{{ post.seo_desc|default:'Blog Posts' }}" />
+<meta name="keywords" content="{{ post.seo_keywords }}" />
+<meta name="author" content="{{ post.author.get_full_name }}" />
+
+<!-- Facebook and Twitter integration -->
+<meta property="og:title" content="{{ post.title|default:'Blog' }}"/>
+<meta property="og:image" content="{{ post.image|image_or_def }}"/>
+<meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+<meta property="og:site_name" content="Wresu.me"/>
+<meta property="og:description" content="{{ post.seo_desc|default:'Blog Posts' }}"/>
+<meta name="twitter:title" content="{{ post.title|default:'Blog' }}" />
+<meta name="twitter:image" content="{{ post.image|image_or_def }}" />
+<meta name="twitter:url" content="{{ request.build_absolute_uri }}" />
+<meta name="twitter:card" content="" />
+
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<link rel="shortcut icon" href="{% if tenant.sitesettings.favicon %}{{ tenant.sitesettings.favicon.url }}{% else %}{% static 'images/new-images/logo.png' %}{% endif %}">
+
+<style>
+    .tox.tox-tinymce {
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+    }
+
+    .tox-statusbar__branding {
+        display: none;
+    }
+</style>

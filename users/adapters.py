@@ -8,7 +8,8 @@ from django.urls import reverse
 class AccountAdapter(DefaultAccountAdapter):
 
     def get_login_redirect_url(self, request):
-        return reverse('home:dashboard')
+        redirect = request.GET.get('next', reverse('home:dashboard'))
+        return redirect
 
     def clean_username(self, username, shallow=False):
         if not re.match(r'^\w+_?$', username):

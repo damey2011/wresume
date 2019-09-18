@@ -1,4 +1,6 @@
 import os
+import random
+import string
 from urllib.parse import urljoin
 
 from django import forms
@@ -135,3 +137,9 @@ def get_tenant_url(tenant):
     if 'localhost' in domain:
         return 'http://' + subdomain + domain
     return 'https://' + subdomain + domain
+
+
+def random_string(string_length=10):
+    """Generate a random string of fixed length """
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(string_length))

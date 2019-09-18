@@ -17,10 +17,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 
+from blogs.views_public import HandleEditorUpload
+
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', include('home.urls', namespace='home')),
-    path('b/', include('blogs.urls', namespace='blogs'))
+    path('b/', include('blogs.urls', namespace='blogs')),
+    path('d/', include('documents.urls', namespace='docs')),
+    path('tinymce/upload/', HandleEditorUpload.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

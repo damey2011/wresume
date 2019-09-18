@@ -271,44 +271,7 @@
         duration: 1200,
     })
 </script>
-<script>
-    $(document).ready(function () {
-        document.querySelector('#comment-form').addEventListener('submit', function (e) {
-            e.preventDefault()
-            let data = new FormData(document.querySelector('#comment-form'))
-            data.append('is_ajax', 'true')
-            let err_els = document.querySelectorAll('small[id^=error_]')
-            for (let el of err_els) {
-                el.innerHTML = ''
-            }
-            let submit_btn = document.querySelector('#submit-btn')
-            let originalText = submit_btn.innerHTML
-            submit_btn.innerHTML = 'Submitting...'
-            submit_btn.disabled = true
-            $.ajax({
-                url: '{{ request.get_full_path }}',
-                data: data,
-                method: 'post',
-                contentType: false,
-                processData: false,
-                headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                success: function (data) {
-                    window.location.reload()
-                },
-                error: function (data) {
-                    submit_btn.innerHTML = originalText
-                    submit_btn.disabled = false
-                    data = JSON.parse(data.responseText)
-                    for (let key in data) {
-                        if (data.hasOwnProperty(key)) {
-                            document.querySelector('#error_' + key).innerHTML = data[key][0]
-                        }
-                    }
-                }
-            })
-        })
-    })
-</script>
+{% include 'blog-templates/shared-comment-script.html' %}
 {% include 'includes/editor-script.html' with selector='#id_content' %}
 </body>
 </html>

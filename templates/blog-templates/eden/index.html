@@ -1,146 +1,151 @@
 {% extends 'blog-templates/eden/base.html' %}
 {% load static general_tags %}
+{% tenant as tenant %}
 {% block title %}Home{% endblock %}
 {% block body %}
     <!--================Fullwidth block Area =================-->
-    <section class="fullwidth-block area-padding-bottom">
-        <div class="container-fluid">
-            <div class="row">
-                {% if posts.0 %}
-                    <div class="col-md-6 col-lg-6 col-xl-5">
-                        <div class="single-blog h-100">
-                            <div class="thumb h-100">
-                                <img alt="" class="img-fluid fit-image" src="{{ posts.0.image|image_or_def }}"/>
-                            </div>
-                            <div class="short_details">
-                                <div class="meta-top d-flex">
-                                    {% if posts.0.category %}
-                                        <a href="{% url 'blogs:category-detail' posts.0.category.id %}">
-                                            {{ posts.0.category.category }}
-                                        </a>
-                                    {% endif %}
+    {% if featured_posts %}
+        <section class="fullwidth-block area-padding-bottom">
+            <div class="container-fluid">
+                <div class="row">
+                    {% if featured_posts.0 %}
+                        <div class="col-md-6 col-lg-6 col-xl-5">
+                            <div class="single-blog h-100">
+                                <div class="thumb h-100">
+                                    <img alt="" class="img-fluid fit-image" src="{{ featured_posts.0.image|image_or_def }}"/>
                                 </div>
-                                <a class="d-block" href="{{ posts.0.get_absolute_url }}">
-                                    <h4>
-                                        {{ posts.0.title }}
-                                    </h4>
-                                </a>
-                                <div class="meta-bottom d-flex">
-                                    <a href="#">
-                                        {{ posts.0.created }}
+                                <div class="short_details">
+                                    <div class="meta-top d-flex">
+                                        {% if featured_posts.0.category %}
+                                            <a href="{% url 'blogs:category-detail' featured_posts.0.category.id %}">
+                                                {{ featured_posts.0.category.category }}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    <a class="d-block" href="{{ featured_posts.0.get_absolute_url }}">
+                                        <h4>
+                                            {{ featured_posts.0.title }}
+                                        </h4>
                                     </a>
-                                    <a class="dark_font" href="#">
-                                        {{ posts.0.author.get_full_name }}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-                {% if posts.1 %}
-                    <div class="col-md-6 col-lg-6 col-xl-4">
-                        <div class="single-blog style_two h-100">
-                            <div class="thumb h-100">
-                                <img alt="" class="img-fluid fit-image" src="{{ posts.1.image|image_or_def }}"/>
-                            </div>
-                            <div class="short_details text-center">
-                                <div class="meta-top d-flex justify-content-center">
-                                    {% if posts.1.category %}
+                                    <div class="meta-bottom d-flex">
                                         <a href="#">
-                                            {{ posts.1.category.category }}
+                                            {{ featured_posts.0.created }}
                                         </a>
-                                    {% endif %}
-                                </div>
-                                <a class="d-block" href="single-blog.html">
-                                    <h4>
-                                        {{ posts.1.title }}
-                                    </h4>
-                                </a>
-                                <div class="meta-bottom d-flex justify-content-center">
-                                    <a href="{% url 'blogs:category-detail' posts.1.category.id %}">
-                                        {{ posts.1.created }}
-                                    </a>
-                                    <a href="#">
-                                        {{ posts.1.author.get_full_name }}
-                                    </a>
+                                        <a class="dark_font" href="#">
+                                            {{ featured_posts.0.author.get_full_name }}
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endif %}
-                <div class="col-lg-12 col-xl-3">
-                    <div class="row">
-                        {% if posts.2 %}
-                            <div class="col-12 col-md-6 col-lg-6 col-xl-12">
-                                <div class="single-blog style-three m_b_30 h-100">
-                                    <div class="thumb h-100">
-                                        <img alt="" class="img-fluid fit-image" src="{{ posts.2.image|image_or_def }}"/>
+                    {% endif %}
+                    {% if featured_posts.1 %}
+                        <div class="col-md-6 col-lg-6 col-xl-4">
+                            <div class="single-blog style_two h-100">
+                                <div class="thumb h-100">
+                                    <img alt="" class="img-fluid fit-image" src="{{ featured_posts.1.image|image_or_def }}"/>
+                                </div>
+                                <div class="short_details text-center">
+                                    <div class="meta-top d-flex justify-content-center">
+                                        {% if featured_posts.1.category %}
+                                            <a href="#">
+                                                {{ featured_posts.1.category.category }}
+                                            </a>
+                                        {% endif %}
                                     </div>
-                                    <div class="short_details">
-                                        <div class="meta-top d-flex justify-content-center">
-                                            {% if posts.2.category %}
-                                                <a href="{% url 'blogs:category-detail' posts.2.category.id %}">
-                                                    {{ posts.2.category.category }}
-                                                </a>
-                                            {% endif %}
-                                        </div>
-                                        <a class="d-block" href="single-blog.html">
-                                            <h4>
-                                                {{ posts.2.title }}
-                                            </h4>
+                                    <a class="d-block" href="{{ featured_posts.1.get_absolute_url }}">
+                                        <h4>
+                                            {{ featured_posts.1.title }}
+                                        </h4>
+                                    </a>
+                                    <div class="meta-bottom d-flex justify-content-center">
+                                        <a href="{% url 'blogs:category-detail' featured_posts.1.category.id %}">
+                                            {{ featured_posts.1.created }}
+                                        </a>
+                                        <a href="#">
+                                            {{ featured_posts.1.author.get_full_name }}
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                        {% endif %}
-                        {% if posts.3 %}
-                            <div class="col-12 col-md-6 col-lg-6 col-xl-12">
-                                <div class="single-blog style-three m_b_30 h-100">
-                                    <div class="thumb h-100">
-                                        <img alt="" class="img-fluid fit-image" src="{{ posts.3.image|image_or_def }}"/>
-                                    </div>
-                                    <div class="short_details">
-                                        <div class="meta-top d-flex justify-content-center">
-                                            {% if posts.3.category %}
-                                                <a href="{% url 'blogs:category-detail' posts.3.category.id %}">
-                                                    {{ posts.3.category.category }}
-                                                </a>
-                                            {% endif %}
+                        </div>
+                    {% endif %}
+                    <div class="col-lg-12 col-xl-3">
+                        <div class="row">
+                            {% if featured_posts.2 %}
+                                <div class="col-12 col-md-6 col-lg-6 col-xl-12">
+                                    <div class="single-blog style-three m_b_30 h-100">
+                                        <div class="thumb h-100">
+                                            <img alt="" class="img-fluid fit-image" src="{{ featured_posts.2.image|image_or_def }}"/>
                                         </div>
-                                        <a class="d-block" href="single-blog.html">
-                                            <h4>
-                                                {{ posts.3.title }}
-                                            </h4>
-                                        </a>
+                                        <div class="short_details">
+                                            <div class="meta-top d-flex justify-content-center">
+                                                {% if featured_posts.2.category %}
+                                                    <a href="{% url 'blogs:category-detail' featured_posts.2.category.id %}">
+                                                        {{ featured_posts.2.category.category }}
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            <a class="d-block" href="{{ featured_posts.2.get_absolute_url }}">
+                                                <h4>
+                                                    {{ featured_posts.2.title }}
+                                                </h4>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endif %}
+                            {% endif %}
+                            {% if featured_posts.3 %}
+                                <div class="col-12 col-md-6 col-lg-6 col-xl-12">
+                                    <div class="single-blog style-three m_b_30 h-100">
+                                        <div class="thumb h-100">
+                                            <img alt="" class="img-fluid fit-image" src="{{ featured_posts.3.image|image_or_def }}"/>
+                                        </div>
+                                        <div class="short_details">
+                                            <div class="meta-top d-flex justify-content-center">
+                                                {% if featured_posts.3.category %}
+                                                    <a href="{% url 'blogs:category-detail' featured_posts.3.category.id %}">
+                                                        {{ featured_posts.3.category.category }}
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            <a class="d-block" href="{{ featured_posts.3.get_absolute_url }}">
+                                                <h4>
+                                                    {{ featured_posts.3.title }}
+                                                </h4>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
     <!--================Fullwidth block Area end =================-->
 
     <!--================ three-block section start =================-->
     <div class="three-block area-padding">
         <div class="container">
-            <div class="row">
-                <div class="area-heading">
-                    <h3>
-                        Recent Posts
-                    </h3>
-                    <p>
-                    </p>
+            {% if total_posts > 4 %}
+                <div class="row">
+                    <div class="area-heading">
+                        <h3>
+                            Recent Posts
+                        </h3>
+                        <p>
+                        </p>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
             <div class="row">
                 {% for post in posts %}
                     <div class="col-lg-4">
                         <div class="single-blog style-five">
                             <div class="thumb">
-                                <img alt="" class="img-fluid" src="{{ post.image|image_or_def }}"/>
+                                <img alt="{{ post.title }}" class="img-fluid" src="{{ post.image|image_or_def }}"/>
                             </div>
                             <div class="short_details">
                                 <div class="meta-top d-flex">
@@ -150,17 +155,22 @@
                                         </a>
                                         /
                                     {% endif %}
-                                    <a href="#">
+                                    <span style="margin-left: 6px; font-size: 11px;">
                                         {{ post.created }}
-                                    </a>
+                                    </span>
                                 </div>
-                                <a class="d-block" href="single-blog.html">
+                                <a class="d-block" href="{{ post.get_absolute_url }}">
                                     <h4>
                                         {{ post.title }}
                                     </h4>
                                 </a>
                                 <div class="meta-bottom d-flex">
-                                    <a href="#">
+                                    <a>
+                                        <i class="ti-eye">
+                                        </i>
+                                        {{ post.views }} views
+                                    </a>
+                                    <a>
                                         <i class="ti-comment">
                                         </i>
                                         {{ post.comment_set.count }} comments
@@ -170,6 +180,24 @@
                         </div>
                     </div>
                 {% endfor %}
+                {% if is_paginated %}
+                    <div class="col-6 text-left">
+                        {% if page_obj.has_previous %}
+                            <a class="main_btn" href="?page={{ page_obj.previous_page_number }}">
+                                <span class="ti-angle-double-left"></span>
+                                Previous
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="col-6 text-right">
+                        {% if page_obj.has_next %}
+                            <a class="main_btn" href="?page={{ page_obj.next_page_number }}">
+                                Next
+                                <span class="ti-angle-double-right"></span>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
