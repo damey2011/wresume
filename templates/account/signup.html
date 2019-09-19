@@ -26,13 +26,15 @@
                                         {{ hidden }}
                                     {% endfor %}
                                     {% for field in form.visible_fields %}
-                                        <div class="{% if field.name == 'username' %}input-group{% endif %} form-group">
-                                            {% render_field field class='form-control' placeholder=field.label %}
-                                            {% if field.name == 'username' %}
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon2">.wresu.me</span>
-                                                </div>
-                                            {% endif %}
+                                        <div class="form-group">
+                                            <div class="{% if field.name == 'username' %}input-group{% endif %}">
+                                                {% render_field field class='form-control' placeholder=field.label %}
+                                                {% if field.name == 'username' %}
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">.wresu.me</span>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
                                             {% for error in field.errors %}
                                                 <small class="text-danger">{{ error }}</small>
                                             {% endfor %}
