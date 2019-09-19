@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="sectionContent">
-                    <p>{{ user.profile.bio|default:'Your Bio in profile will go in here' }}</p>
+                    <p>{{ user.profile.bio|safe|default:'Your Bio in profile will go in here' }}</p>
                 </div>
             </article>
             <div class="clear"></div>
@@ -111,6 +111,18 @@
             <div class="clear"></div>
         </section>
 
+        {% for section in user.customprofile_set.all %}
+            <section>
+                <div class="sectionTitle">
+                    <h1>{{ section.header|capfirst }}</h1>
+                </div>
+
+                <div class="sectionContent">
+                    {{ section.content|safe }}
+                </div>
+                <div class="clear"></div>
+            </section>
+        {% endfor %}
     </div>
 </div>
 </body>

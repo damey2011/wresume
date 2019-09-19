@@ -26,13 +26,13 @@ body {
 }
 
 a {
-  color: #2c98f0;
+  color: var(--primary-color);
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
 }
 a:hover, a:active, a:focus {
-  color: #2c98f0;
+  color: var(--primary-color);
   outline: none;
   text-decoration: none !important;
 }
@@ -69,17 +69,17 @@ figure figcaption {
 
 ::-webkit-selection {
   color: #fff;
-  background: #2c98f0;
+  background: var(--primary-color);
 }
 
 ::-moz-selection {
   color: #fff;
-  background: #2c98f0;
+  background: var(--primary-color);
 }
 
 ::selection {
   color: #fff;
-  background: #2c98f0;
+  background: var(--primary-color);
 }
 
 #colorlib-page {
@@ -185,7 +185,7 @@ figure figcaption {
   bottom: 7px;
   left: 0;
   right: 0;
-  background-color: #2c98f0;
+  background-color: var(--primary-color);
   visibility: hidden;
   -webkit-transform: scaleX(0);
   -moz-transform: scaleX(0);
@@ -211,7 +211,7 @@ figure figcaption {
   transform: scaleX(1);
 }
 #colorlib-aside #colorlib-main-menu ul li.active a {
-  color: #2c98f0;
+  color: var(--primary-color);
 }
 #colorlib-aside #colorlib-main-menu ul li.active a:after {
   visibility: visible;
@@ -255,7 +255,7 @@ figure figcaption {
 #colorlib-aside .colorlib-footer ul li a:hover, #colorlib-aside .colorlib-footer ul li a:active, #colorlib-aside .colorlib-footer ul li a:focus {
   text-decoration: none;
   outline: none;
-  color: #2c98f0;
+  color: var(--primary-color);
 }
 
 .container-wrap {
@@ -328,7 +328,7 @@ figure figcaption {
 #colorlib-hero .flexslider .flex-control-nav li a.flex-active {
   cursor: pointer;
   background: transparent;
-  border: 2px solid #2c98f0;
+  border: 2px solid var(--primary-color);
 }
 #colorlib-hero .flexslider .flex-direction-nav {
   display: none;
@@ -376,8 +376,8 @@ figure figcaption {
   font-family: "Quicksand", Arial, sans-serif;
 }
 #colorlib-hero .flexslider .slider-text > .slider-text-inner h2 a {
-  color: rgba(44, 152, 240, 0.8);
-  border-bottom: 1px solid rgba(44, 152, 240, 0.7);
+  color: rgba(var(--primary-color), 0.8);
+  border-bottom: 1px solid rgba(var(--primary-color), 0.7);
 }
 #colorlib-hero .flexslider .slider-text > .slider-text-inner .heading-section {
   font-size: 50px;
@@ -559,7 +559,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   letter-spacing: 1px;
   text-transform: uppercase;
   font-family: "Quicksand", Arial, sans-serif;
-  background-color: #2c98f0;
+  background-color: var(--primary-color);
   color: #fff;
   position: relative;
   -webkit-box-shadow: none !important;
@@ -657,7 +657,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   display: block;
   width: 40px;
   height: 40px;
-  background: #2c98f0;
+  background: var(--primary-color);
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -746,7 +746,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   -ms-box-shadow: 0px 0px 56px -8px rgba(0, 0, 0, 0.17);
   -o-box-shadow: 0px 0px 56px -8px rgba(0, 0, 0, 0.17);
   box-shadow: 0px 0px 56px -8px rgba(0, 0, 0, 0.17);
-  border-bottom: 2px solid #2c98f0;
+  border-bottom: 2px solid var(--primary-color);
 }
 .services .icon2 {
   display: block;
@@ -754,7 +754,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
 }
 .services .icon2 i {
   font-size: 30px;
-  color: #2c98f0;
+  color: var(--primary-color);
 }
 .services h3 {
   font-family: "Quicksand", Arial, sans-serif;
@@ -805,7 +805,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   height: 50px;
   display: table;
   margin: 0 auto;
-  background: #2c98f0;
+  background: var(--primary-color);
 }
 .services .icon:before, .services .icon:after {
   position: absolute;
@@ -819,7 +819,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   height: 0;
   border-style: solid;
   border-width: 0 50px 30px 50px;
-  border-color: transparent transparent #2c98f0 transparent;
+  border-color: transparent transparent var(--primary-color) transparent;
 }
 .services .icon:after {
   bottom: -30px;
@@ -827,7 +827,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   height: 0;
   border-style: solid;
   border-width: 30px 50px 0 50px;
-  border-color: #2c98f0 transparent transparent transparent;
+  border-color: var(--primary-color) transparent transparent transparent;
 }
 .services .icon i {
   font-size: 30px;
@@ -904,7 +904,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
 }
 
 .progress-bar {
-  background: #2c98f0;
+  background: var(--primary-color);
   box-shadow: none;
   font-size: 12px;
   line-height: 1.2;
@@ -925,7 +925,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   width: 10px;
   height: 10px;
   content: "";
-  background: #2c98f0;
+  background: var(--primary-color);
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -937,13 +937,13 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   right: 0;
 }
 .progress-bar.color-1 {
-  background: #2c98f0;
+  background: var(--primary-color);
 }
 .progress-bar.color-1:after {
-  background: #2c98f0;
+  background: var(--primary-color);
 }
 .progress-bar.color-1 span {
-  color: #2c98f0;
+  color: var(--primary-color);
 }
 .progress-bar.color-2 {
   background: #ec5453;
@@ -1015,7 +1015,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
 .colorlib-feature .colorlib-icon i {
   display: table-cell;
   vertical-align: middle;
-  color: #2c98f0;
+  color: var(--primary-color);
   font-size: 60px;
   height: 100px;
 }
@@ -1044,7 +1044,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   margin-top: 30px;
 }
 .colorlib-feature.colorlib-feature-sm .colorlib-icon i {
-  color: #2c98f0;
+  color: var(--primary-color);
   font-size: 40px;
 }
 @media screen and (max-width: 1200px) {
@@ -1133,7 +1133,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   color: #000;
 }
 .work-menu span a.active {
-  color: #2c98f0;
+  color: var(--primary-color);
 }
 
 .project {
@@ -1152,7 +1152,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   bottom: 0;
   left: 0;
   right: 0;
-  background: #2c98f0;
+  background: var(--primary-color);
   opacity: 0;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
@@ -1280,7 +1280,7 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   width: 100px;
   height: 100px;
   font-size: 50px;
-  color: #2c98f0;
+  color: var(--primary-color);
   background: #fff;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -1341,12 +1341,12 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   }
 }
 .colorlib-social li a:hover {
-  color: #2c98f0;
+  color: var(--primary-color);
 }
 .colorlib-social li a:hover, .colorlib-social li a:active, .colorlib-social li a:focus {
   outline: none;
   text-decoration: none;
-  color: #2c98f0;
+  color: var(--primary-color);
 }
 
 #map {
@@ -1387,9 +1387,9 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   border-radius: 2px;
 }
 .pagination li a:hover, .pagination li a:focus {
-  background: #2c98f0;
+  background: var(--primary-color);
   color: #fff;
-  border: 1px solid #2c98f0;
+  border: 1px solid var(--primary-color);
 }
 @media screen and (max-width: 768px) {
   .pagination li a {
@@ -1397,13 +1397,13 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
   }
 }
 .pagination li.active a {
-  background: #2c98f0;
-  border: 1px solid #2c98f0 !important;
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color) !important;
 }
 .pagination li.active a:hover, .pagination li.active a:focus {
-  background: #2c98f0;
+  background: var(--primary-color);
   color: #fff;
-  border: 1px solid #2c98f0 !important;
+  border: 1px solid var(--primary-color) !important;
 }
 
 .btn {
@@ -1438,21 +1438,21 @@ body.offcanvas #colorlib-main, body.offcanvas .colorlib-nav-toggle {
 }
 
 .btn-primary {
-  background: #2c98f0;
+  background: var(--primary-color);
   color: #fff;
-  border: 2px solid #2c98f0;
+  border: 2px solid var(--primary-color);
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  background: #44a4f2 !important;
-  border-color: #44a4f2 !important;
+  background: rgba(var(--primary-color-code), 0.05) !important;
+  border-color: rgba(var(--primary-color-code), 0.05) !important;
 }
 .btn-primary.btn-outline {
   background: transparent;
-  color: #2c98f0;
-  border: 2px solid #2c98f0;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
 }
 .btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
-  background: #2c98f0;
+  background: var(--primary-color);
   color: #fff;
 }
 

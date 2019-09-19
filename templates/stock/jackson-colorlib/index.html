@@ -11,7 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
-
+    {% include 'user-color-codes-header.html' %}
     <!-- Animate.css -->
     <link rel="stylesheet" href="{% static 'stock/jackson-colorlib/css/animate.css' %}">
     <!-- Icomoon Icon Fonts-->
@@ -62,10 +62,9 @@
         <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
         <aside id="colorlib-aside" role="complementary" class="border js-fullheight">
             <div class="text-center">
-                <div class="author-img" style="background-image: url({{ user.photo|image_or_not }});"></div>
+                <div class="author-img" style="background-image: url({{ user.photo|image_or_noperson }});"></div>
                 <h1 id="colorlib-logo"><a href="/">{{ user.get_full_name }}</a></h1>
-                <span class="position">{{ user.profile.city }}</span>
-                <span class="position"><a href="{% url 'blogs:blog-post-list' %}"> <span class="fas fa-book"></span> My Blog</a></span>
+                <span class="position">{{ user.title }}</span>
             </div>
             <nav id="colorlib-main-menu" role="navigation" class="navbar">
                 <div id="navbar" class="collapse">
@@ -87,6 +86,9 @@
                         {% if user.worksprofile_set.exists %}
                             <li><a href="#" data-nav-section="work">Work</a></li>
                         {% endif %}
+                        {% for section in user.customprofile_set.all %}
+                            <li><a href="#" data-nav-section="{{ section.header|lower }}">{{ section.header|capfirst }}</a></li>
+                        {% endfor %}
                         <li><a href="#" data-nav-section="blog">Blog</a></li>
                         <li><a href="#" data-nav-section="contact">Contact</a></li>
                     </ul>
@@ -129,10 +131,15 @@
                                         <div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
                                             <div class="slider-text-inner js-fullheight">
                                                 <div class="desc">
-                                                    <h1>Hi! <br>{{ tenant.sitesettings.banner_title|default:'Site Settings > Banner Title' }}
+                                                    <h1>
+                                                        Hi!
+                                                        <br>
+                                                        I'm {{ user.first_name }}
                                                     </h1>
-                                                    <h2>{{ tenant.sitesettings.banner_description|default:'Site Settings > Banner Description' }}</h2>
-                                                    {#                                                <p><a class="btn btn-primary btn-learn">Download CV <i class="icon-download4"></i></a></p>#}
+                                                    <h2></h2>
+                                                    {% if tenant.blogpost_set.exists %}
+                                                        <p><a class="btn btn-primary btn-learn" href="{{ user.blogs_url }}">Visit Blogs <i class="icon-pencil"></i></a></p>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>
@@ -147,10 +154,14 @@
                                         <div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
                                             <div class="slider-text-inner js-fullheight">
                                                 <div class="desc">
-                                                    <h1>Hi! <br>{{ tenant.sitesettings.banner_title|default:'Site Settings > Banner Title' }}
+                                                    <h1>Hi!
+                                                        <br>
+                                                        I'm {{ user.first_name }}
                                                     </h1>
-                                                    <h2>{{ tenant.sitesettings.banner_description|default:'Site Settings > Banner Description' }}</h2>
-                                                    {#                                                <p><a class="btn btn-primary btn-learn">Download CV <i class="icon-download4"></i></a></p>#}
+                                                    <h2></h2>
+                                                    {% if tenant.blogpost_set.exists %}
+                                                        <p><a class="btn btn-primary btn-learn" href="{{ user.blogs_url }}">Visit Blogs <i class="icon-pencil"></i></a></p>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>
@@ -177,36 +188,10 @@
                                     </div>
                                 </div>
                             </div>
-                            {#                            <div class="row">#}
-                            {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">#}
-                            {#                                    <div class="services color-1">#}
-                            {#                                        <span class="icon2"><i class="icon-bulb"></i></span>#}
-                            {#                                        <h3>Graphic Design</h3>#}
-                            {#                                    </div>#}
-                            {#                                </div>#}
-                            {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInRight">#}
-                            {#                                    <div class="services color-2">#}
-                            {#                                        <span class="icon2"><i class="icon-globe-outline"></i></span>#}
-                            {#                                        <h3>Web Design</h3>#}
-                            {#                                    </div>#}
-                            {#                                </div>#}
-                            {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInTop">#}
-                            {#                                    <div class="services color-3">#}
-                            {#                                        <span class="icon2"><i class="icon-data"></i></span>#}
-                            {#                                        <h3>Software</h3>#}
-                            {#                                    </div>#}
-                            {#                                </div>#}
-                            {#                                <div class="col-md-3 animate-box" data-animate-effect="fadeInBottom">#}
-                            {#                                    <div class="services color-4">#}
-                            {#                                        <span class="icon2"><i class="icon-phone3"></i></span>#}
-                            {#                                        <h3>Application</h3>#}
-                            {#                                    </div>#}
-                            {#                                </div>#}
-                            {#                            </div>#}
                             <div class="row">
                                 <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
                                     <div class="hire">
-                                        <h2>{{ user.profile.bio|default:'Your Bio in profile will go in here' }}</h2>
+                                        <h2>{{ user.profile.bio|safe|default:'Your Bio in profile will go in here' }}</h2>
                                         {#                                        <a href="#" class="btn-hire">Hire me</a>#}
                                     </div>
                                 </div>
@@ -434,6 +419,25 @@
 
             {% endif %}
 
+
+            {% for section in user.customprofile_set.all %}
+                <section class="colorlib-education" data-section="{{ section.header|lower }}">
+                    <div class="colorlib-narrow-content">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+                                <span class="heading-meta">{{ section.sub_header|default:''|upper }}</span>
+                                <h2 class="colorlib-heading animate-box">{{ section.header|upper }}</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                                {{ section.content|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endfor %}
+
             {% if tenant.blogpost_set.exists %}
                 <section class="colorlib-blog" data-section="blog">
                     <div class="colorlib-narrow-content">
@@ -447,7 +451,9 @@
                             {% for post in tenant.blogpost_set.all|slice:3 %}
                                 <div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
                                     <div class="blog-entry">
-                                        <a href="{{ post.get_absolute_url }}" class="blog-img"><img src="{{ post.image|image_or_not }}" class="img-responsive" alt="{{ post.title }}"></a>
+                                        <a href="{{ post.get_absolute_url }}" class="blog-img">
+                                            <img src="{{ post.image|image_or_not }}" class="img-responsive" alt="{{ post.title }}" style="height: 100px;width: 100%;min-height: 100px;object-fit: cover;">
+                                        </a>
                                         <div class="desc">
                                             <span><small>{{ post.created }} </small> | <small> <i class="icon-bubble3"></i> {{ post.comment_set.count }} comments</small></span>
                                             <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
@@ -481,7 +487,7 @@
                                     <i class="icon-globe-outline"></i>
                                 </div>
                                 <div class="colorlib-text">
-                                    <p><a href="#">{{ user.email }}</a></p>
+                                    <p><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
                                 </div>
                             </div>
 

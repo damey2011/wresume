@@ -6,10 +6,10 @@ $grid-gutter-width: 40px !default;
 $border-radius-base:  4px !default;
 $padding-base-vertical: 14px !default;
 
-$brand-primary: #2c98f0 !default;
+$brand-primary: var(--primary-color) !default;
 $brand-footer: #2C2C2C !default;
 
-$brand-color-1: #2c98f0 !default;
+$brand-color-1: var(--primary-color) !default;
 $brand-color-2: #ec5453 !default;
 $brand-color-3: #f9bf3f !default;
 $brand-color-4: #a84cb8 !default;
@@ -1486,8 +1486,8 @@ margin-left: -20px;
 	color: $brand-white;
 	border: 2px solid $brand-primary;
 	&:hover, &:focus, &:active {
-		background: lighten($brand-primary, 5%)!important;
-		border-color: lighten($brand-primary, 5%)!important;
+		background: rgba(var(--primary-color-code), .05)!important;
+		border-color: rgba(var(--primary-color-code), .05)!important;
 	}
 	&.btn-outline {
 		background: transparent;
