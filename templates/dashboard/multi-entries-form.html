@@ -13,8 +13,8 @@
                     <div class="card">
                         <div class="card-header" id="heading_{{ item_id }}">
                             <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_{{ item_id }}" aria-expanded="false" aria-controls="collapse_{{ item_id }}">
-                                    {{ object }}
+                                <button style="max-width: 80%;" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_{{ item_id }}" aria-expanded="false" aria-controls="collapse_{{ item_id }}">
+                                    <div>{{ object|truncatewords:6 }}</div>
                                 </button>
                                 <span class="float-right">
                                     <a href="{{ object.edit_url }}" class="icon icon-pencil text-info" style="font-size: 20px;"></a> |
