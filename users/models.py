@@ -220,7 +220,7 @@ def banner_media_user_aware_upload_to(instance, filename):
 class BannerMedia(SoftDeletableModel, TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     media = models.FileField(upload_to=banner_media_user_aware_upload_to, validators=[FileExtensionValidator(
-        allowed_extensions=['mp4', 'mov', '3gp', 'png', 'jpg', 'gif', 'jpeg'])])
+        allowed_extensions=['3gp', 'png', 'jpg', 'gif', 'jpeg', 'PNG', 'JPEG', 'JPG'])])
 
     def __str__(self):
         return self.user.get_full_name()
