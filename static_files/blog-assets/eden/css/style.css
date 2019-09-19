@@ -2585,6 +2585,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 .single-category .thumb img {
   width: 100%;
+  height: 200px;
+  object-fit: cover;
+  min-height: 200px;
   transition: all 300ms linear 0s;
 }
 .single-category .meta-bottom {
