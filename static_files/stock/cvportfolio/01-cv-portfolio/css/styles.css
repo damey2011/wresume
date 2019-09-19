@@ -293,3 +293,7 @@ header .downlad-btn:hover{ -webkit-transform: translateY(-4px); transform: trans
     display: list-item;
     line-height: 32px;
 }
+
+.about-section a {
+	color: var(--primary-color);
+}
