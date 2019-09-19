@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.templatetags.static import static
+from requests.exceptions import MissingSchema
 
 from users.models import User
 from django.db import models
@@ -43,18 +44,24 @@ class BlogPost(SoftDeletableModel, TimeStampedModel):
     site = models.ForeignKey(Client, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)[:100]
-        if not self.image:
-            # If no image is provided, pick from the content if available
-            soup = BeautifulSoup(self.content, 'html.parser')
-            images = soup.find_all('img')
-            if len(images):
-                url = images[0]['src']
-                # download the object
-                resp = requests.get(url)
-                file = SimpleUploadedFile(self.title[:10], resp.content, resp.headers['content-type'])
-                self.image = file
+        is_view_triggered = kwargs.pop('is_view_triggered', False)
+        # Means the save was triggered from a view action
+        if not is_view_triggered:
+            if not self.slug:
+                self.slug = slugify(self.title)[:100]
+            if not self.image:
+                # If no image is provided, pick from the content if available
+                soup = BeautifulSoup(self.content, 'html.parser')
+                images = soup.find_all('img')
+                if len(images):
+                    url = images[0]['src']
+                    # download the object
+                    try:
+                        resp = requests.get(url)
+                        file = SimpleUploadedFile(self.title[:10], resp.content, resp.headers['content-type'])
+                        self.image = file
+                    except (MissingSchema, Exception) as e:
+                        print('Couldnt pull an image for post')
         super(BlogPost, self).save(*args, **kwargs)
 
     def previous_post(self):

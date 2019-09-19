@@ -49,7 +49,7 @@ class BlogPostView(TenantAccessPublicMixin, TemplateSelector, DetailView):
         if not self.request.session.get(ss_key):
             self.request.session[ss_key] = True
             post.views += 1
-            post.save()
+            post.save(is_view_triggered=True)
         return response
 
     def post(self, request, *args, **kwargs):
