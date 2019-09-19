@@ -273,7 +273,7 @@
                             <ul class="list cat-list">
                                 {% for cat in categories %}
                                     <li>
-                                        <a class="d-flex" href="#">
+                                        <a class="d-flex" href="{% url 'blogs:category-detail' cat.id %}">
                                             <p>
                                                 {{ cat.category }}
                                             </p>
