@@ -65,11 +65,11 @@ def create_client_settings(sender, instance, created, **kwargs):
         # Settle Default Blog Template
         blog_templates = BlogTemplate.objects.filter(name='Eden')
         if blog_templates.exists():
-            SiteBlogTemplate.objects.create(template=blog_templates.first(), site=instance)
+            SiteBlogTemplate.objects.create(template=blog_templates.first(), client=instance)
         else:
             if len(BLOG_TEMPLATES):
                 call_command('load_blog_templates')
-                SiteBlogTemplate.objects.create(template=blog_templates.first(), site=instance)
+                SiteBlogTemplate.objects.create(template=blog_templates.first(), client=instance)
 
 
 post_save.connect(resize_uploaded_image, sender=User)
