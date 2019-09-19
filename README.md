@@ -15,6 +15,7 @@ pip install -r requirements.txt
 python manage.py migrate_schemas
 python manage.py create_defaults
 python manage.py load_default_templates
+python manage.py load_blog_templates
 ```
 The create defaults command creates the public schema and then creates a default admin user.
 With credentials `admin | 48sfNdfd4NnU?49$*(9`
