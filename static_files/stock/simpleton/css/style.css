@@ -1,17 +1,17 @@
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {
-border:0;
-font:inherit;
-font-size:100%;
-margin:0;
-padding:0;
-vertical-align:baseline;
+	border:0;
+	font:inherit;
+	font-size:100%;
+	margin:0;
+	padding:0;
+	vertical-align:baseline;
 }
 
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
-display:block;
+	display:block;
 }
 
-html, body {background: #181818; font-family: 'Lato', helvetica, arial, sans-serif; font-size: 16px; color: #222;}
+html, body {background: #181818; font-family: 'Asap', sans-serif; font-size: 16px; color: #222;}
 
 .clear {clear: both;}
 
@@ -38,14 +38,14 @@ p {
 #name h1 {
 	font-size: 2.5em;
 	font-weight: 700;
-	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-family: 'Asap', sans-serif;
 	margin-bottom: -6px;
 }
 
 #name h2 {
 	font-size: 2em;
 	margin-left: 2px;
-	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-family: 'Asap', sans-serif;
 }
 
 #mainArea {
@@ -85,7 +85,7 @@ p {
 }
 
 #contactDetails ul li a, a[href^=tel] {
-	color: #444; 
+	color: #444;
 	text-decoration: none;
 	-webkit-transition: all .3s ease-in;
 	-moz-transition: all .3s ease-in;
@@ -94,7 +94,7 @@ p {
 	transition: all .3s ease-in;
 }
 
-#contactDetails ul li a:hover { 
+#contactDetails ul li a:hover {
 	color: var(--primary-color);
 }
 
@@ -123,14 +123,14 @@ section:last-child {
 }
 
 .sectionTitle h1 {
-	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-family: 'Asap', sans-serif;
 	font-style: italic;
 	font-size: 1.5em;
 	color: var(--primary-color);
 }
 
 .sectionContent h2 {
-	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-family: 'Asap', sans-serif;
 	font-size: 1.5em;
 	margin-bottom: -2px;
 }
@@ -159,11 +159,11 @@ section:last-child {
 	#headshot {
 		display: none;
 	}
-	
+
 	.keySkills {
-	-moz-column-count:2;
-	-webkit-column-count:2;
-	column-count:2;
+		-moz-column-count:2;
+		-webkit-column-count:2;
+		column-count:2;
 	}
 }
 
@@ -173,27 +173,27 @@ section:last-child {
 		margin: 10px auto;
 		min-width: 280px;
 	}
-	
+
 	#headshot {
 		display: none;
 	}
-	
+
 	#name, #contactDetails {
 		float: none;
 		width: 100%;
 		text-align: center;
 	}
-	
+
 	.sectionTitle, .sectionContent {
 		float: none;
 		width: 100%;
 	}
-	
+
 	.sectionTitle {
 		margin-left: -2px;
 		font-size: 1.25em;
 	}
-	
+
 	.keySkills {
 		-moz-column-count:2;
 		-webkit-column-count:2;
@@ -205,22 +205,22 @@ section:last-child {
 	.mainDetails {
 		padding: 15px 15px;
 	}
-	
+
 	section {
 		padding: 15px 0 0;
 	}
-	
+
 	#mainArea {
 		padding: 0 25px;
 	}
 
-	
+
 	.keySkills {
-	-moz-column-count:1;
-	-webkit-column-count:1;
-	column-count:1;
+		-moz-column-count:1;
+		-webkit-column-count:1;
+		column-count:1;
 	}
-	
+
 	#name h1 {
 		line-height: .8em;
 		margin-bottom: 4px;
@@ -228,9 +228,9 @@ section:last-child {
 }
 
 @media print {
-    #cv {
-        width: 100%;
-    }
+	#cv {
+		width: 100%;
+	}
 }
 
 @-webkit-keyframes reset {
@@ -297,33 +297,33 @@ section:last-child {
 }
 
 .instaFade {
-    -webkit-animation-name: reset, fade-in;
-    -webkit-animation-duration: 1.5s;
-    -webkit-animation-timing-function: ease-in;
-	
+	-webkit-animation-name: reset, fade-in;
+	-webkit-animation-duration: 1.5s;
+	-webkit-animation-timing-function: ease-in;
+
 	-moz-animation-name: reset, fade-in;
-    -moz-animation-duration: 1.5s;
-    -moz-animation-timing-function: ease-in;
-	
+	-moz-animation-duration: 1.5s;
+	-moz-animation-timing-function: ease-in;
+
 	animation-name: reset, fade-in;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-in;
+	animation-duration: 1.5s;
+	animation-timing-function: ease-in;
 }
 
 .quickFade {
-    -webkit-animation-name: reset, fade-in;
-    -webkit-animation-duration: 2.5s;
-    -webkit-animation-timing-function: ease-in;
-	
+	-webkit-animation-name: reset, fade-in;
+	-webkit-animation-duration: 2.5s;
+	-webkit-animation-timing-function: ease-in;
+
 	-moz-animation-name: reset, fade-in;
-    -moz-animation-duration: 2.5s;
-    -moz-animation-timing-function: ease-in;
-	
+	-moz-animation-duration: 2.5s;
+	-moz-animation-timing-function: ease-in;
+
 	animation-name: reset, fade-in;
-    animation-duration: 2.5s;
-    animation-timing-function: ease-in;
+	animation-duration: 2.5s;
+	animation-timing-function: ease-in;
 }
- 
+
 .delayOne {
 	-webkit-animation-delay: 0, .5s;
 	-moz-animation-delay: 0, .5s;
