@@ -11,10 +11,12 @@
             height: auto;
         }
         .single-post-banner {
+            padding: 24px;
             background: url({{ post.image|image_or_def }}) !important;
             background-size: cover !important;
             position: relative !important;
-            height: 300px;
+            background-position: center;
+            min-height: 300px;
         }
         .single-post-banner:after {
             position: absolute;
@@ -25,6 +27,10 @@
             z-index: -1;
             height: 100%;
             width: 100%;
+        }
+        .post-content-container p{
+            font-size: 18px;
+            line-height: 32px;
         }
 
     </style>
@@ -84,23 +90,23 @@
                             </div>
                             <ul class="social-icons">
                                 <li>
-                                    <a href="#">
+                                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}F">
                                         <i class="fab fa-facebook-f"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a target="_blank" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title }}">
                                         <i class="fab fa-twitter"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fab fa-dribbble"></i>
+                                    <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ post.title }}&summary={{ post.content|striptags|truncatewords:15|escape_html }}&source={{ request.get_host }}">
+                                        <i class="fab fa-linkedin"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fab fa-behance"></i>
+                                    <a target="_blank" href="https://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{ post.title }}">
+                                        <i class="fab fa-reddit"></i>
                                     </a>
                                 </li>
                             </ul>
