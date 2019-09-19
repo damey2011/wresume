@@ -17,9 +17,14 @@
 
     {% include 'stock/common-header.html' %}
 
-    <!--[if lt IE 9]>
-<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+    <style>
+        a {
+            color: var(--primary-alt);
+        }
+        .custom-content {
+            padding-bottom: 24px;
+        }
+    </style>
 </head>
 <body id="top">
 <div id="cv" class="instaFade">
@@ -30,7 +35,7 @@
 
         <div id="name">
             <h1 class="quickFade delayTwo">{{ user.get_full_name }}</h1>
-            <h2 class="quickFade delayThree">Job Title</h2>
+            <h2 class="quickFade delayThree">{{ user.title }}</h2>
         </div>
 
         <div id="contactDetails" class="quickFade delayFour">
@@ -119,7 +124,7 @@
                     <h1>{{ section.header|capfirst }}</h1>
                 </div>
 
-                <div class="sectionContent">
+                <div class="sectionContent custom-content">
                     {{ section.content|safe }}
                 </div>
                 <div class="clear"></div>
