@@ -225,6 +225,14 @@ class BannerMedia(SoftDeletableModel, TimeStampedModel):
     def __str__(self):
         return self.user.get_full_name()
 
+    @property
+    def edit_url(self):
+        return reverse('users:banner-edit', kwargs={'pk': self.id})
+
+    @property
+    def delete_url(self):
+        return reverse('users:banner-delete', kwargs={'pk': self.id})
+
 
 class WorksProfile(TitleTextImageModel):
     link = models.URLField(default='', blank=True, null=True)
