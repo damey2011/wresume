@@ -6,6 +6,11 @@ from wresume.utils import CustomClearableFileInput
 
 
 class BlogPostForm(forms.ModelForm):
+    def __init__(self, **kwargs):
+        site = kwargs.pop('site', None)
+        super(BlogPostForm, self).__init__(**kwargs)
+        self.fields['category'].queryset = BlogCategory.objects.filter(site=site)
+
     class Meta:
         model = BlogPost
         fields = (

@@ -53,6 +53,11 @@ class WritePostView(LoginRequiredMixin, SuccessMessageMixin, SiteAwareView, Crea
     form_class = BlogPostForm
     success_url = reverse_lazy('blogs_public:list')
 
+    def get_form_kwargs(self):
+        kwargs = super(WritePostView, self).get_form_kwargs()
+        kwargs['site'] = self.get_site()
+        return kwargs
+
     def get_initial(self):
         init = super(WritePostView, self).get_initial()
         init['author'] = self.request.user.id
