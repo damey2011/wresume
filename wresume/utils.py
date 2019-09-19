@@ -1,14 +1,17 @@
 import os
 import random
 import string
+import subprocess
 from urllib.parse import urljoin
 
 from django import forms
 from django.contrib.sites.models import Site
+from django.core.files import File
 from django.core.files.storage import FileSystemStorage
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import connection
 from django.forms import ClearableFileInput
+from django.utils import timezone
 from django.utils.encoding import filepath_to_uri
 from django.utils.safestring import mark_safe
 from selenium import webdriver
@@ -149,3 +152,24 @@ def random_string(string_length=10):
 class CustomClearableFileInput(ClearableFileInput):
     template_name = 'widgets/clearable-file-input.html'
     clear_checkbox_label = 'remove current'
+
+
+def generate_db_dump():
+    db = settings.DATABASES['default']
+    file_name = 'backup_{}.sql'.format(timezone.now().strftime('%d%m%Y_%H%M%S'))
+    compress_command = ['gzip', file_name]
+    popen = subprocess.Popen(
+        ['pg_dump', '--dbname=postgresql://{}:{}@{}:{}/{}'.format(db.get('USER'), db.get('PASSWORD'), db.get('HOST'),
+                                                                  db.get('PORT'), db.get('NAME')),
+         '-f', file_name], stdout=subprocess.PIPE, universal_newlines=True
+    )
+    popen.wait()
+    popen2 = subprocess.Popen(compress_command)
+    popen2.wait()
+    compressed_file_name = '{}.gz'.format(file_name)
+    gzipped = open(compressed_file_name, mode='rb')
+    file = File(file=gzipped)
+    file.content_type = 'text/*'
+    subprocess.Popen(['rm', compressed_file_name])
+    return file
+

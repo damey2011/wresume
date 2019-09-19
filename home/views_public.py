@@ -1,12 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 
 from users.forms import SignUpForm, ContactDataForm
 from users.views import BasicProfileView
+from wresume.utils import generate_db_dump
 
 
 class HomePageView(View):

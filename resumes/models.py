@@ -84,3 +84,7 @@ class ContactFormData(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class DBDumps(TimeStampedModel):
+    file = models.FileField(upload_to='db-dumps/')
