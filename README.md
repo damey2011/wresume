@@ -19,6 +19,9 @@ python manage.py load_default_templates
 The create defaults command creates the public schema and then creates a default admin user.
 With credentials `admin | 48sfNdfd4NnU?49$*(9`
 
+Generate a Database dump/backup by running `python manage.py dump_db` on the server and go then to download it from admin at `/mumu`,
+that's the admin home
+
 ## Author
 
 👤 **Damilola Nifemi Adeyemi**
