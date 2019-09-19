@@ -142,12 +142,12 @@ urlpatterns = [
     path('banner/<int:pk>/update/', views.MultiEntryUpdateView.as_view(
         extra_context={'banner_tab': True, 'basic_tab': True},
         form_class=BannerMediaForm,
-        success_url=reverse_lazy('users:offer'),
+        success_url=reverse_lazy('users:banner'),
         model=BannerMedia,
     ), name='banner-edit'),
     path('banner/<int:pk>/delete/', views.MultiEntryDeleteView.as_view(
         extra_context={'banner_tab': True, 'basic_tab': True},
-        success_url=reverse_lazy('users:offer'),
+        success_url=reverse_lazy('users:banner'),
         model=BannerMedia,
     ), name='banner-delete'),
 
@@ -169,7 +169,7 @@ urlpatterns = [
     ), name='others-edit'),
     path('others/<int:pk>/delete/', views.MultiEntryDeleteView.as_view(
         extra_context={'others_tab': True, 'basic_tab': True},
-        success_url=reverse_lazy('users:education'),
+        success_url=reverse_lazy('users:others'),
         model=CustomProfile,
     ), name='others-delete'),
 ]
