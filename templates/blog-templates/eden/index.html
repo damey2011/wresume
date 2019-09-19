@@ -179,6 +179,10 @@
                             </div>
                         </div>
                     </div>
+                {% empty %}
+                    <div class="alert alert-info col-12 text-center">
+                        No Posts
+                    </div>
                 {% endfor %}
                 {% if is_paginated %}
                     <div class="col-6 text-left">

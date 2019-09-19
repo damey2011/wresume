@@ -78,6 +78,13 @@ def image_or_def(image_field):
     return static('images/default-banner.jpg')
 
 
+@register.filter
+def image_or_noperson(image_field):
+    if image_field:
+        return image_field.url
+    return static('images/new-images/noperson.jpg')
+
+
 @register.simple_tag(takes_context=True)
 def tenant(context):
     request = context.get('request')

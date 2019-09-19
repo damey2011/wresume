@@ -21,7 +21,7 @@
             content: '';
             left: 0;
             top: 0;
-            background-color: rgba(0,0,0,0.33);
+            background-color: rgba(0,0,0,0.63);
             z-index: -1;
             height: 100%;
             width: 100%;
@@ -162,7 +162,7 @@
                     </div>
                     <div class="blog-author">
                         <div class="media align-items-center">
-                            <img alt="{{ post.author.get_full_name }}" src="{{ post.author.photo|image_or_not }}"/>
+                            <img alt="{{ post.author.get_full_name }}" src="{{ post.author.photo|image_or_noperson }}"/>
                             <div class="media-body">
                                 <a href="{{ post.author.home_url }}">
                                     <h4>
