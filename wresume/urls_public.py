@@ -14,6 +14,7 @@ urlpatterns = [
     path('', views_public.HomePageView.as_view(), name='public_home'),
     path('', include('home.urls_public', namespace='home')),
     path('mumu/', admin.site.urls),
+    path('mumu/', include('loginas.urls')),
     path('users/', include('allauth.urls')),
     path('users/', include('users.urls', namespace='users')),
     path('blogs/', include('blogs.urls_public', namespace='blogs_public')),

@@ -1,9 +1,15 @@
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 
 from users.models import User, Profile, Client, SiteSettings, SocialProfile, EducationProfile, CareerProfile, \
     ExtraCurricularProfile, BannerMedia, WorksProfile, OfferProfile, SkillProfile
 
-admin.site.register(User)
+
+class UserAdmin(ModelAdmin):
+    change_form_template = 'loginas/change_form.html'
+
+
+admin.site.register(User, UserAdmin)
 admin.site.register(Client)
 admin.site.register(Profile)
 admin.site.register(SiteSettings)

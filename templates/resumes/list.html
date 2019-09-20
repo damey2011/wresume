@@ -13,7 +13,13 @@
             {% for temp in templates %}
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card">
-                        <a href="{% url 'resumes:my-template-update' pk=temp.id %}"><img class="card-img-top" src="{{ temp.get_screenshot_url }}" alt="{{ temp.name }}"></a>
+                        {% if not temp.is_public %}
+                            <a href="{% url 'resumes:my-template-update' pk=temp.id %}">
+                        {% endif %}
+                        <img class="card-img-top" src="{{ temp.get_screenshot_url }}" alt="{{ temp.name }}">
+                        {% if not temp.is_public %}
+                            </a>
+                        {% endif %}
                         <div class="card-body">
                             <h5 class="card-title"><a href="{% url 'resumes:my-template-update' pk=temp.id %}" class="text-black-50">{{ temp.name }}</a></h5>
                             {#                    <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p>#}

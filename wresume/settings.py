@@ -42,6 +42,7 @@ SHARED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'widget_tweaks',
+    'loginas',
     'users',
     'blogs',
     'resumes',
@@ -76,6 +77,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'debug_toolbar',
     'turbolinks',
+    'loginas',
     'users',
     'resumes',
     'documents',
@@ -291,3 +293,6 @@ if not DEBUG:
             },
         }
     }
+
+
+LOGINAS_REDIRECT_URL = reverse_lazy('home:dashboard')

@@ -123,7 +123,7 @@ class ActivateBlogTemplateView(LoginRequiredMixin, SuccessMessageMixin, SiteAwar
 
 class DeActivateBlogTemplateView(LoginRequiredMixin, SuccessMessageMixin, SiteAwareView, View):
     def get(self, request, pk, *args, **kwargs):
-        SiteBlogTemplate.objects.filter(site=self.get_site()).delete()
+        SiteBlogTemplate.objects.filter(client=self.get_site()).delete()
         template = get_object_or_404(Template, pk=pk)
         messages.success(
             request, __('%(temp)s has been deactivated for %(site)s') % {'temp': template.name,
