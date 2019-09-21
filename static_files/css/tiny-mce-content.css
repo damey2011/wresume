@@ -1,5 +1,24 @@
-@import url('https://fonts.googleapis.com/css?family=Yantramanav');
+@import url('https://fonts.googleapis.com/css?family=Chivo:400,400i,700,900&display=swap');
 
 * {
-    font-family: 'Yantramanav', sans-serif;
+    font-family: 'Chivo', sans-serif;
+}
+
+.mce-content-body {
+    font-size: 16px !important;
+    font-family: 'Chivo', sans-serif !important;
+}
+
+.mce-content-body p {
+    margin: 8px 0 !important;
+    line-height: 1.7 !important;
+}
+
+.mce-content-body ul {
+    padding: 8px !important;
+    margin: 16px 16px 0 !important;
+}
+
+.mce-content-body strong {
+    font-weight: bolder !important;
 }

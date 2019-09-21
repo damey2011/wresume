@@ -781,3 +781,7 @@ label {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.tox-fullscreen .tox.tox-tinymce.tox-fullscreen {
+	z-index: 9999;
+}

@@ -1442,4 +1442,8 @@ label {
   white-space: nowrap;
 }
 
+.tox-fullscreen .tox.tox-tinymce.tox-fullscreen {
+  z-index: 9999;
+}
+
 /*# sourceMappingURL=style.css.map */

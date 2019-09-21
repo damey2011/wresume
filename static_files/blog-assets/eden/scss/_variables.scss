@@ -1,6 +1,6 @@
 /*font Variables*/
 $headingFont: 'Istok Web', sans-serif;
-$paraFont: 'Yantramanav', sans-serif;
+$paraFont: 'Chivo', sans-serif;
 
 
 /*Color Variables*/
@@ -21,7 +21,7 @@ $border: #e8edf1;
 
 /*=================== fonts ====================*/
 //@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,600,700|Open+Sans:400,600,700');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Yantramanav&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Chivo:400,400i,700,900&display=swap');
 
 // Mixins
 @mixin transition($property: all, $duration: 300ms, $animate: linear, $delay:0s){
