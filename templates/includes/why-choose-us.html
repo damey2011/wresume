@@ -1,4 +1,16 @@
 {% load static %}
+<style>
+    .custom-icon-wrap .custom-icon-inner .icon {
+        font-size: 1.8rem;
+    }
+    .custom-icon-wrap.custom-icon-light .custom-icon-inner {
+        width: 70px;
+        height: 70px;
+    }
+    .custom-icon-wrap.custom-icon-light h3 {
+        font-size: .8rem;
+    }
+</style>
 <div class="site-section pb-0">
     <div class="future-blobs">
         <div class="blob_2">
@@ -15,53 +27,55 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 ml-auto align-self-start">
+            <div class="col-md-2"></div>
+            <div class="col-xs-12 col-md-8">
 
-                <div class="p-4 rounded bg-white why-choose-us-box">
+                <div class="p-5 rounded bg-white why-choose-us-box row mb-5">
 
-                    <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
-                        <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-pencil"></span></span></div>
-                        <div><h3 class="m-0">Easy to Use</h3></div>
+                    <div class="col-md-6 col-lg-4 d-flex align-items-center justify-content-center flex-column custom-icon-wrap custom-icon-light mb-3">
+                        <div><span class="custom-icon-inner"><span class="icon icon-pencil"></span></span></div>
+
+                        <div><h3>Easy to Use</h3></div>
                     </div>
 
-                    <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
-                        <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-web"></span></span></div>
-                        <div><h3 class="m-0">Free .wresu.me subdomain</h3></div>
+                    <div class="col-md-6 col-lg-4 d-flex align-items-center justify-content-center flex-column  custom-icon-wrap custom-icon-light mb-3">
+                        <div><span class="custom-icon-inner"><span class="icon icon-web"></span></span></div>
+                        <div><h3>Free .wresu.me subdomain</h3></div>
                     </div>
 
-                    <div class="d-flex align-items-center custom-icon-wrap custom-icon-light">
-                        <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-drag_handle"></span></span></div>
-                        <div><h3 class="m-0">Free Drag & Drop Website Builder</h3></div>
+                    <div class="col-md-6 col-lg-4 d-flex align-items-center justify-content-center flex-column  custom-icon-wrap custom-icon-light mb-3">
+                        <div><span class="custom-icon-inner"><span class="icon icon-file-archive-o"></span></span></div>
+                        <div><h3>Free Document Manager</h3></div>
                     </div>
 
-                    <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
-                        <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-file-archive-o"></span></span></div>
-                        <div><h3 class="m-0">Free Document Manager</h3></div>
-                    </div>
-
-                    <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
-                        <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-pencil-square"></span></span></div>
-                        <div><h3 class="m-0">Free blogs</h3></div>
+                    <div class="col-md-6 col-lg-4 d-flex align-items-center justify-content-center flex-column  custom-icon-wrap custom-icon-light mb-3">
+                        <div><span class="custom-icon-inner"><span class="icon icon-pencil-square"></span></span></div>
+                        <div><h3>Free blogs</h3></div>
                     </div>
 
 
-                    <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
-                        <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-link"></span></span></div>
-                        <div><h3 class="m-0">Domain linking (coming)</h3></div>
+                    <div class="col-md-6 col-lg-4 d-flex align-items-center justify-content-center flex-column  custom-icon-wrap custom-icon-light mb-3">
+                        <div><span class="custom-icon-inner"><span class="icon icon-link"></span></span></div>
+                        <div><h3>Domain linking</h3></div>
                     </div>
 
-                    <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
-                        <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-file"></span></span></div>
-                        <div><h3 class="m-0">Resume Parsing (coming)</h3></div>
+                    <div class="col-md-6 col-lg-4 d-flex align-items-center justify-content-center flex-column  custom-icon-wrap custom-icon-light mb-3">
+                        <div><span class="custom-icon-inner"><span class="icon icon-linkedin"></span></span></div>
+                        <div><h3>LinkedIn Integration (coming)</h3></div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 d-flex align-items-center justify-content-center flex-column  custom-icon-wrap custom-icon-light mb-3">
+                        <div><span class="custom-icon-inner"><span class="icon icon-file"></span></span></div>
+                        <div><h3>Resume Parsing (coming)</h3></div>
                     </div>
 
                 </div>
 
 
             </div>
-            <div class="col-lg-7 align-self-end">
-                <img src="{% static 'images/new-images/whybg.png' %}" alt="Image" class="img-fluid">
-            </div>
+{#            <div class="col-lg-7 align-self-end">#}
+{#                <img src="{% static 'images/new-images/whybg.png' %}" alt="Image" class="img-fluid">#}
+{#            </div>#}
         </div>
     </div>
 </div>

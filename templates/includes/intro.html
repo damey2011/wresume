@@ -7,18 +7,18 @@
                 <div class="col-12">
                     <div class="row align-items-center">
                         <div class="col-lg-6 mb-4">
-                            <h1  data-aos="fade-up" data-aos-delay="100">Wresu.me <small style="font-size: 13px;">beta</small></h1>
+                            <h1  data-aos="fade-up" data-aos-delay="100">Wresu.me <small style="font-size: 13px;"></small></h1>
                             <p class="mb-4"  data-aos="fade-up" data-aos-delay="200" style="font-size: 24px;">
-                                Online resume/portfolio for everyone.
-                                <small style="font-size: 13px; display: block;" class="mt-2">Please do not freak out if you encounter an error or something does not work as you want, as the application is still work in progress, rather endeavor to let us know through the contact form at the end of the page.</small>
+                                A free and customizable resume/portfolio tool that to give you a personal online presence in minutes.
+{#                                <small style="font-size: 13px; display: block;" class="mt-2">Please do not freak out if you encounter an error or something does not work as you want, as the application is still work in progress, rather endeavor to let us know through the contact form at the end of the page.</small>#}
                             </p>
-                            <p data-aos="fade-up" data-aos-delay="300"><a href="{% url 'account_signup' %}" class="btn btn-primary py-3 px-5 btn-pill">Start</a></p>
+                            <p data-aos="fade-up" data-aos-delay="300"><a href="{% url 'account_login' %}" class="btn btn-primary py-3 px-5 btn-pill">Sign In</a></p>
                         </div>
 
                         <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
                             <form action="{% url 'account_signup' %}" method="post" class="form-box" id="regHome" style="padding: 36px;">
                                 {% csrf_token %}
-                                <h3 class="h4 text-black mb-4">Sign Up Now</h3>
+                                <h3 class="h4 text-black mb-4">Sign Up</h3>
                                 {% include 'includes/messages.html' %}
                                 {% for hidden in sign_up_form.hidden_fields %}
                                     {{ hidden }}
@@ -32,7 +32,10 @@
                                             </div>
                                         {% endif %}                                    </div>
                                 {% endfor %}
-                                <div class="form-group">
+                                <div>
+                                    Already have an account ? <a href="{% url 'account_login' %}">Sign In</a>
+                                </div>
+                                <div class="form-group mt-3">
                                     <input type="submit" class="btn btn-primary btn-pill" value="Sign up">
                                 </div>
                             </form>

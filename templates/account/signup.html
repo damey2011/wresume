@@ -21,7 +21,7 @@
                                 <form action="{% block form_action %}{% url 'account_signup' %}{% endblock form_action %}" method="post" class="form-box" style="padding: 24px;">
                                     {% csrf_token %}
                                     {% include 'includes/logo.html' %}
-                                    <h3 class="h4 text-black mb-4">{% trans 'Sign Up To Create Your Resume' %}</h3>
+                                    <h4 class="h4 text-black mb-4">{% trans 'Sign Up' %}</h4>
                                     {% for hidden in form.hidden_fields %}
                                         {{ hidden }}
                                     {% endfor %}
@@ -40,6 +40,9 @@
                                             {% endfor %}
                                         </div>
                                     {% endfor %}
+                                    <div class="mb-3">
+                                        Already have an account ? <a href="{% url 'account_login' %}">Sign In</a>
+                                    </div>
                                     <div class="form-group">
                                         <input type="submit" class="btn btn-primary btn-pill" value="Sign up">
                                     </div>

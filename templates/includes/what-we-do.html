@@ -31,7 +31,10 @@
             </div>
             <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
                 <h2 class="text-black mb-4">Fill in data form</h2>
-                <p class="mb-4">There are more than 5 sections, but you only fill in the fields you want, every field is optional.</p>
+                <p class="mb-4">
+                    There are more than 5 sections, but you only fill in the fields you want, every field is optional.
+                    LinkedIn integration would be available soon to allow auto-import.
+                </p>
 
                 <div class="d-flex align-items-center custom-icon-wrap mb-3">
                     <span class="custom-icon-inner mr-3"><span class="icon icon-clock-o"></span></span>
@@ -52,11 +55,46 @@
 
                 <div class="d-flex align-items-center custom-icon-wrap mb-3">
                     <span class="custom-icon-inner mr-3"><span class="icon icon-clock-o"></span></span>
-                    <div><h3 class="m-0">1 minutes</h3></div>
+                    <div><h3 class="m-0">1 minute</h3></div>
                 </div>
 
             </div>
         </div>
+
+        <div class="row mb-5 align-items-center">
+            <div class="col-lg-7 mb-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
+                {% static 'images/reg-screenshots/5.png' as image_url %}
+                {% include 'includes/screenshot-embed.html' with image_url=image_url %}
+            </div>
+            <div class="col-lg-4 ml-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-black mb-4">Your Site is Ready</h2>
+                <p class="mb-4"></p>
+
+                <div class="d-flex align-items-center custom-icon-wrap mb-3">
+                    <span class="custom-icon-inner mr-3"><span class="icon icon-clock-o"></span></span>
+                    <div><h3 class="m-0">0 minutes</h3></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mb-5 align-items-center">
+            <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
+                {% static 'images/reg-screenshots/4.png' as image_url %}
+                {% include 'includes/screenshot-embed.html' with image_url=image_url %}
+            </div>
+            <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-black mb-4">Your Blog is Ready</h2>
+                <p class="mb-4"></p>
+
+                <div class="d-flex align-items-center custom-icon-wrap mb-3">
+                    <span class="custom-icon-inner mr-3"><span class="icon icon-clock-o"></span></span>
+                    <div><h3 class="m-0">0 minutes</h3></div>
+                </div>
+
+            </div>
+        </div>
+
 
     </div>
 </div>
