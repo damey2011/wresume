@@ -1,3 +1,5 @@
+import mimetypes
+
 from django.core.management import call_command
 from django.db.models.signals import post_save, post_delete
 
@@ -22,6 +24,7 @@ def user_deleted(sender, instance, **kwargs):
 
 
 def resize_uploaded_image(sender, instance, **kwargs):
+    file_format = mimetypes.guess_type(instance.photo.path)[1]
     if instance.photo:
         img = Img.open(instance.photo.path)
         # Means it is a rectangular
@@ -33,9 +36,9 @@ def resize_uploaded_image(sender, instance, **kwargs):
                 new_width = 1000
                 new_height = ((new_width/img.width) * img.height)
                 img = img.resize((int(new_width), int(new_height)))
-                img.save(instance.photo.path, format="JPEG", quality=60)
+                img.save(instance.photo.path, format=file_format, quality=60)
             else:
-                img.save(instance.photo.path, format="JPEG", quality=60)
+                img.save(instance.photo.path, format=file_format, quality=60)
         # square
         else:
             if img.height <= 1000:
@@ -48,7 +51,7 @@ def resize_uploaded_image(sender, instance, **kwargs):
                 img.resize(size)
                 bg_size = (1500, 1000)
                 img = ImageOps.fit(img, bg_size, Img.ANTIALIAS, centering=(0.5, 0.5))
-                img.save(instance.photo.path, format="JPEG", quality=60)
+                img.save(instance.photo.path, format=file_format, quality=60)
 
 
 def create_client_settings(sender, instance, created, **kwargs):
