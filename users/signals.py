@@ -24,7 +24,10 @@ def user_deleted(sender, instance, **kwargs):
 
 
 def resize_uploaded_image(sender, instance, **kwargs):
-    file_format = mimetypes.guess_type(instance.photo.path)[1]
+    try:
+        file_format = mimetypes.guess_type(instance.photo.path)[1]
+    except Exception as e:
+        file_format = 'JPEG'
     if instance.photo:
         img = Img.open(instance.photo.path)
         # Means it is a rectangular
