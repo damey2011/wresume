@@ -30,7 +30,7 @@ class HomePageView(View):
         form = ContactDataForm(self.request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Your contact form has been sent successfully', 'success')
+            # messages.success(request, 'Your contact form has been sent successfully', 'success')
             return HttpResponseRedirect('/')
         if 'is_ajax' in request.POST:
             return JsonResponse(form.errors, status=400)
