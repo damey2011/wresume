@@ -55,7 +55,8 @@ def is_text_area(field):
 @register.simple_tag
 def get_attr(obj, attr):
     if hasattr(obj, 'get_' + attr + '_display'):
-        return getattr(obj, 'get_' + attr + '_display', '')()
+        attr = getattr(obj, 'get_' + attr + '_display', '')()
+        return attr if attr else ''
     val = getattr(obj, attr, '')
     if not val:
         return ''
