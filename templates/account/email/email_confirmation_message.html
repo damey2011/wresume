@@ -179,14 +179,14 @@
                                         <div style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 12px; line-height: 14px; color: #555555;">
                                             <div style="font-size: 14px; line-height: 16px; margin: 0;">
 
-                                                <p>Hi {{ username|default_if_none:'there'|default:'there' }}, </p>
+                                                <p>Hi {{ user_display }}, </p>
 
-                                                <p>Looks like you forgot your password. No big deal, we all do.</p>
+                                                <p>We are pleased to host your personal page at Wresume.</p>
 
-                                                <p>Follow the link provided below to reset your password.</p>
+                                                <p>We are working hard to provide you the best and make the platform more flexible for your use. To activate your account kindly click the link: </p>
 
-                                                <a href="{{ password_reset_url }}" target="_blank" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #3AAEE0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #3AAEE0; border-right: 1px solid #3AAEE0; border-bottom: 1px solid #3AAEE0; border-left: 1px solid #3AAEE0; padding-top: 5px; padding-bottom: 5px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;">
-														<span style="font-size: 16px; line-height: 32px;">Reset Password</span>
+                                                <a href="{{ activate_url }}" target="_blank" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #3AAEE0; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #3AAEE0; border-right: 1px solid #3AAEE0; border-bottom: 1px solid #3AAEE0; border-left: 1px solid #3AAEE0; padding-top: 5px; padding-bottom: 5px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;">
+														<span style="font-size: 16px; line-height: 32px;">Activate Account</span>
 													</span></a>
 
                                                 <p>
