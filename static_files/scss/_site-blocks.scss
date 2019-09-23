@@ -4,6 +4,10 @@ body {
 	font-family: 'Lato', sans-serif;
 }
 
+.single-cover.short a {
+	color: whitesmoke;
+}
+
 .intro-section {
 	position: relative;
 	&, .container > .row {
@@ -15,12 +19,12 @@ body {
 
 	&.single-cover {
 		&, .container > .row {
-			height: 50vh;
+			height: auto;
 			min-height: 400px;
 		}
 		&.short{
 			&, .container > .row {
-				height: 350px !important;
+				//height: 350px !important;
 				min-height: 350px !important;
 			}
 		}
@@ -655,6 +659,7 @@ body {
 
 label.form-label {
 	font-weight: 600;
+	color: rgba(0,0,0,0.70);
 }
 
 #regHome {

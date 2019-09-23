@@ -24,9 +24,10 @@
                     <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
                         <li><a class="{% if nav_section == 'home' %}active{% endif %}" href="/" class="nav-link">{% trans 'Home' %}</a></li>
                         {% if request.user.is_authenticated %}
-                            <li><a class="{% if nav_section == 'blog' %}active{% endif %}" href="{% url 'blogs_public:list' %}" class="nav-link">{% trans 'Blog Manager' %}</a></li>
-                            <li><a class="{% if nav_section == 'document' %}active{% endif %}" href="{% url 'docs_public:home' %}" class="nav-link">{% trans 'Document Manager' %}</a></li>
-                            <li><a class="{% if nav_section == 'page' %}active{% endif %}" href="{% url 'resume:list' %}" class="nav-link">{% trans 'Page Manager' %}</a></li>
+                            <li><a class="{% if nav_section == 'blog' %}active{% endif %}" href="{% url 'blogs_public:list' %}" class="nav-link">{% trans 'Blogs' %}</a></li>
+                            <li><a class="{% if nav_section == 'document' %}active{% endif %}" href="{% url 'docs_public:home' %}" class="nav-link">{% trans 'Documents' %}</a></li>
+                            <li><a class="{% if nav_section == 'page' %}active{% endif %}" href="{% url 'resume:list' %}" class="nav-link">{% trans 'Template' %}</a></li>
+                            <li><a class="{% if basic_tab or advanced_tab %}active{% endif %}" href="{% url 'users:basic_profile' %}" class="nav-link">{% trans 'Profile' %}</a></li>
                         {% else %}
                             <li><a href="#programs-section" class="nav-link">{% trans 'How it works' %}</a></li>
                             <li><a href="{% url 'account_signup' %}" class="nav-link">{% trans 'Start' %}</a></li>

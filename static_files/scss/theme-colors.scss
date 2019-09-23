@@ -5,7 +5,9 @@
 $purple: #336699;
 
 $theme-colors: (
-  primary: #336699
+        primary: #336699,
+        success: #669966,
+        info: rgba(51, 102, 153, 0.77)
 );
 
 /* finally, import Bootstrap */

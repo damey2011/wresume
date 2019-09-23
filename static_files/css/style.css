@@ -728,6 +728,10 @@ body {
   font-family: "Lato", sans-serif;
 }
 
+.single-cover.short a {
+  color: whitesmoke;
+}
+
 .intro-section {
   position: relative;
 }
@@ -735,11 +739,10 @@ body {
   height: 100vh;
 }
 .intro-section.single-cover, .intro-section.single-cover .container > .row {
-  height: 50vh;
+  height: auto;
   min-height: 400px;
 }
 .intro-section.single-cover.short, .intro-section.single-cover.short .container > .row {
-  height: 350px !important;
   min-height: 350px !important;
 }
 .intro-section.fill {
@@ -1329,6 +1332,7 @@ body {
 
 label.form-label {
   font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 @media (max-width: 991.98px) {
