@@ -810,6 +810,12 @@ body {
   border-radius: 2px;
   color: #fff;
 }
+.form-box h3 {
+  color: #fff !important;
+}
+.form-box a {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
 
 .site-section {
   padding: 4em 0;

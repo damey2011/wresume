@@ -97,6 +97,12 @@ body {
 	background: rgba(255,255,255,0.15);
 	border-radius: 2px;
 	color: $white;
+	h3 {
+		color: $white !important;
+	}
+	a {
+		color: rgba(255,255,255, 0.75) !important;
+	}
 }
 
 .site-section {
