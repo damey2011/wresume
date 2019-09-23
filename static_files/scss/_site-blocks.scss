@@ -90,8 +90,9 @@ body {
 
 .form-box {
 	padding: 24px 10px 10px;
-	background: $white;
-	border-radius: 7px;
+	background: rgba(255,255,255,0.15);
+	border-radius: 2px;
+	color: $white;
 }
 
 .site-section {
@@ -478,7 +479,7 @@ body {
 	}
 	&.custom-icon-light {
 		.custom-icon-inner {
-			background: #615dc2;
+			background: $primary;
 			width: 45px;
 			height: 45px;
 		}

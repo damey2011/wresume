@@ -1,0 +1,12 @@
+/* import the necessary Bootstrap files */
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+
+$purple: #336699;
+
+$theme-colors: (
+  primary: #336699
+);
+
+/* finally, import Bootstrap */
+@import "bootstrap/bootstrap";
