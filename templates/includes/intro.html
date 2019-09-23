@@ -7,15 +7,15 @@
                 <div class="col-12">
                     <div class="row align-items-center">
                         <div class="col-lg-6 mb-4">
-                            <h1  data-aos="fade-up" data-aos-delay="100">Wresu.me <small style="font-size: 13px;"></small></h1>
-                            <p class="mb-4"  data-aos="fade-up" data-aos-delay="200" style="font-size: 24px;">
+                            <h1>Wresu.me <small style="font-size: 13px;"></small></h1>
+                            <p class="mb-4" style="font-size: 24px;">
                                 An easy and customizable tool that provides you a resume/portfolio site within minutes without any technical skill.
                                 <small style="font-size: 13px; display: block;" class="mt-2">Personal Site + Personal Blog + Document Manager</small>
                             </p>
-                            <p data-aos="fade-up" data-aos-delay="300"><a href="{% url 'account_signup' %}" class="btn btn-primary py-3 px-5 btn-pill">Start</a></p>
+                            <p><a href="{% url 'account_signup' %}" class="btn btn-primary py-3 px-5 btn-pill">Start</a></p>
                         </div>
 
-                        <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
+                        <div class="col-lg-5 ml-auto">
                             <form action="{% url 'account_signup' %}" method="post" class="form-box" id="regHome" style="padding: 36px;">
                                 {% csrf_token %}
                                 <h3 class="h4 mb-4">Sign Up</h3>
