@@ -1459,4 +1459,8 @@ label {
   z-index: 9999;
 }
 
+.auth-ext-desc a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 /*# sourceMappingURL=style.css.map */

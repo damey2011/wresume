@@ -15,4 +15,5 @@
 {% block form_action %}
     {% url 'account_login' %}
 {% endblock form_action %}
+{% block adjacent_submit %}<a href="{% url 'account_reset_password' %}">Forgot Password ?</a>{% endblock %}
 {% block submit_text %}{% trans 'Login' %}{% endblock %}
