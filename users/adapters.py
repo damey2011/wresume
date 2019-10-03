@@ -14,4 +14,4 @@ class AccountAdapter(DefaultAccountAdapter):
     def clean_username(self, username, shallow=False):
         if not re.match(r'^\w+_?$', username):
             raise ValidationError('Username cannot contain any special characters except \'_\'')
-        return super(AccountAdapter, self).clean_username(username.lower(), shallow)
+        return super(AccountAdapter, self).clean_username(username.lower().replace('_', '-'), shallow)
