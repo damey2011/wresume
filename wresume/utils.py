@@ -25,7 +25,7 @@ from wresume import settings
 def create_tenant(user):
     domain_url = get_site() if user.username == 'admin' else f'{user.username}.{get_site()}'
     schema_name = settings.PUBLIC_SCHEMA_NAME if user.username is 'admin' else user.username
-    client = Client(domain_url=domain_url, schema_name=schema_name, user=user)
+    client = Client(domain_url=domain_url.replace('-', '_'), schema_name=schema_name, user=user)
     client.save()
     return client
 
