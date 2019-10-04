@@ -12,9 +12,13 @@
     <p data-aos="fade-up" data-aos-delay="100"><a href="/">{% trans 'Home' %}</a> &bullet; <a href="{% url 'resumes:my-templates' %}">{% trans 'My Templates' %}</a> &bullet; <a href="#" class="text-white">{% trans 'Create Template' %}</a> </p>
 {% endblock breadcrumbs %}
 {% block manager_content %}
-    {% trans 'Create Template' as form_title %}
-    {% trans 'Save' as submit_text %}
-    {% include 'includes/form.html' with form_id='template-builder-form' form_title=form_title submit_text=submit_text pre_submit_content='<div id="template-builder" class="mb-4"></div>' %}
+    {% if not debug %}
+        <div class="alert alert-warning">This part is currently under development. We'd make sure to email you once it's complete. Please use the built-in templates for now. Thanks.</div>
+    {% else %}
+        {% trans 'Create Template' as form_title %}
+        {% trans 'Save' as submit_text %}
+        {% include 'includes/form.html' with form_id='template-builder-form' form_title=form_title submit_text=submit_text pre_submit_content='<div id="template-builder" class="mb-4"></div>' %}
+    {% endif %}
 {% endblock manager_content %}
 
 {% block extra_js %}
