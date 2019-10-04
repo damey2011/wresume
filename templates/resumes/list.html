@@ -8,35 +8,41 @@
     <p data-aos="fade-up" data-aos-delay="100"><a href="/">{% trans 'Home' %}</a> &bullet; <a href="{% url 'resumes:list' %}">{% trans 'Templates' %}</a> &bullet; <a href="#" class="text-white">{% trans 'My Templates' %}</a> </p>
 {% endblock breadcrumbs %}
 {% block manager_content %}
-    <div class="mt-4">
-        <div class="row">
-            {% for temp in templates %}
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card">
-                        {% if not temp.is_public %}
-                            <a href="{% url 'resumes:my-template-update' pk=temp.id %}">
-                        {% endif %}
-                        <img class="card-img-top" src="{{ temp.get_screenshot_url }}" alt="{{ temp.name }}">
-                        {% if not temp.is_public %}
-                            </a>
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="{% url 'resumes:my-template-update' pk=temp.id %}" class="text-black-50">{{ temp.name }}</a></h5>
-                            {#                    <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p>#}
-                            {% is_active_for_current_site temp.id as is_active %}
-                            {% if is_active %}
-                                <a href="{% url 'resumes:my-template-deactivate' pk=temp.id %}?next={{ request.get_full_path }}" class="text-warning">{% trans 'Dectivate' %}</a> |
-                            {% else %}
-                                <a href="{% url 'resumes:my-template-activate' pk=temp.id %}?next={{ request.get_full_path }}" class="text-success">{% trans 'Activate' %}</a> |
+    {% if templates.0.is_public or not templates.0 %}
+        <div class="mt-4">
+            <div class="row">
+                {% for temp in templates %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            {% if not temp.is_public %}
+                                <a href="{% url 'resumes:my-template-update' pk=temp.id %}">
                             {% endif %}
-                            <a href="{% url 'resumes:my-template-preview' pk=temp.id %}" target="_blank" class="text-primary">{% trans 'Preview' %}</a>
+                            <img class="card-img-top" src="{{ temp.get_screenshot_url }}" alt="{{ temp.name }}">
+                            {% if not temp.is_public %}
+                                </a>
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{% url 'resumes:my-template-update' pk=temp.id %}" class="text-black-50">{{ temp.name }}</a></h5>
+                                {#                    <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p>#}
+                                {% is_active_for_current_site temp.id as is_active %}
+                                {% if is_active %}
+                                    <a href="{% url 'resumes:my-template-deactivate' pk=temp.id %}?next={{ request.get_full_path }}" class="text-warning">{% trans 'Dectivate' %}</a> |
+                                {% else %}
+                                    <a href="{% url 'resumes:my-template-activate' pk=temp.id %}?next={{ request.get_full_path }}" class="text-success">{% trans 'Activate' %}</a> |
+                                {% endif %}
+                                <a href="{% url 'resumes:my-template-preview' pk=temp.id %}" target="_blank" class="text-primary">{% trans 'Preview' %}</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% empty %}
+                    <div class="col-sm-12">
+                        <div class="alert alert-primary">Nothing here</div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
-
-    {% include 'includes/pagination.html' with paginator_type='LV' %}
-
+        {% include 'includes/pagination.html' with paginator_type='LV' %}
+    {% else %}
+        <div class="alert alert-warning">This part is currently under development. We'd make sure to email you once it's complete. Please use the built-in templates for now. Thanks.</div>
+    {% endif %}
 {% endblock manager_content %}
