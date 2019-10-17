@@ -63,8 +63,12 @@ class PreviewMyTemplateView(DetailView):
                 'gjs-js': self.get_object().js,
             }
             return JsonResponse(response, safe=False, status=status.HTTP_200_OK)
-        if self.get_object().template_path:
-            return render(request, self.get_object().get_default_template_path(), {})
+        try:
+            if self.get_object().template_path:
+                return render(request, self.get_object().get_default_template_path(), {})
+        except Exception as e:
+            messages.info(request, 'Preview of this template is not available')
+            return HttpResponseRedirect(self.request.META.get('HTTP_REFERER', reverse('resume:list')))
         return super(PreviewMyTemplateView, self).get(request, *args, **kwargs)
 
 
