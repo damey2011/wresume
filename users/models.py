@@ -63,6 +63,7 @@ def site_settings_user_aware_upload_to(instance, filename):
 class SiteSettings(models.Model):
     favicon = models.ImageField(upload_to=site_settings_user_aware_upload_to, null=True, blank=True)
     logo = models.ImageField(upload_to=site_settings_user_aware_upload_to, null=True, blank=True)
+    enable_site = models.BooleanField(default=True)
     primary_color = models.CharField(max_length=100, default='#557A95')
     secondary_color = models.CharField(max_length=100, default='#557A95')
     seo_title = models.CharField(max_length=200, null=True, blank=True)

@@ -13,7 +13,11 @@ from users.models import Client
 class TenantAccessPublicMixin:
     def dispatch(self, request, *args, **kwargs):
         connection.set_tenant(Client.objects.get(schema_name=settings.PUBLIC_SCHEMA_NAME))
-        return super(TenantAccessPublicMixin, self).dispatch(request, *args, **kwargs)
+        if self.request.tenant.sitesettings.enable_site:
+            return super(TenantAccessPublicMixin, self).dispatch(request, *args, **kwargs)
+        return HttpResponse('<h1>Please check back later.</h1><div>Site is currently disabled, If your email is '
+                            'verified and you didn\'t perform this action on your own, please send an email '
+                            'to heyo@wresu.me.</div>')
 
 
 class TenantHomeView(TenantAccessPublicMixin, View):
@@ -27,11 +31,9 @@ class TenantHomeView(TenantAccessPublicMixin, View):
         return get_object_or_404(SiteTemplate, site=self.request.tenant)
 
     def get(self, request, *args, **kwargs):
-        if self.request.tenant.user.is_active:
-            ctx = dict()
-            ctx['contact_form'] = ContactDataForm(initial={'client': self.request.tenant.id})
-            return self.get_response(ctx)
-        return HttpResponse('<h1>Please check back later.</h1><div>Owner is currently inactive.</div>')
+        ctx = dict()
+        ctx['contact_form'] = ContactDataForm(initial={'client': self.request.tenant.id})
+        return self.get_response(ctx)
 
     def post(self, request, *args, **kwargs):
         form = ContactDataForm(self.request.POST)

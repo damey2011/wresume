@@ -61,6 +61,7 @@ class SettingsForm(forms.ModelForm):
             'logo',
             # 'banner_title',
             # 'banner_description',
+            'enable_site',
             'primary_color',
             'secondary_color',
             'seo_title',
