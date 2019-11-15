@@ -27,9 +27,11 @@ class TenantHomeView(TenantAccessPublicMixin, View):
         return get_object_or_404(SiteTemplate, site=self.request.tenant)
 
     def get(self, request, *args, **kwargs):
-        ctx = dict()
-        ctx['contact_form'] = ContactDataForm(initial={'client': self.request.tenant.id})
-        return self.get_response(ctx)
+        if self.request.tenant.user.is_active:
+            ctx = dict()
+            ctx['contact_form'] = ContactDataForm(initial={'client': self.request.tenant.id})
+            return self.get_response(ctx)
+        return HttpResponse('<h1>Please check back later.</h1><div>Owner is currently inactive.</div>')
 
     def post(self, request, *args, **kwargs):
         form = ContactDataForm(self.request.POST)
