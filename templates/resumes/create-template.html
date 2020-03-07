@@ -33,7 +33,7 @@
             })
 
             let pre_design = document.querySelector('#template-builder-form #id_gjs_components').value
-            if (pre_design) {
+            if (pre_design && Object.entries(pre_design).length > 0) {
                 unlayer.loadDesign(JSON.parse(pre_design))
             }
 
