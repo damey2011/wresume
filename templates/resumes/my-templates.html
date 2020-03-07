@@ -44,6 +44,10 @@
                         </div>
                     </div>
                 </div>
+            {% empty %}
+                <div class="alert alert-info">
+                    You currently have no saved pages/templates. <a href="{% url 'resumes:create-template' %}">Start here</a>
+                </div>
             {% endfor %}
         </div>
     </div>
