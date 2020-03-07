@@ -35,8 +35,8 @@
     <meta name="twitter:url" content="{{ request.build_absolute_uri }}" />
     <meta name="twitter:card" content="" />
 
-{#    <meta name="turbolinks-cache-control" content="no-cache">#}
-{#    <script src="{% static 'turbolinks/turbolinks.js' %}"></script>#}
+    {#    <meta name="turbolinks-cache-control" content="no-cache">#}
+    {#    <script src="{% static 'turbolinks/turbolinks.js' %}"></script>#}
 
     <link rel="shortcut icon" href="{% static 'images/new-images/logo.png' %}">
     <style>
@@ -69,11 +69,11 @@
 {#<script src="{% static 'js/jquery.sticky.js' %}"></script>#}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
-<script>
-    document.querySelector('#site').addEventListener('change', function(e){
-        document.querySelector('#domain-form').submit();
-    })
-</script>
+{#<script>#}
+{#    document.querySelector('#site').addEventListener('change', function(e){#}
+{#        document.querySelector('#domain-form').submit();#}
+{#    })#}
+{#</script>#}
 <script src="{% static 'js/main.js' %}"></script>
 <script>
     const HTTPClient = axios.create({
@@ -86,6 +86,12 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
+    function copyToCP(event, selector) {
+        document.querySelector(selector).select();
+        document.execCommand('copy');
+        $(event.target).notify("Copied", 'success');
+    }
 </script>
 {% block extra_js %}
 

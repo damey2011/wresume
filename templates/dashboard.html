@@ -14,9 +14,13 @@
                 {#            {% trans 'Not all templates can accommodate all the information provided, so you might want to select templates based on the information you want shown or create a custom template for yourself. And also, every field is optional' as desc %}#}
                 {#            {% include 'includes/alert.html' with desc=desc %}#}
 
+
                 <div class="row">
                     <div class="col-lg-8 mb-5">
                         {% if basic_tab or advanced_tab %}
+                            <div class="alert alert-info">
+                                Prefer to build your own page with our drag and drop tool ? <a href="{% url 'resumes:create-template' %}">Look here</a>
+                            </div>
                             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="justify-content: flex-end;">
                                 <li class="nav-item">
                                     <a class="nav-link {% if basic_tab %}active{% endif %}" id="pills-basic-tab" href="{% url 'users:basic_profile' %}">Basic</a>

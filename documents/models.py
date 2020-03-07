@@ -43,3 +43,7 @@ class Document(SoftDeletableModel, TimeStampedModel):
     @property
     def delete_url(self):
         return reverse('docs_public:delete', kwargs={'slug': self.slug})
+
+    @property
+    def get_absolute_url(self):
+        return get_absolute_url(self.slug)

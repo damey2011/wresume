@@ -26,7 +26,7 @@ class ListTemplatesView(LoginRequiredMixin, SiteAwareView, ListView):
     context_object_name = 'templates'
 
     def get_queryset(self):
-        return Template.objects.filter(is_public=True)
+        return Template.objects.filter(is_public=True).order_by('name')
 
     template_name = 'resumes/list.html'
 
@@ -38,7 +38,7 @@ class ListMyTemplatesView(LoginRequiredMixin, SiteAwareView, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Template.objects.filter(owner=self.request.user, is_public=False)
+        return Template.objects.filter(owner=self.request.user, is_public=False).order_by('name')
 
 
 class PreviewMyTemplateView(DetailView):
@@ -142,6 +142,16 @@ class UpdateMyTemplateView(SuccessMessageMixin, UpdateView):
         ctx['user_assets'] = [media_absolute_uri(self.request, ta.asset.url) for ta in TemplateAsset.objects.filter(
             user=self.request.user)]
         return ctx
+
+
+class MyTemplateCloneView(SiteAwareView, View):
+    def get(self, request, **kwargs):
+        pk = kwargs.get('pk')
+        template = get_object_or_404(Template, pk=pk)
+        template.pk = None
+        template.slug += '-clone'
+        template.save()
+        return HttpResponseRedirect(request.GET.get('next', reverse('resumes:my-template-update', kwargs={'pk': pk})))
 
 
 class GJSUploadView(View):

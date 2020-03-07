@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.ListTemplatesView.as_view(), name='list'),
     path('my-templates/', views.ListMyTemplatesView.as_view(), name='my-templates'),
     path('my-templates/<int:pk>/', views.PreviewMyTemplateView.as_view(), name='my-template-preview'),
+    path('my-templates/<int:pk>/clone/', views.MyTemplateCloneView.as_view(), name='my-template-clone'),
     path('my-templates/<int:pk>/activate/', views.MyTemplateActivateView.as_view(), name='my-template-activate'),
     path('my-templates/<int:pk>/update/', views.UpdateMyTemplateView.as_view(), name='my-template-update'),
     path('my-templates/<int:pk>/deactivate/', views.MyTemplateDeactivateView.as_view(), name='my-template-deactivate'),

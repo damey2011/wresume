@@ -1,5 +1,6 @@
 import os
 
+import requests
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.db import models
@@ -8,25 +9,35 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.urls import reverse
+from django.utils.text import slugify
 from model_utils.models import SoftDeletableModel, TimeStampedModel
 
 from users.models import User, Client
-from wresume.utils import take_screenshot, get_absolute_url
+from wresume.utils import take_screenshot, get_absolute_url, get_tenant, get_tenant_url, random_string
 
 
 class Template(SoftDeletableModel, TimeStampedModel):
     gjs_components = JSONField(default=dict)
     content = models.TextField(blank=True, null=True)
+    full_content = models.TextField(blank=True, null=True, help_text='This is HTML with fonts, css, js')
     styles = models.TextField(default='', blank=True, null=True)
     js = models.TextField(default='', blank=True, null=True)
+    fonts = models.TextField(default='', blank=True, null=True)
     name = models.CharField(max_length=100)
     screenshot = models.ImageField(upload_to='templates/screenshots/', null=True)
     template_path = models.CharField(max_length=1000, default='')
+    slug = models.SlugField(blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     is_public = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
+
+    @property
+    def get_page_url(self):
+        return get_tenant_url(get_tenant(self.owner)) + reverse(
+            'home:tenant_page', urlconf=settings.ROOT_URLCONF, kwargs={'slug': self.slug}
+        )
 
     def construct_page(self):
         return render_to_string('resumes/construct_template.html', context={'js': self.js, 'content': self.content,
@@ -48,10 +59,13 @@ class Template(SoftDeletableModel, TimeStampedModel):
         final_save = kwargs.pop('final_save', None)
         super(Template, self).save(**kwargs)
         # Only take screenshot of custom built pages
-        if not final_save and not self.template_path:
+        if not final_save:
             # To avoid endless loop
             self.screenshot = take_screenshot(get_absolute_url(reverse('resumes:my-template-preview',
                                                                        kwargs={'pk': self.id})))
+            self.slug = slugify(self.name)
+            while self.__class__.objects.filter(slug=self.slug).exists():
+                self.slug = slugify(self.name) + '-' + random_string(3)
             self.save(final_save=True)
 
 

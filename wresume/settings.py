@@ -296,3 +296,5 @@ if not DEBUG:
 
 
 LOGINAS_REDIRECT_URL = reverse_lazy('home:dashboard')
+
+UNLAYER_API_KEY = 'mdeYo8zKNxbmmnFXuya8lBVtGwPBKDEpbg5kUz38MZX1xLWZKvAAU2WgtYHy7eYM'

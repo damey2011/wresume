@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 
-from resumes.models import SiteTemplate
+from resumes.models import SiteTemplate, Template
 from users.forms import ContactDataForm
 from users.models import Client
 
@@ -23,12 +23,15 @@ class TenantAccessPublicMixin:
 class TenantHomeView(TenantAccessPublicMixin, View):
     def get_response(self, context):
         template = self.get_template_page()
-        if template.template.template_path:
-            return render(self.request, template.template.template_path, context)
-        return HttpResponse(template.template.construct_page())
+        if template.template_path:
+            return render(self.request, template.template_path, context)
+        return HttpResponse(template.construct_page())
 
     def get_template_page(self):
-        return get_object_or_404(SiteTemplate, site=self.request.tenant)
+        slug = self.kwargs.get('slug')
+        if slug:
+            return get_object_or_404(Template, slug=slug)
+        return get_object_or_404(SiteTemplate, site=self.request.tenant).template
 
     def get(self, request, *args, **kwargs):
         ctx = dict()

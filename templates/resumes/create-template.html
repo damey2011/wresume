@@ -4,6 +4,11 @@
     {% trans 'Create Template' %}
 {% endblock title %}
 {% block extra_css %}
+    <style>
+        #template-builder {
+            height: 100vh;
+        }
+    </style>
     <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
     {#    <link rel="stylesheet" href="https://unpkg.com/grapesjs-preset-newsletter/dist/grapesjs-preset-newsletter.css">#}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage@0.1.11/dist/grapesjs-preset-webpage.min.css">
@@ -12,39 +17,41 @@
     <p data-aos="fade-up" data-aos-delay="100"><a href="/">{% trans 'Home' %}</a> &bullet; <a href="{% url 'resumes:my-templates' %}">{% trans 'My Templates' %}</a> &bullet; <a href="#" class="text-white">{% trans 'Create Template' %}</a> </p>
 {% endblock breadcrumbs %}
 {% block manager_content %}
-    {% if not debug %}
-        <div class="alert alert-warning">This part is currently under development. We'd make sure to email you once it's complete. Please use the built-in templates for now. Thanks.</div>
-    {% else %}
-        {% trans 'Create Template' as form_title %}
-        {% trans 'Save' as submit_text %}
-        {% include 'includes/form.html' with form_id='template-builder-form' form_title=form_title submit_text=submit_text pre_submit_content='<div id="template-builder" class="mb-4"></div>' %}
-    {% endif %}
+    {% trans 'Create Template' as form_title %}
+    {% trans 'Save' as submit_text %}
+    {% include 'includes/form.html' with form_id='template-builder-form' form_title=form_title submit_text=submit_text pre_submit_content='<div id="template-builder" class="mb-4"></div>' %}
 {% endblock manager_content %}
 
 {% block extra_js %}
-    <script src="https://unpkg.com/grapesjs"></script>
-    {#    <script src="https://unpkg.com/grapesjs-preset-newsletter"></script>#}
-    <script src="https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage@0.1.11/dist/grapesjs-preset-webpage.min.js"></script>
-    <script type="text/javascript">
-        var editor = grapesjs.init({
-            container : '#template-builder',
-            plugins: [
-                'gjs-preset-webpage',
-            ],
-            height: '500px',
-            assetManager: {
-                assets: {{ user_assets|safe }}, {% upload_url as upload_url %}
-                upload: '{% upload_url %}',
-                params: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+    <script src="https://editor.unlayer.com/embed.js"></script>
+    <script>
+        window.onload = function () {
+            unlayer.init({
+                id: 'template-builder',
+                projectId: 4130,
+                user: '{{ request.user.id }}'
+            })
+
+            let pre_design = document.querySelector('#template-builder-form #id_gjs_components').value
+            if (pre_design) {
+                unlayer.loadDesign(JSON.parse(pre_design))
             }
-        });
-        document.querySelector('#template-builder-form').addEventListener('submit', function (e) {
-            e.preventDefault()
-            document.querySelector('#template-builder-form #id_content').value = editor.getHtml();
-            document.querySelector('#template-builder-form #id_styles').value = editor.getCss();
-            document.querySelector('#template-builder-form #id_js').value = editor.getJs();
-            document.querySelector('#template-builder-form #id_gjs_components').value = JSON.stringify(editor.getComponents());
-            document.querySelector('#template-builder-form').submit()
-        })
+
+            document.querySelector('#template-builder-form').addEventListener('submit', function (e) {
+                e.preventDefault()
+                unlayer.exportHtml(function(data) {
+                    let json_data = data.design;
+                    let html = data.html;
+                    let chunks = data.chunks;
+                    document.querySelector('#template-builder-form #id_full_content').value = html;
+                    document.querySelector('#template-builder-form #id_content').value = chunks.body;
+                    document.querySelector('#template-builder-form #id_styles').value = chunks.css;
+                    document.querySelector('#template-builder-form #id_js').value = chunks.js;
+                    document.querySelector('#template-builder-form #id_fonts').value = chunks.fonts;
+                    document.querySelector('#template-builder-form #id_gjs_components').value = JSON.stringify(json_data);
+                    document.querySelector('#template-builder-form').submit()
+                })
+            })
+        }
     </script>
 {% endblock extra_js %}

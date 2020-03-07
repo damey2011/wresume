@@ -6,8 +6,8 @@ from django.urls import path, include
 from blogs.views_public import HandleEditorUpload
 from home import views_public
 
-admin.site.site_header = 'Wresu.me Admin'                    # default: "Django Administration"
-admin.site.index_title = 'Wresu.me'                 # default: "Site administration"
+admin.site.site_header = 'Wresu.me Admin'
+admin.site.index_title = 'Wresu.me'
 admin.site.site_title = 'Wresu.me'
 
 urlpatterns = [

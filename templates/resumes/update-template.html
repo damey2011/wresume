@@ -4,9 +4,11 @@
     {% trans 'Update Template' %}
 {% endblock title %}
 {% block extra_css %}
-    <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
-    {#    <link rel="stylesheet" href="https://unpkg.com/grapesjs-preset-newsletter/dist/grapesjs-preset-newsletter.css">#}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage@0.1.11/dist/grapesjs-preset-webpage.min.css">
+    <style>
+        #template-builder {
+            height: 100vh;
+        }
+    </style>
 {% endblock extra_css %}
 {% block breadcrumbs %}
     <p data-aos="fade-up" data-aos-delay="100"><a href="/">{% trans 'Home' %}</a> &bullet; <a href="{% url 'resumes:my-templates' %}">{% trans 'My Templates' %}</a> &bullet; <a href="#" class="text-white">{{ template.name }}</a> </p>
@@ -18,36 +20,35 @@
 {% endblock manager_content %}
 
 {% block extra_js %}
-    <script src="https://unpkg.com/grapesjs"></script>
-    {#    <script src="https://unpkg.com/grapesjs-preset-newsletter"></script>#}
-    <script src="https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage@0.1.11/dist/grapesjs-preset-webpage.min.js"></script>
-    <script type="text/javascript">
-        var editor = grapesjs.init({
-            container : '#template-builder',
-            plugins: [
-                'gjs-preset-webpage',
-            ],
-            height: '500px',
-            fromElement: true,
-            storageManager: {
-                type: 'remote',
-                urlLoad: "{% url 'resumes:my-template-preview' pk=template.id %}?json=True",
-                contentTypeJson: true,
-            },
-            assetManager: {
-                assets: {{ user_assets|safe }}, {% upload_url as upload_url %}
-                upload: '{% upload_url %}',
-                params: {csrfmiddlewaretoken: '{{ csrf_token }}'}
-            }
-        });
+    <script src="https://editor.unlayer.com/embed.js"></script>
+    <script>
+        window.onload = function () {
+            unlayer.init({
+                id: 'template-builder',
+                projectId: 4130,
+                user: '{{ request.user.id }}'
+            })
 
-        document.querySelector('#template-builder-form').addEventListener('submit', function (e) {
-            e.preventDefault()
-            document.querySelector('#template-builder-form #id_content').value = editor.getHtml();
-            document.querySelector('#template-builder-form #id_styles').value = editor.getCss();
-            document.querySelector('#template-builder-form #id_js').value = editor.getJs();
-            document.querySelector('#template-builder-form #id_gjs_components').value = JSON.stringify(editor.getComponents());
-            document.querySelector('#template-builder-form').submit()
-        })
+            let pre_design = document.querySelector('#template-builder-form #id_gjs_components').value
+            if (pre_design) {
+                unlayer.loadDesign(JSON.parse(pre_design))
+            }
+
+            document.querySelector('#template-builder-form').addEventListener('submit', function (e) {
+                e.preventDefault()
+                unlayer.exportHtml(function(data) {
+                    let json_data = data.design;
+                    let html = data.html;
+                    let chunks = data.chunks;
+                    document.querySelector('#template-builder-form #id_full_content').value = html;
+                    document.querySelector('#template-builder-form #id_content').value = chunks.body;
+                    document.querySelector('#template-builder-form #id_styles').value = chunks.css;
+                    document.querySelector('#template-builder-form #id_js').value = chunks.js;
+                    document.querySelector('#template-builder-form #id_fonts').value = chunks.fonts;
+                    document.querySelector('#template-builder-form #id_gjs_components').value = JSON.stringify(json_data);
+                    document.querySelector('#template-builder-form').submit()
+                })
+            })
+        }
     </script>
 {% endblock extra_js %}

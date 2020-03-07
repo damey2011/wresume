@@ -16,7 +16,7 @@
                                     {% block breadcrumbs %}
                                         <p data-aos="fade-up" data-aos-delay="100"><a href="/">{% trans 'Home' %}</a> &bullet; <a href="#" class="text-white">{% trans 'Templates' %}</a></p>
                                     {% endblock %}
-                                    {% include 'includes/change-site.html' %}
+{#                                    {% include 'includes/change-site.html' %}#}
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                     <a class="nav-link {% if is_templates %}active{% endif %}" href="{% url 'resumes:list' %}">{% trans 'Templates' %}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {% if is_my_templates %}active{% endif %}" href="{% url 'resumes:my-templates' %}">{% trans 'My Templates' %}</a>
+                                    <a class="nav-link {% if is_my_templates %}active{% endif %}" href="{% url 'resumes:my-templates' %}">{% trans 'Custom Templates' %}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {% if is_create_template %}active{% endif %}" href="{% url 'resumes:create-template' %}">{% trans 'Create Template' %}</a>
