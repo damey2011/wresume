@@ -17,7 +17,7 @@ gunicorn==19.9.0
 idna==2.8
 markdown2==2.3.8
 oauthlib==3.0.2
-Pillow==6.1.0
+Pillow==9.3.0
 psycopg2==2.8.3
 psycopg2-binary==2.8.3
 python-decouple==3.1
